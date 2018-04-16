@@ -8,21 +8,21 @@ SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='TRADITIONAL,ALLOW_INVALID_DATES';
 
 -- -----------------------------------------------------
--- Schema mydb
+-- Schema stonebank
 -- -----------------------------------------------------
 
 -- -----------------------------------------------------
--- Schema mydb
+-- Schema stonebank
 -- -----------------------------------------------------
-CREATE SCHEMA IF NOT EXISTS `mydb` DEFAULT CHARACTER SET utf8 ;
-USE `mydb` ;
+CREATE SCHEMA IF NOT EXISTS `stonebank` DEFAULT CHARACTER SET utf8 ;
+USE `stonebank` ;
 
 -- -----------------------------------------------------
--- Table `mydb`.`tRol`
+-- Table `stonebank`.`tRol`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `mydb`.`tRol` ;
+DROP TABLE IF EXISTS `stonebank`.`tRol` ;
 
-CREATE TABLE IF NOT EXISTS `mydb`.`tRol` (
+CREATE TABLE IF NOT EXISTS `stonebank`.`tRol` (
   `idtRol` INT NOT NULL AUTO_INCREMENT,
   `nombre` VARCHAR(45) NOT NULL,
   PRIMARY KEY (`idtRol`),
@@ -31,11 +31,11 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `mydb`.`tUsuario`
+-- Table `stonebank`.`tUsuario`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `mydb`.`tUsuario` ;
+DROP TABLE IF EXISTS `stonebank`.`tUsuario` ;
 
-CREATE TABLE IF NOT EXISTS `mydb`.`tUsuario` (
+CREATE TABLE IF NOT EXISTS `stonebank`.`tUsuario` (
   `dniUsuario` INT NOT NULL,
   `tRol_idtRol` INT NOT NULL,
   `numCuenta` INT NOT NULL,
@@ -51,18 +51,18 @@ CREATE TABLE IF NOT EXISTS `mydb`.`tUsuario` (
   UNIQUE INDEX `dniUsuario_UNIQUE` (`dniUsuario` ASC),
   CONSTRAINT `fk_tUsuario_tRol1`
     FOREIGN KEY (`tRol_idtRol`)
-    REFERENCES `mydb`.`tRol` (`idtRol`)
+    REFERENCES `stonebank`.`tRol` (`idtRol`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `mydb`.`tPermiso`
+-- Table `stonebank`.`tPermiso`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `mydb`.`tPermiso` ;
+DROP TABLE IF EXISTS `stonebank`.`tPermiso` ;
 
-CREATE TABLE IF NOT EXISTS `mydb`.`tPermiso` (
+CREATE TABLE IF NOT EXISTS `stonebank`.`tPermiso` (
   `idtPermiso` INT NOT NULL AUTO_INCREMENT,
   `nombre` VARCHAR(100) NOT NULL,
   PRIMARY KEY (`idtPermiso`),
@@ -71,11 +71,11 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `mydb`.`tMovimiento`
+-- Table `stonebank`.`tMovimiento`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `mydb`.`tMovimiento` ;
+DROP TABLE IF EXISTS `stonebank`.`tMovimiento` ;
 
-CREATE TABLE IF NOT EXISTS `mydb`.`tMovimiento` (
+CREATE TABLE IF NOT EXISTS `stonebank`.`tMovimiento` (
   `idtMovimiento` INT NOT NULL AUTO_INCREMENT,
   `tUsuario_dniUsuario` INT NOT NULL,
   `concepto` VARCHAR(200) NULL,
@@ -85,18 +85,18 @@ CREATE TABLE IF NOT EXISTS `mydb`.`tMovimiento` (
   INDEX `fk_tMovimiento_tUsuario_idx` (`tUsuario_dniUsuario` ASC),
   CONSTRAINT `fk_tMovimiento_tUsuario`
     FOREIGN KEY (`tUsuario_dniUsuario`)
-    REFERENCES `mydb`.`tUsuario` (`dniUsuario`)
+    REFERENCES `stonebank`.`tUsuario` (`dniUsuario`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `mydb`.`tRol_has_tPermiso`
+-- Table `stonebank`.`tRol_has_tPermiso`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `mydb`.`tRol_has_tPermiso` ;
+DROP TABLE IF EXISTS `stonebank`.`tRol_has_tPermiso` ;
 
-CREATE TABLE IF NOT EXISTS `mydb`.`tRol_has_tPermiso` (
+CREATE TABLE IF NOT EXISTS `stonebank`.`tRol_has_tPermiso` (
   `tRol_idtRol` INT NOT NULL,
   `tPermiso_idtPermiso` INT NOT NULL,
   PRIMARY KEY (`tRol_idtRol`, `tPermiso_idtPermiso`),
@@ -104,23 +104,23 @@ CREATE TABLE IF NOT EXISTS `mydb`.`tRol_has_tPermiso` (
   INDEX `fk_tRol_has_tPermiso_tRol1_idx` (`tRol_idtRol` ASC),
   CONSTRAINT `fk_tRol_has_tPermiso_tRol1`
     FOREIGN KEY (`tRol_idtRol`)
-    REFERENCES `mydb`.`tRol` (`idtRol`)
+    REFERENCES `stonebank`.`tRol` (`idtRol`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_tRol_has_tPermiso_tPermiso1`
     FOREIGN KEY (`tPermiso_idtPermiso`)
-    REFERENCES `mydb`.`tPermiso` (`idtPermiso`)
+    REFERENCES `stonebank`.`tPermiso` (`idtPermiso`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `mydb`.`tTranferencia`
+-- Table `stonebank`.`tTranferencia`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `mydb`.`tTranferencia` ;
+DROP TABLE IF EXISTS `stonebank`.`tTranferencia` ;
 
-CREATE TABLE IF NOT EXISTS `mydb`.`tTranferencia` (
+CREATE TABLE IF NOT EXISTS `stonebank`.`tTranferencia` (
   `id` INT NOT NULL,
   `DNIEmisor` INT NOT NULL,
   `DNIReceptor` INT NOT NULL,
@@ -133,12 +133,12 @@ CREATE TABLE IF NOT EXISTS `mydb`.`tTranferencia` (
   UNIQUE INDEX `id_UNIQUE` (`id` ASC),
   CONSTRAINT `fk_tUsuario_has_tUsuario_tUsuario1`
     FOREIGN KEY (`DNIEmisor`)
-    REFERENCES `mydb`.`tUsuario` (`dniUsuario`)
+    REFERENCES `stonebank`.`tUsuario` (`dniUsuario`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_tUsuario_has_tUsuario_tUsuario2`
     FOREIGN KEY (`DNIReceptor`)
-    REFERENCES `mydb`.`tUsuario` (`dniUsuario`)
+    REFERENCES `stonebank`.`tUsuario` (`dniUsuario`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
