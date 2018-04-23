@@ -34,11 +34,7 @@
     </servlet>
     <servlet>
         <servlet-name>CustomerServlet</servlet-name>
-        <jsp-file>/clientes.jsp</jsp-file>
-    </servlet>
-    <servlet>
-        <servlet-name>CustomerServlet2</servlet-name>
-        <servlet-class>stonebank.servlet.CustomerServlet2</servlet-class>
+        <servlet-class>stonebank.servlet.CustomerServlet</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>ServletLogin</servlet-name>
@@ -73,8 +69,8 @@
         <url-pattern>/ServletEliminaUsuario</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>CustomerServlet2</servlet-name>
-        <url-pattern>/CustomerServlet2</url-pattern>
+        <servlet-name>CustomerServlet</servlet-name>
+        <url-pattern>/CustomerServlet</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

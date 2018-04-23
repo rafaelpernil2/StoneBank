@@ -8,6 +8,8 @@ package stonebank.servlet;
 import stonebank.ejb.TusuarioFacade;
 import stonebank.entity.Tusuario;
 import java.io.IOException;
+import java.io.PrintWriter;
+import java.util.ArrayList;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.servlet.RequestDispatcher;
@@ -21,11 +23,14 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author guzman
  */
-@WebServlet(name = "CustomerServlet", urlPatterns = {"/CustomerServlet"})
+
 public class CustomerServlet extends HttpServlet {
 
     @EJB
-    private TusuarioFacade customerFacade=new TusuarioFacade();
+    private TusuarioFacade tusuarioFacade;
+
+    
+    
     
     
     
@@ -41,15 +46,17 @@ public class CustomerServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
+        
+        
         List<Tusuario> listaClientes;
         
-        listaClientes = this.customerFacade.findAll();
+        listaClientes = this.tusuarioFacade.findAll();
         
         request.setAttribute("listau", listaClientes);
         
         RequestDispatcher rd = this.getServletContext().getRequestDispatcher("/clientes.jsp");
-        rd.forward(request, response);                
+        rd.forward(request, response);        
+        
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
