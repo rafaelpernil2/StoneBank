@@ -10,9 +10,9 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 
 <%
-    List<Tusuario> lista = (List)request.getAttribute("listau");
-    if (lista == null){
-        lista = new ArrayList<Tusuario>();
+    List<Tusuario> lista = (List<Tusuario>)request.getAttribute("listau");
+    if (lista==null){
+     
     }
 %>    
 
@@ -33,7 +33,7 @@
             %>    
             <tr>
                 <td>
-                <%= cliente.getNombre() %>
+                <%= cliente%>
                 </td>
             </tr>
             <% 
