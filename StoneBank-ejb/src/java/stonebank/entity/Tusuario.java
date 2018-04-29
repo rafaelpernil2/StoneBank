@@ -6,7 +6,7 @@
 package stonebank.entity;
 
 import java.io.Serializable;
-import java.util.Collection;
+import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -77,14 +77,14 @@ public class Tusuario implements Serializable {
     @Column(name = "domicilio")
     private String domicilio;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "dNIEmisor")
-    private Collection<Ttranferencia> ttranferenciaCollection;
+    private List<Ttransferencia> ttransferenciaList;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "dNIReceptor")
-    private Collection<Ttranferencia> ttranferenciaCollection1;
-    @JoinColumn(name = "tRol_idtRol", referencedColumnName = "idtRol")
+    private List<Ttransferencia> ttransferenciaList1;
+    @JoinColumn(name = "trol_idtrol", referencedColumnName = "idtrol")
     @ManyToOne(optional = false)
-    private Trol tRolidtRol;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "tUsuariodniUsuario")
-    private Collection<Tmovimiento> tmovimientoCollection;
+    private Trol trolIdtrol;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "tusuariodniUsuario")
+    private List<Tmovimiento> tmovimientoList;
 
     public Tusuario() {
     }
@@ -166,38 +166,38 @@ public class Tusuario implements Serializable {
     }
 
     @XmlTransient
-    public Collection<Ttranferencia> getTtranferenciaCollection() {
-        return ttranferenciaCollection;
+    public List<Ttransferencia> getTtransferenciaList() {
+        return ttransferenciaList;
     }
 
-    public void setTtranferenciaCollection(Collection<Ttranferencia> ttranferenciaCollection) {
-        this.ttranferenciaCollection = ttranferenciaCollection;
-    }
-
-    @XmlTransient
-    public Collection<Ttranferencia> getTtranferenciaCollection1() {
-        return ttranferenciaCollection1;
-    }
-
-    public void setTtranferenciaCollection1(Collection<Ttranferencia> ttranferenciaCollection1) {
-        this.ttranferenciaCollection1 = ttranferenciaCollection1;
-    }
-
-    public Trol getTRolidtRol() {
-        return tRolidtRol;
-    }
-
-    public void setTRolidtRol(Trol tRolidtRol) {
-        this.tRolidtRol = tRolidtRol;
+    public void setTtransferenciaList(List<Ttransferencia> ttransferenciaList) {
+        this.ttransferenciaList = ttransferenciaList;
     }
 
     @XmlTransient
-    public Collection<Tmovimiento> getTmovimientoCollection() {
-        return tmovimientoCollection;
+    public List<Ttransferencia> getTtransferenciaList1() {
+        return ttransferenciaList1;
     }
 
-    public void setTmovimientoCollection(Collection<Tmovimiento> tmovimientoCollection) {
-        this.tmovimientoCollection = tmovimientoCollection;
+    public void setTtransferenciaList1(List<Ttransferencia> ttransferenciaList1) {
+        this.ttransferenciaList1 = ttransferenciaList1;
+    }
+
+    public Trol getTrolIdtrol() {
+        return trolIdtrol;
+    }
+
+    public void setTrolIdtrol(Trol trolIdtrol) {
+        this.trolIdtrol = trolIdtrol;
+    }
+
+    @XmlTransient
+    public List<Tmovimiento> getTmovimientoList() {
+        return tmovimientoList;
+    }
+
+    public void setTmovimientoList(List<Tmovimiento> tmovimientoList) {
+        this.tmovimientoList = tmovimientoList;
     }
 
     @Override

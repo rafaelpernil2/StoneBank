@@ -6,7 +6,7 @@
 package stonebank.entity;
 
 import java.io.Serializable;
-import java.util.Collection;
+import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -33,7 +33,7 @@ import javax.xml.bind.annotation.XmlTransient;
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Trol.findAll", query = "SELECT t FROM Trol t")
-    , @NamedQuery(name = "Trol.findByIdtRol", query = "SELECT t FROM Trol t WHERE t.idtRol = :idtRol")
+    , @NamedQuery(name = "Trol.findByIdtrol", query = "SELECT t FROM Trol t WHERE t.idtrol = :idtrol")
     , @NamedQuery(name = "Trol.findByNombre", query = "SELECT t FROM Trol t WHERE t.nombre = :nombre")})
 public class Trol implements Serializable {
 
@@ -41,36 +41,36 @@ public class Trol implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
-    @Column(name = "idtRol")
-    private Integer idtRol;
+    @Column(name = "idtrol")
+    private Integer idtrol;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 45)
     @Column(name = "nombre")
     private String nombre;
-    @ManyToMany(mappedBy = "trolCollection")
-    private Collection<Tpermiso> tpermisoCollection;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "tRolidtRol")
-    private Collection<Tusuario> tusuarioCollection;
+    @ManyToMany(mappedBy = "trolList")
+    private List<Tpermiso> tpermisoList;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "trolIdtrol")
+    private List<Tusuario> tusuarioList;
 
     public Trol() {
     }
 
-    public Trol(Integer idtRol) {
-        this.idtRol = idtRol;
+    public Trol(Integer idtrol) {
+        this.idtrol = idtrol;
     }
 
-    public Trol(Integer idtRol, String nombre) {
-        this.idtRol = idtRol;
+    public Trol(Integer idtrol, String nombre) {
+        this.idtrol = idtrol;
         this.nombre = nombre;
     }
 
-    public Integer getIdtRol() {
-        return idtRol;
+    public Integer getIdtrol() {
+        return idtrol;
     }
 
-    public void setIdtRol(Integer idtRol) {
-        this.idtRol = idtRol;
+    public void setIdtrol(Integer idtrol) {
+        this.idtrol = idtrol;
     }
 
     public String getNombre() {
@@ -82,27 +82,27 @@ public class Trol implements Serializable {
     }
 
     @XmlTransient
-    public Collection<Tpermiso> getTpermisoCollection() {
-        return tpermisoCollection;
+    public List<Tpermiso> getTpermisoList() {
+        return tpermisoList;
     }
 
-    public void setTpermisoCollection(Collection<Tpermiso> tpermisoCollection) {
-        this.tpermisoCollection = tpermisoCollection;
+    public void setTpermisoList(List<Tpermiso> tpermisoList) {
+        this.tpermisoList = tpermisoList;
     }
 
     @XmlTransient
-    public Collection<Tusuario> getTusuarioCollection() {
-        return tusuarioCollection;
+    public List<Tusuario> getTusuarioList() {
+        return tusuarioList;
     }
 
-    public void setTusuarioCollection(Collection<Tusuario> tusuarioCollection) {
-        this.tusuarioCollection = tusuarioCollection;
+    public void setTusuarioList(List<Tusuario> tusuarioList) {
+        this.tusuarioList = tusuarioList;
     }
 
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (idtRol != null ? idtRol.hashCode() : 0);
+        hash += (idtrol != null ? idtrol.hashCode() : 0);
         return hash;
     }
 
@@ -113,7 +113,7 @@ public class Trol implements Serializable {
             return false;
         }
         Trol other = (Trol) object;
-        if ((this.idtRol == null && other.idtRol != null) || (this.idtRol != null && !this.idtRol.equals(other.idtRol))) {
+        if ((this.idtrol == null && other.idtrol != null) || (this.idtrol != null && !this.idtrol.equals(other.idtrol))) {
             return false;
         }
         return true;
@@ -121,7 +121,7 @@ public class Trol implements Serializable {
 
     @Override
     public String toString() {
-        return "stonebank.entity.Trol[ idtRol=" + idtRol + " ]";
+        return "stonebank.entity.Trol[ idtrol=" + idtrol + " ]";
     }
     
 }

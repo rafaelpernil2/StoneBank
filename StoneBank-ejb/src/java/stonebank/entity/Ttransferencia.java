@@ -10,6 +10,8 @@ import java.util.Date;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -27,26 +29,26 @@ import javax.xml.bind.annotation.XmlRootElement;
  * @author rafaelpernil
  */
 @Entity
-@Table(name = "ttranferencia")
+@Table(name = "ttransferencia")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Ttranferencia.findAll", query = "SELECT t FROM Ttranferencia t")
-    , @NamedQuery(name = "Ttranferencia.findById", query = "SELECT t FROM Ttranferencia t WHERE t.id = :id")
-    , @NamedQuery(name = "Ttranferencia.findByCantidad", query = "SELECT t FROM Ttranferencia t WHERE t.cantidad = :cantidad")
-    , @NamedQuery(name = "Ttranferencia.findByConcepto", query = "SELECT t FROM Ttranferencia t WHERE t.concepto = :concepto")
-    , @NamedQuery(name = "Ttranferencia.findByFecha", query = "SELECT t FROM Ttranferencia t WHERE t.fecha = :fecha")})
-public class Ttranferencia implements Serializable {
+    @NamedQuery(name = "Ttransferencia.findAll", query = "SELECT t FROM Ttransferencia t")
+    , @NamedQuery(name = "Ttransferencia.findById", query = "SELECT t FROM Ttransferencia t WHERE t.id = :id")
+    , @NamedQuery(name = "Ttransferencia.findByCantidad", query = "SELECT t FROM Ttransferencia t WHERE t.cantidad = :cantidad")
+    , @NamedQuery(name = "Ttransferencia.findByConcepto", query = "SELECT t FROM Ttransferencia t WHERE t.concepto = :concepto")
+    , @NamedQuery(name = "Ttransferencia.findByFecha", query = "SELECT t FROM Ttransferencia t WHERE t.fecha = :fecha")})
+public class Ttransferencia implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
-    @NotNull
     @Column(name = "id")
     private Integer id;
     @Basic(optional = false)
     @NotNull
     @Column(name = "cantidad")
-    private int cantidad;
+    private double cantidad;
     @Size(max = 200)
     @Column(name = "concepto")
     private String concepto;
@@ -62,14 +64,14 @@ public class Ttranferencia implements Serializable {
     @ManyToOne(optional = false)
     private Tusuario dNIReceptor;
 
-    public Ttranferencia() {
+    public Ttransferencia() {
     }
 
-    public Ttranferencia(Integer id) {
+    public Ttransferencia(Integer id) {
         this.id = id;
     }
 
-    public Ttranferencia(Integer id, int cantidad, Date fecha) {
+    public Ttransferencia(Integer id, double cantidad, Date fecha) {
         this.id = id;
         this.cantidad = cantidad;
         this.fecha = fecha;
@@ -83,11 +85,11 @@ public class Ttranferencia implements Serializable {
         this.id = id;
     }
 
-    public int getCantidad() {
+    public double getCantidad() {
         return cantidad;
     }
 
-    public void setCantidad(int cantidad) {
+    public void setCantidad(double cantidad) {
         this.cantidad = cantidad;
     }
 
@@ -133,10 +135,10 @@ public class Ttranferencia implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Ttranferencia)) {
+        if (!(object instanceof Ttransferencia)) {
             return false;
         }
-        Ttranferencia other = (Ttranferencia) object;
+        Ttransferencia other = (Ttransferencia) object;
         if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
@@ -145,7 +147,7 @@ public class Ttranferencia implements Serializable {
 
     @Override
     public String toString() {
-        return "stonebank.entity.Ttranferencia[ id=" + id + " ]";
+        return "stonebank.entity.Ttransferencia[ id=" + id + " ]";
     }
     
 }
