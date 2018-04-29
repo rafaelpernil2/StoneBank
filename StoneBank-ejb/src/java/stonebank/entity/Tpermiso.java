@@ -6,7 +6,7 @@
 package stonebank.entity;
 
 import java.io.Serializable;
-import java.util.Collection;
+import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -33,7 +33,7 @@ import javax.xml.bind.annotation.XmlTransient;
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Tpermiso.findAll", query = "SELECT t FROM Tpermiso t")
-    , @NamedQuery(name = "Tpermiso.findByIdtPermiso", query = "SELECT t FROM Tpermiso t WHERE t.idtPermiso = :idtPermiso")
+    , @NamedQuery(name = "Tpermiso.findByIdtpermiso", query = "SELECT t FROM Tpermiso t WHERE t.idtpermiso = :idtpermiso")
     , @NamedQuery(name = "Tpermiso.findByNombre", query = "SELECT t FROM Tpermiso t WHERE t.nombre = :nombre")})
 public class Tpermiso implements Serializable {
 
@@ -41,37 +41,37 @@ public class Tpermiso implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
-    @Column(name = "idtPermiso")
-    private Integer idtPermiso;
+    @Column(name = "idtpermiso")
+    private Integer idtpermiso;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 100)
     @Column(name = "nombre")
     private String nombre;
     @JoinTable(name = "trol_has_tpermiso", joinColumns = {
-        @JoinColumn(name = "tPermiso_idtPermiso", referencedColumnName = "idtPermiso")}, inverseJoinColumns = {
-        @JoinColumn(name = "tRol_idtRol", referencedColumnName = "idtRol")})
+        @JoinColumn(name = "tpermiso_idtpermiso", referencedColumnName = "idtpermiso")}, inverseJoinColumns = {
+        @JoinColumn(name = "trol_idtrol", referencedColumnName = "idtrol")})
     @ManyToMany
-    private Collection<Trol> trolCollection;
+    private List<Trol> trolList;
 
     public Tpermiso() {
     }
 
-    public Tpermiso(Integer idtPermiso) {
-        this.idtPermiso = idtPermiso;
+    public Tpermiso(Integer idtpermiso) {
+        this.idtpermiso = idtpermiso;
     }
 
-    public Tpermiso(Integer idtPermiso, String nombre) {
-        this.idtPermiso = idtPermiso;
+    public Tpermiso(Integer idtpermiso, String nombre) {
+        this.idtpermiso = idtpermiso;
         this.nombre = nombre;
     }
 
-    public Integer getIdtPermiso() {
-        return idtPermiso;
+    public Integer getIdtpermiso() {
+        return idtpermiso;
     }
 
-    public void setIdtPermiso(Integer idtPermiso) {
-        this.idtPermiso = idtPermiso;
+    public void setIdtpermiso(Integer idtpermiso) {
+        this.idtpermiso = idtpermiso;
     }
 
     public String getNombre() {
@@ -83,18 +83,18 @@ public class Tpermiso implements Serializable {
     }
 
     @XmlTransient
-    public Collection<Trol> getTrolCollection() {
-        return trolCollection;
+    public List<Trol> getTrolList() {
+        return trolList;
     }
 
-    public void setTrolCollection(Collection<Trol> trolCollection) {
-        this.trolCollection = trolCollection;
+    public void setTrolList(List<Trol> trolList) {
+        this.trolList = trolList;
     }
 
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (idtPermiso != null ? idtPermiso.hashCode() : 0);
+        hash += (idtpermiso != null ? idtpermiso.hashCode() : 0);
         return hash;
     }
 
@@ -105,7 +105,7 @@ public class Tpermiso implements Serializable {
             return false;
         }
         Tpermiso other = (Tpermiso) object;
-        if ((this.idtPermiso == null && other.idtPermiso != null) || (this.idtPermiso != null && !this.idtPermiso.equals(other.idtPermiso))) {
+        if ((this.idtpermiso == null && other.idtpermiso != null) || (this.idtpermiso != null && !this.idtpermiso.equals(other.idtpermiso))) {
             return false;
         }
         return true;
@@ -113,7 +113,7 @@ public class Tpermiso implements Serializable {
 
     @Override
     public String toString() {
-        return "stonebank.entity.Tpermiso[ idtPermiso=" + idtPermiso + " ]";
+        return "stonebank.entity.Tpermiso[ idtpermiso=" + idtpermiso + " ]";
     }
     
 }

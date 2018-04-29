@@ -8,14 +8,14 @@ package stonebank.ejb;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import stonebank.entity.Ttranferencia;
+import stonebank.entity.Ttransferencia;
 
 /**
  *
  * @author rafaelpernil
  */
 @Stateless
-public class TtranferenciaFacade extends AbstractFacade<Ttranferencia> {
+public class TtransferenciaFacade extends AbstractFacade<Ttransferencia> {
 
     @PersistenceContext(unitName = "StoneBank-ejbPU")
     private EntityManager em;
@@ -25,8 +25,8 @@ public class TtranferenciaFacade extends AbstractFacade<Ttranferencia> {
         return em;
     }
 
-    public TtranferenciaFacade() {
-        super(Ttranferencia.class);
+    public TtransferenciaFacade() {
+        super(Ttransferencia.class);
     }
     
 }
