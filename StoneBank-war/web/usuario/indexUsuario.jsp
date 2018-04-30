@@ -1,10 +1,3 @@
-<%-- 
-    Document   : indexUsuario
-    Modified on : 30-abr-2018, 12:14:37
-    Author     : Fran Gambero
---%>
-
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
     <head>
@@ -12,31 +5,38 @@
         <title>Index Usuario</title>
     </head>
     <body>
-        <h1>Â¡Bievenido/a usuario/a (nombre)!</h1>
+        <h1>¡Bievenido/a usuario/a (nombre)!</h1>
         <hr>
         
-        <div class = "padre">
-        <div class = "subdiv-izquierdo" style="width:40%;display:inline-block;">
-        <h3>Ãšltimas transacciones</h3>
-        <table border="1">
-            <tbody>
-                <tr>
-                    <td>Fecha</td>
-                    <td>Cliente</td>
-                    <td>Concepto</td>
-                    <td>Importe</td>
-                </tr>
-            </tbody>
+        <div class = "padre" style="width:100%">
             
-        </table>
-        
-        <a href="ServletListaMovimientos" >Ver todas las transacciones</a>
+          <div class = "subdiv-izquierdo" style="width:40%;display:inline-table;">
+            <h3>Últimas transacciones</h3>
+            
+            <table border="1">
+                <tbody>
+                    <tr>
+                        <td>Fecha</td>
+                        <td>Cliente</td>
+                        <td>Concepto</td>
+                        <td>Importe</td>
+                    </tr>
+                </tbody>
+            </table>
+            
+            <br>
+            <a href="ServletListaMovimientos" >Ver todas las transacciones</a>
+          </div>
+            
+          <div class="subdiv-derecho" style="width:40%;display:inline-table;">
+              <h3>Buscador de movimientos</h3>
+              <form action="ServletBusqueda" method="post">
+                    <input type="text" name="Buscador" max="30" maxlength="30" value="Concepto, nombre..."/>
+                    <input type="submit" value="Buscar" />              
+              </form>
+              <br><br>
+              <a href="realizarTransferencia.jsp">Realizar transferecia</a>
+          </div>
         </div>
-        
-            <div class = "subdiv-derecho" style="width:40%;display:inline-block;">
-                Hola
-                quertal
-            </div>
-    </div>
     </body>
 </html>
