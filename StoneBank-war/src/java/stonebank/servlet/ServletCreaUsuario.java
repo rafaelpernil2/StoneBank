@@ -7,6 +7,7 @@ package stonebank.servlet;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
@@ -15,6 +16,7 @@ import java.util.List;
 import java.util.Random;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
 import javax.ejb.EJB;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -37,12 +39,15 @@ public class ServletCreaUsuario extends HttpServlet {
     
     
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
+
             throws ServletException, IOException, NoSuchAlgorithmException {
+
         
         String nombre, apellido, contrasena, email, domicilio;
         int dni,telefono;
         Tusuario usuario;
         boolean ready = true;
+
         nombre = request.getParameter("nombre");
         apellido = request.getParameter("apellido");
         dni = Integer.parseInt(request.getParameter("dni"));
@@ -56,6 +61,7 @@ public class ServletCreaUsuario extends HttpServlet {
             usuario = new Tusuario();
         }else{ //Editar usuario
             usuario = this.tusuarioFacade.find(dni);
+
         }
         */
         
@@ -118,6 +124,33 @@ public class ServletCreaUsuario extends HttpServlet {
             RequestDispatcher rd = this.getServletContext().getRequestDispatcher("/login.jsp");
             rd.forward(request, response);
         }
+
+        }
+        */
+        
+        /*if(!"".equals(dni)){ //Solo sirve para crear usuarios, asegura que existe dni
+            usuario = new Tusuario();
+        } else{
+            System.out.println("Error en usuario");
+        } */
+        
+        usuario = new Tusuario();
+        
+        usuario.setNombre(nombre);
+        usuario.setApellidos(apellido);
+        usuario.setDniUsuario(dni);
+        usuario.setTelefono(telefono);
+        usuario.setEmail(email);
+        usuario.setDomicilio(domicilio);
+        usuario.setHashContrasena(contrasena);
+        usuario.setTrolIdtrol(trol);
+        usuario.setNumCuenta(11);
+        
+        this.tusuarioFacade.create(usuario);
+        
+        RequestDispatcher rd = this.getServletContext().getRequestDispatcher("/login.jsp");
+        rd.forward(request, response);  
+
         
     }
 
