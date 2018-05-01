@@ -5,8 +5,12 @@ En este proyecto se implementerá el funcionamiento de un banco donde los usuari
 así como realizar y recibir transacciones de otros clientes del mismo banco. Un empleado se encargará de apuntar los movimientos y
 aceptar, modificar o eliminar a los clientes.
 
+Funcionalidades actuales:
+  -Login
+  -Creación de usuarios
+
 Próximamente:
-  - Login
+  - Buscador de movimientos
   - Vistas de pantalla principal Cliente y Empleado
   - Vista de Transacciones
 
@@ -15,6 +19,6 @@ Herramientas utilizadas:
   - MySQL
 
 
-Última actualización de este readme: 9 de abril de 2018
+Última actualización de este readme: 1 de mayo de 2018
 
 Por... Personas geniales
