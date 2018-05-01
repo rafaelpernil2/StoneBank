@@ -6,8 +6,8 @@ así como realizar y recibir transacciones de otros clientes del mismo banco. Un
 aceptar, modificar o eliminar a los clientes.
 
 Funcionalidades actuales:
-  -Login
-  -Creación de usuarios
+  - Login
+  - Creación de usuarios
 
 Próximamente:
   - Buscador de movimientos
