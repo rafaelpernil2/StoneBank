@@ -125,44 +125,8 @@ public class ServletCreaUsuario extends HttpServlet {
             rd.forward(request, response);
         }
 
-        }
-        */
-        
-        /*if(!"".equals(dni)){ //Solo sirve para crear usuarios, asegura que existe dni
-            usuario = new Tusuario();
-        } else{
-            System.out.println("Error en usuario");
-        } */
-        
-        usuario = new Tusuario();
-        
-        usuario.setNombre(nombre);
-        usuario.setApellidos(apellido);
-        usuario.setDniUsuario(dni);
-        usuario.setTelefono(telefono);
-        usuario.setEmail(email);
-        usuario.setDomicilio(domicilio);
-        usuario.setHashContrasena(contrasena);
-        usuario.setTrolIdtrol(trol);
-        usuario.setNumCuenta(11);
-        
-        this.tusuarioFacade.create(usuario);
-        
-        RequestDispatcher rd = this.getServletContext().getRequestDispatcher("/login.jsp");
-        rd.forward(request, response);  
-
-        
     }
-
-    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
-    /**
-     * Handles the HTTP <code>GET</code> method.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
+  
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
