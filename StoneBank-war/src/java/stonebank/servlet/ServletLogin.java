@@ -7,41 +7,90 @@ package stonebank.servlet;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.nio.charset.StandardCharsets;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+import java.time.Clock;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.ejb.EJB;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+import stonebank.ejb.TusuarioFacade;
+import stonebank.entity.Trol;
+import stonebank.entity.Tusuario;
 
 /**
  *
- * @author rafaelpernil
+ * @author Fran Gambero
  */
 public class ServletLogin extends HttpServlet {
 
-    /**
-     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
-     * methods.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
+    @EJB
+    private TusuarioFacade tusuarioFacade; 
+    
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet ServletLogin</title>");            
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet ServletLogin at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
+            throws ServletException, IOException, NoSuchAlgorithmException {
+        
+        HttpSession session = request.getSession();
+        
+        List<Tusuario> listaUsuarios = this.tusuarioFacade.findAll();
+        session.setAttribute("listaUsuarios", listaUsuarios); //antes request
+        
+        int userDNI;
+        String password;
+        Tusuario usuario;
+        
+        userDNI = Integer.parseInt(request.getParameter("user"));
+        password = request.getParameter("pass");
+        Trol rolEmpleado = new Trol(2);
+        Trol rolUsuario = new Trol(1);
+        
+        usuario = this.tusuarioFacade.find(userDNI);
+        
+        //SHA-256 HASH
+        MessageDigest msgdgst = MessageDigest.getInstance("SHA-256");
+        byte[] encodedhash = msgdgst.digest(password.getBytes(StandardCharsets.UTF_8));
+        
+        StringBuilder hexString = new StringBuilder();
+        for (int i = 0; i < encodedhash.length; i++) {
+            String hex = Integer.toHexString(0xff & encodedhash[i]);
+            if(hex.length() == 1) 
+                hexString.append('0');
+            hexString.append(hex);
         }
+        //
+        
+        request.setAttribute("usuarioLogin", usuario);
+        
+        if(usuario.getHashContrasena().equals(hexString.toString())){
+            //Usuario existe y tiene contraseña valida
+            //Comparamos rol para ver si iniciamos en Usuario o Empleado
+            if(usuario.getTrolIdtrol().equals(rolEmpleado)){
+
+               //request.setAttribute("empleadoLogin", usuario);
+               session.setAttribute("empleadoLogin", usuario);
+                //RequestDispatcher rd = this.getServletContext().getRequestDispatcher("/empleado/indexEmpleado.jsp");
+                //rd.forward(request, response);
+                response.sendRedirect("empleado/indexEmpleado.jsp");
+
+            }else if (usuario.getTrolIdtrol().equals(rolUsuario)){
+                
+               session.setAttribute("usuarioLogin", usuario);
+               //RequestDispatcher rd = this.getServletContext().getRequestDispatcher("/usuario/indexUsuario.jsp");
+               //rd.forward(request, response);
+               response.sendRedirect("usuario/indexUsuario.jsp");
+            } 
+            //Falta por añadir jsp Error para controlar mejor
+        }else{
+            System.out.print("Error, contraseña incorrecta");
+        }
+        
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -56,7 +105,11 @@ public class ServletLogin extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        try {
+            processRequest(request, response);
+        } catch (NoSuchAlgorithmException ex) {
+            Logger.getLogger(ServletLogin.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**
@@ -70,7 +123,11 @@ public class ServletLogin extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        try {
+            processRequest(request, response);
+        } catch (NoSuchAlgorithmException ex) {
+            Logger.getLogger(ServletLogin.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**

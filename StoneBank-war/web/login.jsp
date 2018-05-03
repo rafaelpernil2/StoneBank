@@ -1,7 +1,9 @@
 <%-- 
     Document   : login
     Created on : 19-abr-2018, 13:04:11
+    Modified on: 1-may-2018,  14:32:20
     Author     : rafaelpernil
+    Modified by: Fran Gambero
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -16,7 +18,7 @@
     <center>
         <h1 style="text-align: center">StoneBank</h1>
         
-        <form action="LoginServlet" method="post">
+        <form action="ServletLogin" method="post">
             
             <table width="25%">
                 <tr>

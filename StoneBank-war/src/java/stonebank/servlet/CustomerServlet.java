@@ -29,12 +29,6 @@ public class CustomerServlet extends HttpServlet {
     @EJB
     private TusuarioFacade tusuarioFacade;
 
-    
-    
-    
-    
-    
-
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
