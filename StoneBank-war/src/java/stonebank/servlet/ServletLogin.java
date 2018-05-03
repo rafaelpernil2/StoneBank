@@ -75,7 +75,7 @@ public class ServletLogin extends HttpServlet {
                session.setAttribute("empleadoLogin", usuario);
                 //RequestDispatcher rd = this.getServletContext().getRequestDispatcher("/empleado/indexEmpleado.jsp");
                 //rd.forward(request, response);
-                response.sendRedirect("/empleado/indexEmpleado.jsp");
+                response.sendRedirect("empleado/indexEmpleado.jsp");
             }else if (usuario.getTrolIdtrol().equals(rolUsuario)){
                 
                session.setAttribute("usuarioLogin", usuario);
