@@ -20,6 +20,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import stonebank.ejb.TusuarioFacade;
 import stonebank.entity.Trol;
 import stonebank.entity.Tusuario;
@@ -36,7 +37,10 @@ public class ServletLogin extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException, NoSuchAlgorithmException {
         
+        HttpSession session = request.getSession();
+        
         List<Tusuario> listaUsuarios = this.tusuarioFacade.findAll();
+        session.setAttribute("listaUsuarios", listaUsuarios); //antes request
         
         int userDNI;
         String password;
@@ -67,13 +71,17 @@ public class ServletLogin extends HttpServlet {
             //Comparamos rol para ver si iniciamos en Usuario o Empleado
             if(usuario.getTrolIdtrol().equals(rolEmpleado)){
                 
-                RequestDispatcher rd = this.getServletContext().getRequestDispatcher("/empleado/indexEmpleado.jsp");
-                rd.forward(request, response);
-                
+               //request.setAttribute("empleadoLogin", usuario);
+               session.setAttribute("empleadoLogin", usuario);
+                //RequestDispatcher rd = this.getServletContext().getRequestDispatcher("/empleado/indexEmpleado.jsp");
+                //rd.forward(request, response);
+                response.sendRedirect("/empleado/indexEmpleado.jsp");
             }else if (usuario.getTrolIdtrol().equals(rolUsuario)){
                 
-               RequestDispatcher rd = this.getServletContext().getRequestDispatcher("/usuario/indexUsuario.jsp");
-               rd.forward(request, response);
+               session.setAttribute("usuarioLogin", usuario);
+               //RequestDispatcher rd = this.getServletContext().getRequestDispatcher("/usuario/indexUsuario.jsp");
+               //rd.forward(request, response);
+               response.sendRedirect("usuario/indexUsuario.jsp");
             } 
             //Falta por añadir jsp Error para controlar mejor
         }else{
