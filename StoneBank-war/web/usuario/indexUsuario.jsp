@@ -2,6 +2,7 @@
 <%@page import="stonebank.entity.Tmovimiento"%>
 <%@page import="java.util.List"%>
 <%@page import="stonebank.entity.Tusuario"%>
+
 <!DOCTYPE html>
 
 <%
@@ -21,13 +22,13 @@
         <title>Index Usuario</title>
     </head>
     <body>
-        <h1>¡Bienvenido/a  <%= usuario.getNombre() %> <%= usuario.getApellidos() %>!</h1>
+        <h1>Â¡Bienvenido/a  <%= usuario.getNombre() %> <%= usuario.getApellidos() %>!</h1>
         <hr>
         
         <div class = "padre" style="width:100%">
             
           <div class = "subdiv-izquierdo" style="width:40%;display:inline-table;">
-            <h3>Últimos movimientos</h3>
+            <h3>Ãšltimos movimientos</h3>
             
             <table border="1">
                 <tbody>
@@ -61,7 +62,7 @@
           <div class="subdiv-derecho" style="width:40%;display:inline-table;">
               <h3>Buscador de movimientos</h3>
               <form action="ServletBusqueda" method="post">
-                    <input type="text" name="Buscador" max="30" maxlength="30" value="Concepto, nombre..."/>
+                    <input type="text" name="Buscador" maxlength="30" value="Concepto, nombre..."/>
                     <input type="submit" value="Buscar" />              
               </form>
               <br><br>
