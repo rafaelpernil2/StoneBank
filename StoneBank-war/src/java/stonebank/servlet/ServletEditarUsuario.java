@@ -19,41 +19,29 @@ import stonebank.entity.Tusuario;
 
 /**
  *
- * @author Usuario
+ * @author Jesús Contreras y Fran Gambero
  */
-@WebServlet(name = "ServletEditarUsuario", urlPatterns = {"/ServletEditarUsuario"})
+@WebServlet(name = "ServletEditarUsuario", urlPatterns = {"/usuario/EditarUsuario"})
 public class ServletEditarUsuario extends HttpServlet {
 
     @EJB
     private TusuarioFacade tusuarioFacade;
     
-    
-
-    /**
-     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
-     * methods.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
+        //response.setContentType("text/html;charset=UTF-8");
         
-        Integer dni= Integer.parseInt(request.getParameter("dni"));
+        int dni= Integer.parseInt(request.getParameter("dni"));
         
         Tusuario usuario;
         
-        if(dni != null){
+        //if(dni != null){ //no hace falta, dni nunca es null
             usuario = this.tusuarioFacade.find(dni);
             request.setAttribute("usuario", usuario);
-        }
+        //}
         
         RequestDispatcher rd = this.getServletContext().getRequestDispatcher("/usuario/configuracion.jsp");
         rd.forward(request, response);
-        
         
     }
 

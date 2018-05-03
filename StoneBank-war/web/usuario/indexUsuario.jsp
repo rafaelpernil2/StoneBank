@@ -22,19 +22,19 @@
         <title>Index Usuario</title>
     </head>
     <body>
-        <h1>Â¡Bienvenido/a  <%= usuario.getNombre() %> <%= usuario.getApellidos() %>!</h1>
+        <h1>¡Bienvenido/a  <%= usuario.getNombre() %> <%= usuario.getApellidos() %>!</h1>
         <hr>
         
         <div class = "padre" style="width:100%">
             
           <div class = "subdiv-izquierdo" style="width:40%;display:inline-table;">
-            <h3>Ãšltimos movimientos</h3>
+            <h3>Últimos movimientos</h3>
             
             <table border="1">
                 <tbody>
                     <tr>
-                        <td>Cliente</td>
                         <td>Concepto</td>
+                        <td>IBAN</td>
                         <td>Importe</td>
                         <td>Fecha</td>
                     </tr>
@@ -43,8 +43,9 @@
 
                         %>
                     <tr>
-                        <td><%= movi.getTusuariodniUsuario().toString() %></td>
+                        <%--<td><%= movi.getTusuariodniUsuario().toString() %></td>--%>
                         <td><%= movi.getConcepto() %></td>
+                        <td><%= movi.getIbanEntidad() %></td>
                         <td><%= movi.getCantidad() %> </td>
                         <td><%= movi.getFecha() %></td>
                     </tr>
@@ -73,8 +74,7 @@
           </div>
         </div>
               <br><br>
-         <form action="/usuario/configuracion.jsp">
-                   <input type="submit" value="Configuracion" />
-              </form>
+              
+        <a href="EditarUsuario?dni=<%= usuario.getDniUsuario() %>">Configuracion</a>
     </body>
 </html>
