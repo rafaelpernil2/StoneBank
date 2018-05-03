@@ -18,7 +18,7 @@
             <table>
                 <tr>
                     <td>Nombre: </td>
-                    <td><input type="text" name="nombre" max="30" maxlength="30"/></td>                    
+                    <td><input type="text" name="nombre"  maxlength="30"/></td>                    
                 </tr>
                 <tr>
                     <td>Apellido: </td>
