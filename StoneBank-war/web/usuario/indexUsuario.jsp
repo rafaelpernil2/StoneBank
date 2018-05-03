@@ -1,3 +1,11 @@
+
+
+<%@page import="stonebank.entity.Tusuario"%>
+<%
+  Tusuario usuario = (Tusuario)request.getAttribute("usuarioLogin");  
+    
+%>
+
 <!DOCTYPE html>
 <html>
     <head>
@@ -31,12 +39,15 @@
           <div class="subdiv-derecho" style="width:40%;display:inline-table;">
               <h3>Buscador de movimientos</h3>
               <form action="ServletBusqueda" method="post">
-                    <input type="text" name="Buscador" max="30" maxlength="30" value="Concepto, nombre..."/>
+                    <input type="text" name="Buscador" maxlength="30" value="Concepto, nombre..."/>
                     <input type="submit" value="Buscar" />              
               </form>
               <br><br>
               <a href="realizarTransferencia.jsp">Realizar transferecia</a>
           </div>
         </div>
+
+        <a href="ServletEditarUsuario?dni=<%= usuario.getDniUsuario() %>"> Configuracion </a>
+
     </body>
 </html>

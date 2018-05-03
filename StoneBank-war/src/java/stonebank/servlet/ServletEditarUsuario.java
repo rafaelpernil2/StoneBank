@@ -7,18 +7,27 @@ package stonebank.servlet;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.sql.Date;
+import javax.ejb.EJB;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
+import stonebank.ejb.TusuarioFacade;
+import stonebank.entity.Tusuario;
 
 /**
  *
- * @author rafaelpernil
+ * @author Usuario
  */
-public class ServletTransferencia extends HttpServlet {
+@WebServlet(name = "ServletEditarUsuario", urlPatterns = {"/ServletEditarUsuario"})
+public class ServletEditarUsuario extends HttpServlet {
+
+    @EJB
+    private TusuarioFacade tusuarioFacade;
+    
+    
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -33,26 +42,18 @@ public class ServletTransferencia extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         
-        //HttpSession session = request.getSession(); ¿?
-    
-        /*
-        *Coge los atributos que hay en la tabla, todos los campos son obligatorios
-        */
-        int dniEmisor, dniReceptor;
-        double cantidad;
-        String concepto;
-        String fecha;
-        boolean ready = true;
+        Integer dni= Integer.parseInt(request.getParameter("dni"));
         
+        Tusuario usuario;
         
-        dniEmisor = Integer.parseInt(request.getParameter("dniemisor"));
-        dniReceptor = Integer.parseInt(request.getParameter("dnireceptor"));
-        cantidad = Double.parseDouble(request.getParameter("cantidad"));
-        concepto = request.getParameter("concepto");
-        fecha = request.getParameter("fecha");
+        if(dni != null){
+            usuario = this.tusuarioFacade.find(dni);
+            request.setAttribute("usuario", usuario);
+        }
         
-        //Compruebo que el dniEmisor puede realizar la transferencia
-        //Compruebo que el dniReceptor existe
+        RequestDispatcher rd = this.getServletContext().getRequestDispatcher("/usuario/configuracion.jsp");
+        rd.forward(request, response);
+        
         
     }
 
