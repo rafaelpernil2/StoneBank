@@ -1,34 +1,57 @@
-
-
+<%@page import="stonebank.ejb.TusuarioFacade"%>
+<%@page import="stonebank.entity.Tmovimiento"%>
+<%@page import="java.util.List"%>
 <%@page import="stonebank.entity.Tusuario"%>
-<%
-  Tusuario usuario = (Tusuario)request.getAttribute("usuarioLogin");  
-    
-%>
 
 <!DOCTYPE html>
+
+<%
+    Tusuario usuario = (Tusuario)session.getAttribute("usuarioLogin"); //antes request
+    List<Tusuario> listaUsuarios = (List<Tusuario>)session.getAttribute("listaUsuarios");
+    //A lo mejor hay que usar session en lugar de request
+    //usuario.getTmovimientoList()
+    List<Tmovimiento> sublista = (usuario.getTmovimientoList().subList(0, 2));
+    //Sublista empieza en 0
+    
+    //TusuarioFacade tusuariofacade;
+%>
+
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Index Usuario</title>
     </head>
     <body>
-        <h1>¡Bievenido/a usuario/a (nombre)!</h1>
+        <h1>Â¡Bienvenido/a  <%= usuario.getNombre() %> <%= usuario.getApellidos() %>!</h1>
         <hr>
         
         <div class = "padre" style="width:100%">
             
           <div class = "subdiv-izquierdo" style="width:40%;display:inline-table;">
-            <h3>Últimas transacciones</h3>
+            <h3>Ãšltimos movimientos</h3>
             
             <table border="1">
                 <tbody>
                     <tr>
-                        <td>Fecha</td>
                         <td>Cliente</td>
                         <td>Concepto</td>
                         <td>Importe</td>
+                        <td>Fecha</td>
                     </tr>
+                    <% 
+                        for(Tmovimiento movi: sublista){      
+
+                        %>
+                    <tr>
+                        <td><%= movi.getTusuariodniUsuario().toString() %></td>
+                        <td><%= movi.getConcepto() %></td>
+                        <td><%= movi.getCantidad() %> </td>
+                        <td><%= movi.getFecha() %></td>
+                    </tr>
+                        <%
+                            
+                       }
+                        %>
                 </tbody>
             </table>
             
@@ -43,11 +66,15 @@
                     <input type="submit" value="Buscar" />              
               </form>
               <br><br>
-              <a href="realizarTransferencia.jsp">Realizar transferecia</a>
+              <%--<a href="/usuario/realizarTransferencia.jsp">Realizar transferecia</a> --%>
+              <form action="/usuario/realizarTransferencia.jsp">
+                   <input type="submit" value="Realizar transferencia" />
+              </form>
           </div>
         </div>
-
-        <a href="ServletEditarUsuario?dni=<%= usuario.getDniUsuario() %>"> Configuracion </a>
-
+              <br><br>
+         <form action="/usuario/configuracion.jsp">
+                   <input type="submit" value="Configuracion" />
+              </form>
     </body>
 </html>

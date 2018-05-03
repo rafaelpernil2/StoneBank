@@ -149,6 +149,7 @@ public class Tmovimiento implements Serializable {
 
     @Override
     public String toString() {
+        //return this.getTusuariodniUsuario().getNombre() + this.getTusuariodniUsuario().getApellidos();
         return "stonebank.entity.Tmovimiento[ idtmovimiento=" + idtmovimiento + " ]";
     }
     

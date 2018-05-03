@@ -222,7 +222,8 @@ public class Tusuario implements Serializable {
 
     @Override
     public String toString() {
-        return "stonebank.entity.Tusuario[ dniUsuario=" + dniUsuario + " ]";
+        return this.getNombre() + " " + this.getApellidos();
+        //return "stonebank.entity.Tusuario[ dniUsuario=" + dniUsuario + " ]";
     }
     
 }
