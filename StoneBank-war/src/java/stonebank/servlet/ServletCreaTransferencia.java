@@ -7,48 +7,43 @@ package stonebank.servlet;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.List;
+import javax.ejb.EJB;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-import stonebank.entity.Tmovimiento;
+import stonebank.ejb.TusuarioFacade;
 import stonebank.entity.Tusuario;
 
 /**
  *
- * @author Eduardo Pertierra Puche
+ * @author JesusContreras
  */
+@WebServlet(name = "usuario/ServletCreaTransferencia", urlPatterns = {"/usuario/ServletCreaTransferencia"})
+public class ServletCreaTransferencia extends HttpServlet {
 
-@WebServlet(name = "usuario/ServletListaMovimientos", urlPatterns = {"/usuario/ServletListaMovimientos"})
+    @EJB
+    private TusuarioFacade tusuarioFacade;
 
-public class ServletListaMovimientos extends HttpServlet {
 
-    /**
-     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
-     * methods.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-       HttpSession session = request.getSession(); 
-       Tusuario usuario = (Tusuario) session.getAttribute("usuarioLogin"); 
+        response.setContentType("text/html;charset=UTF-8");
         
-       List<Tmovimiento> listamov = usuario.getTmovimientoList(); 
-       
-       request.setAttribute("listaMovimientos", listamov);
-       request.setAttribute("mensaje", "Lista de Movimientos de " + usuario.getNombre() + " " + usuario.getApellidos()); 
-        RequestDispatcher rd = request.getServletContext().getRequestDispatcher("/usuario/historialMovimientos.jsp"); 
-        rd.forward(request, response);
+        Integer dni = Integer.parseInt(request.getParameter("dni"));
+        
+        Tusuario usuario;
+        
+        if(dni != null){
+            usuario = this.tusuarioFacade.find(dni);
+            request.setAttribute("usuarioLogin", usuario);
         }
 
+        RequestDispatcher rd = this.getServletContext().getRequestDispatcher("/usuario/realizarTransferencia.jsp");
+        rd.forward(request, response);
+    }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
