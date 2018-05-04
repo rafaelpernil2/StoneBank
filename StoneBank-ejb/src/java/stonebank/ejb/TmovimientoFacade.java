@@ -11,7 +11,6 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import stonebank.entity.Tmovimiento;
-import static stonebank.entity.Ttransferencia_.id;
 
 /**
  *
