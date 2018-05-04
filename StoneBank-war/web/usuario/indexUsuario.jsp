@@ -63,7 +63,7 @@
           <div class="subdiv-derecho" style="width:40%;display:inline-table;">
               <h3>Buscador de movimientos</h3>
               <form action="ServletBusqueda" method="post">
-                    <input type="text" name="Buscador" maxlength="30" value="Concepto, nombre..."/>
+                    <input type="text" name="parametrobusqueda" maxlength="30" value="Concepto, nombre..."/>
                     <input type="submit" value="Buscar" />              
               </form>
               <br><br>

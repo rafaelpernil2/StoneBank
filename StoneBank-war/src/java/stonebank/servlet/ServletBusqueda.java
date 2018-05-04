@@ -4,45 +4,54 @@
  * and open the template in the editor.
  */
 package stonebank.servlet;
-
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.List;
+import javax.ejb.EJB;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+import stonebank.ejb.TmovimientoFacade;
+import stonebank.entity.Tmovimiento;
+import static stonebank.entity.Tmovimiento_.concepto;
+import stonebank.entity.Tusuario;
+
+
+
+
+
 
 /**
  *
- * @author rafaelpernil
+ * @author Eduardo Pertierra Puche
  */
+@WebServlet(name = "usuario/ServletBusqueda", urlPatterns = {"/usuario/ServletBusqueda"})
 public class ServletBusqueda extends HttpServlet {
 
-    /**
-     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
-     * methods.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
+    @EJB
+    private TmovimientoFacade tmovimientoFacade;
+    
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet ServletBusqueda</title>");            
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet ServletBusqueda at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
-        }
+      
+        HttpSession session = request.getSession(); 
+       String concepto = request.getParameter("parametrobusqueda");
+       Tusuario usuario =  (Tusuario) session.getAttribute("usuarioLogin"); 
+       Integer dni = usuario.getDniUsuario(); 
+       request.setAttribute("dni", dni);
+       request.setAttribute("concepto", concepto);
+       List<Tmovimiento> listamov =  tmovimientoFacade.buscarMovimientoPorConceptoYDNI(concepto,dni); 
+        
+       request.setAttribute("resultadoBusqueda", listamov);
+        //Esto deberia dispatchear a listamovimientos 
+        RequestDispatcher rd = request.getServletContext().getRequestDispatcher("/usuario/resultadoBusqueda.jsp");
+        rd.forward(request, response);
     }
+
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
