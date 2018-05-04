@@ -63,7 +63,7 @@ public class ServletTransferencia extends HttpServlet {
         cantidad = Double.parseDouble(request.getParameter("cantidad"));
         concepto = request.getParameter("concepto");
         
-        System.out.println(dniReceptor);
+
         
         /*
         *Compruebo que el dniEmisor puede realizar la transferencia, para ello sumo todos los movimientos 
