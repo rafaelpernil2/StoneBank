@@ -48,8 +48,8 @@ public class ServletLogin extends HttpServlet {
         
         userDNI = Integer.parseInt(request.getParameter("user"));
         password = request.getParameter("pass");
-        Trol rolEmpleado = new Trol(2);// Lo ideal sería coger los roles de la fachada
-        Trol rolUsuario = new Trol(1);
+        Trol rolEmpleado = new Trol(1);// Lo ideal sería coger los roles de la fachada
+        Trol rolUsuario = new Trol(0);
         
         usuario = this.tusuarioFacade.find(userDNI);
         

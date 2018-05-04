@@ -9,9 +9,30 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Page</title>
+        <title>Crear Movimiento</title>
     </head>
     <body>
-        <h1>Hello World!</h1>
+        <div align="center">
+        <h1>Crear nuevo movimiento</h1>
+        <form action="${pageContext.request.contextPath}/ServletCreaMovimiento" method="post">
+            <table>
+                <tr>
+                    <td>Concepto: </td>
+                    <td><input type="text" name="concepto"/></td>                    
+                </tr>
+                <tr>
+                    <td>Cantidad: </td>
+                    <td><input type="text" name="cantidad"/></td>                    
+                </tr>
+                <tr>
+                    <td>IBAN Entidad: </td>
+                    <td><input type="text" name="iban"/></td>                    
+                </tr>
+                
+            </table>
+            <br>
+            <input type="submit" value="Crear Movimiento" />
+        </form>
+        </div>
     </body>
 </html>

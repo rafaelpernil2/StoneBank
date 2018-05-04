@@ -6,17 +6,26 @@
 package stonebank.servlet;
 
 import java.io.IOException;
-import java.io.PrintWriter;
+import java.sql.Date;
+import javax.ejb.EJB;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+import stonebank.ejb.TmovimientoFacade;
+import stonebank.entity.Tmovimiento;
+import stonebank.entity.Tusuario;
 
 /**
  *
  * @author rafaelpernil
  */
 public class ServletCreaMovimiento extends HttpServlet {
+
+    @EJB
+    private TmovimientoFacade tmovimientoFacade;
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -30,17 +39,22 @@ public class ServletCreaMovimiento extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet ServletCreaMovimiento</title>");            
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet ServletCreaMovimiento at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
+        boolean ready=true;
+        HttpSession session = request.getSession();
+        
+        Tmovimiento movimiento= new Tmovimiento();
+       
+        movimiento.setTusuariodniUsuario((Tusuario) session.getAttribute("usuarioLogin")); //TODO: CAMBIAR POR USUARIOSELECCIONADO
+        movimiento.setConcepto(request.getParameter("concepto"));
+        movimiento.setFecha(new java.util.Date());
+        movimiento.setIbanEntidad(request.getParameter("iban"));
+        movimiento.setCantidad(Double.parseDouble(request.getParameter("cantidad")));
+       
+        
+        if (ready){
+            tmovimientoFacade.create(movimiento);
+            RequestDispatcher rd = this.getServletContext().getRequestDispatcher("/empleado/gestionarUsuario.jsp");
+            rd.forward(request, response);
         }
     }
 

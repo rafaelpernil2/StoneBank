@@ -121,7 +121,7 @@ public class ServletCreaUsuario extends HttpServlet {
         
         if (ready){
             this.tusuarioFacade.create(usuario);
-            RequestDispatcher rd = this.getServletContext().getRequestDispatcher("/login.jsp");
+            RequestDispatcher rd = this.getServletContext().getRequestDispatcher("/ServletLogin");
             rd.forward(request, response);
         }
 
