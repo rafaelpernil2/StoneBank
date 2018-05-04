@@ -19,15 +19,14 @@ import stonebank.entity.Tusuario;
 
 /**
  *
- * @author Usuario
+ * @author JesusContreras
  */
-@WebServlet(name = "ServletEditarUsuario", urlPatterns = {"/ServletEditarUsuario"})
-public class ServletEditarUsuario extends HttpServlet {
+@WebServlet(name = "ServletCreaTransferencia", urlPatterns = {"/ServletCreaTransferencia"})
+public class ServletCreaTransferencia extends HttpServlet {
 
     @EJB
     private TusuarioFacade tusuarioFacade;
-    
-    
+
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -39,13 +38,11 @@ public class ServletEditarUsuario extends HttpServlet {
         
         if(dni != null){
             usuario = this.tusuarioFacade.find(dni);
-            request.setAttribute("usuario", usuario);
+            request.setAttribute("usuarioLogin", usuario);
         }
-        
-        RequestDispatcher rd = this.getServletContext().getRequestDispatcher("/usuario/configuracion.jsp");
+
+        RequestDispatcher rd = this.getServletContext().getRequestDispatcher("/usuario/realizarTransferencia.jsp");
         rd.forward(request, response);
-        
-        
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

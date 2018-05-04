@@ -43,7 +43,7 @@
                     <input type="submit" value="Buscar" />              
               </form>
               <br><br>
-              <a href="realizarTransferencia.jsp">Realizar transferecia</a>
+              <a href="ServletCreaTransferencia?dni=<%= usuario.getDniUsuario() %>"> Realizar transferecia</a>
           </div>
         </div>
 

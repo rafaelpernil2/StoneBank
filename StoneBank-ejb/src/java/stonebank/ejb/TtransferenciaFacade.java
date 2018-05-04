@@ -8,6 +8,7 @@ package stonebank.ejb;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 import stonebank.entity.Ttransferencia;
 
 /**
@@ -27,6 +28,20 @@ public class TtransferenciaFacade extends AbstractFacade<Ttransferencia> {
 
     public TtransferenciaFacade() {
         super(Ttransferencia.class);
+    }
+    
+    public double dineroEntranteTransferencia(Integer dni){
+        Query q = this.em.createNativeQuery("SELECT t.cantidad FROM Ttransferencia t WHERE t.dNIReceptor.dniUsuario = :par");
+        q.setParameter("par", dni);
+        double total = (double) q.getResultList().get(0);
+        return total;
+    }
+    
+        public double dineroSalienteTransferencia(Integer dni){
+        Query q = this.em.createNativeQuery("SELECT t.cantidad FROM Ttransferencia t WHERE t.dNIEmisor.dniUsuario = :par"); 
+        q.setParameter("par", dni);
+        double total = (double) q.getResultList().get(0);
+        return total;
     }
     
 }

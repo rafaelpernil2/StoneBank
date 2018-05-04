@@ -85,10 +85,11 @@ public class Tusuario implements Serializable {
     private Trol trolIdtrol;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "tusuariodniUsuario")
     private List<Tmovimiento> tmovimientoList;
+    
 
     public Tusuario() {
     }
-
+    
     public Tusuario(Integer dniUsuario) {
         this.dniUsuario = dniUsuario;
     }
@@ -223,6 +224,18 @@ public class Tusuario implements Serializable {
     @Override
     public String toString() {
         return "stonebank.entity.Tusuario[ dniUsuario=" + dniUsuario + " ]";
+    }
+    
+    /*
+    * 
+    *
+    */
+    public boolean puedeTransferir(double cantidad){
+        double sumas, restas,total;
+        for(Tmovimiento movimiento : tmovimientoList){
+            
+        }
+        return false;
     }
     
 }

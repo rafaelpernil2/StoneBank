@@ -8,6 +8,7 @@ package stonebank.ejb;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 import stonebank.entity.Tmovimiento;
 
 /**
@@ -29,4 +30,12 @@ public class TmovimientoFacade extends AbstractFacade<Tmovimiento> {
         super(Tmovimiento.class);
     }
     
+    
+    public double dineroEntrantePorMovimientos(Integer dni){
+        Query q = this.em.createQuery("select SUM(m.cantidad) from Tmovimiento m where m.tusuariodniUsuario.dniUsuario = :par");
+        q.setParameter("par", dni);
+        double total = (double) q.getSingleResult();
+        return total;
+    }
+   
 }
