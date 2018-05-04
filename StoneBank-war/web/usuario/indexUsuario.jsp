@@ -75,6 +75,8 @@
         </div>
               <br><br>
               
-        <a href="EditarUsuario?dni=<%= usuario.getDniUsuario() %>">Configuracion</a>
+        <a href="EditarUsuario?dni=<%= usuario.getDniUsuario() %>">Configuración</a>
+        <br>
+        <a href="CerrarSesion">Cerrar sesión</a>
     </body>
 </html>

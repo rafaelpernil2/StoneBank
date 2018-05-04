@@ -1,16 +1,8 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package stonebank.servlet;
 
-import stonebank.ejb.TusuarioFacade;
-import stonebank.entity.Tusuario;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.ArrayList;
-import java.util.List;
 import javax.ejb.EJB;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -18,39 +10,33 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+import stonebank.ejb.TusuarioFacade;
+import stonebank.entity.Tusuario;
 
 /**
  *
- * @author guzman
+ * @author Fran Gambero
  */
-
-public class CustomerServlet extends HttpServlet {
+@WebServlet(name = "ServletCerrarSesion", urlPatterns = {"/usuario/CerrarSesion"})
+public class ServletCerrarSesion extends HttpServlet {
 
     @EJB
-    private TusuarioFacade tusuarioFacade;
-
-    /**
-     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
-     * methods.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
+    private TusuarioFacade tusuarioFacade;   
+    
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         
+        HttpSession session = request.getSession();
         
-        List<Tusuario> listaClientes;
+        session.invalidate();
         
-        listaClientes = this.tusuarioFacade.findAll();
+        request.setAttribute("mensajeExito", "¡Sesión CERRADA con éxito!");
+        request.setAttribute("proximaURL", "/StoneBank-war/login.jsp"); //Atención, envia sin / inicial
+        RequestDispatcher rd = this.getServletContext().getRequestDispatcher("/exito.jsp");
+        rd.forward(request, response);
         
-        request.setAttribute("listau", listaClientes);
-        
-        RequestDispatcher rd = this.getServletContext().getRequestDispatcher("/clientes.jsp");
-        rd.forward(request, response);        
-        
+        return;
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

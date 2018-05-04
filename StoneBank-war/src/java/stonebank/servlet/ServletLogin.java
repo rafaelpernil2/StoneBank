@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package stonebank.servlet;
 
 import java.io.IOException;
@@ -66,7 +62,7 @@ public class ServletLogin extends HttpServlet {
         }
         //
         
-        request.setAttribute("usuarioLogin", usuario);
+        //request.setAttribute("usuarioLogin", usuario);
         
         if(usuario.getHashContrasena().equals(hexString.toString())){
             //Usuario existe y tiene contraseña valida

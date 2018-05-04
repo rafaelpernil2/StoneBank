@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package stonebank.servlet;
 
 import java.io.IOException;
@@ -35,9 +31,7 @@ public class ServletCreaUsuario extends HttpServlet {
 
     @EJB
     private TusuarioFacade tusuarioFacade;
-    
-    
-    
+        
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
 
             throws ServletException, IOException, NoSuchAlgorithmException {
@@ -121,7 +115,11 @@ public class ServletCreaUsuario extends HttpServlet {
         
         if (ready){
             this.tusuarioFacade.create(usuario);
-            RequestDispatcher rd = this.getServletContext().getRequestDispatcher("/login.jsp");
+            request.setAttribute("usuarioCreado", usuario);//Creado para el alta.jsp
+            request.setAttribute("mensajeExito", "¡Usuario creado con éxito!");
+            request.setAttribute("proximaURL", "login.jsp"); //Atención, envia sin / inicial
+            //RequestDispatcher rd = this.getServletContext().getRequestDispatcher("/login.jsp");
+            RequestDispatcher rd = this.getServletContext().getRequestDispatcher("/exito.jsp");
             rd.forward(request, response);
         }
 
