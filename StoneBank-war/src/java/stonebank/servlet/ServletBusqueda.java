@@ -29,6 +29,8 @@ import stonebank.entity.Tusuario;
  *
  * @author Eduardo Pertierra Puche
  */
+@WebServlet(name = "usuario/ServletBusqueda", urlPatterns = {"/usuario/ServletBusqueda"})
+
 public class ServletBusqueda extends HttpServlet {
 
     @EJB
