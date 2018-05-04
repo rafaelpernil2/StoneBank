@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package stonebank.servlet;
 
 import java.io.IOException;
@@ -19,31 +15,24 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import stonebank.ejb.TusuarioFacade;
 import stonebank.entity.Tusuario;
 
 /**
  *
- * @author Usuario
+ * @author Jesús Contreras y Fran Gambero
  */
-@WebServlet(name = "ServletActualizarUsuario", urlPatterns = {"/ServletActualizarUsuario"})
+@WebServlet(name = "ServletActualizarUsuario", urlPatterns = {"/usuario/ServletActualizarUsuario"})
 public class ServletActualizarUsuario extends HttpServlet {
 
     @EJB
     private TusuarioFacade tusuarioFacade;
 
-    
-    /**
-     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
-     * methods.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException, NoSuchAlgorithmException {
+        
+        HttpSession session = request.getSession(); 
         
         String nombre, apellido, contrasena, email, domicilio;
         int dni,telefono;
@@ -57,10 +46,9 @@ public class ServletActualizarUsuario extends HttpServlet {
         email = request.getParameter("email");
         domicilio = request.getParameter("domicilio");
         
-        
         usuario = (Tusuario) this.tusuarioFacade.find(dni);
         
-                //SHA-256 HASH
+                //SHA-256 HASH, esto lo movería a un .utils :) 
         MessageDigest msgdgst = MessageDigest.getInstance("SHA-256");
         byte[] encodedhash = msgdgst.digest(contrasena.getBytes(StandardCharsets.UTF_8));
         
@@ -74,7 +62,7 @@ public class ServletActualizarUsuario extends HttpServlet {
         //
         
         if(usuario.getHashContrasena().equals(hexString.toString())){
-            String nuevaContrasena = request.getParameter("nuevacontrasena");
+            String nuevaContrasena = request.getParameter("nuevacontrasena"); //antes request
            
             encodedhash = msgdgst.digest(nuevaContrasena.getBytes(StandardCharsets.UTF_8));
             hexString = new StringBuilder();
@@ -92,9 +80,6 @@ public class ServletActualizarUsuario extends HttpServlet {
             //pero por ahora simplemente no lo modificara
         }
         
-        
-        
-        
         usuario.setNombre(nombre);
         usuario.setApellidos(apellido);
         usuario.setDniUsuario(dni);
@@ -102,11 +87,9 @@ public class ServletActualizarUsuario extends HttpServlet {
         usuario.setEmail(email);
         usuario.setDomicilio(domicilio);
         
-        
-        
-        
-        request.setAttribute("usuarioLogin", usuario);
-        this.tusuarioFacade.edit(usuario);
+        //request.setAttribute("usuarioLogin", usuario);
+        this.tusuarioFacade.edit(usuario); //Actualiza en BD
+        session.setAttribute("usuarioLogin", usuario);
         RequestDispatcher rd = this.getServletContext().getRequestDispatcher("/usuario/indexUsuario.jsp");
         rd.forward(request, response);
         

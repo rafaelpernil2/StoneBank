@@ -62,7 +62,7 @@
                 </tr>
                 <tr>
                     <td>Domicilio: </td>
-                    <td><input type="text" name="domicilio" value=" <%= usuario.getDomicilio() %>"/></td>                    
+                    <td><input type="text" name="domicilio" value="<%= usuario.getDomicilio() %>"/></td>                    
                 </tr>
             </table>
             <br>

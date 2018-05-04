@@ -32,10 +32,6 @@
         <servlet-name>ServletEliminaUsuario</servlet-name>
         <servlet-class>stonebank.servlet.ServletEliminaUsuario</servlet-class>
     </servlet>
-    <servlet>
-        <servlet-name>CustomerServlet</servlet-name>
-        <servlet-class>stonebank.servlet.CustomerServlet</servlet-class>
-    </servlet>
     <servlet-mapping>
         <servlet-name>ServletLogin</servlet-name>
         <url-pattern>/ServletLogin</url-pattern>
@@ -67,10 +63,6 @@
     <servlet-mapping>
         <servlet-name>ServletEliminaUsuario</servlet-name>
         <url-pattern>/ServletEliminaUsuario</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>CustomerServlet</servlet-name>
-        <url-pattern>/CustomerServlet</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

@@ -13,7 +13,6 @@
     List<Tmovimiento> listaMovimientos;
     
     usuario = (Tusuario) request.getAttribute("user");
-    listaMovimientos = usuario.getTmovimientoList();
     
 %>
 <!DOCTYPE html>
