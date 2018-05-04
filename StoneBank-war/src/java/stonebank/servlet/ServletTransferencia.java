@@ -47,7 +47,7 @@ public class ServletTransferencia extends HttpServlet {
         /*
         *Coge los atributos que hay en la tabla, todos los campos son obligatorios
         */
-        int dniEmisor, dniReceptor;
+        int dniReceptor;
         double cantidad;
         String concepto;
         
@@ -55,10 +55,7 @@ public class ServletTransferencia extends HttpServlet {
         Date fecha = new Date();
         
         //Tusuario emisor = (Tusuario) session.getAttribute("usuarioLogin");
-        Tusuario emisor = (Tusuario) request.getAttribute("usuarioLogin");
-        
-        
-        dniEmisor = Integer.parseInt(request.getParameter("dniemisor"));
+        Tusuario emisor = (Tusuario) session.getAttribute("usuarioLogin");
         dniReceptor = Integer.parseInt(request.getParameter("dnireceptor"));
         cantidad = Double.parseDouble(request.getParameter("cantidad"));
         concepto = request.getParameter("concepto");
@@ -69,9 +66,26 @@ public class ServletTransferencia extends HttpServlet {
         *Compruebo que el dniEmisor puede realizar la transferencia, para ello sumo todos los movimientos 
         *y transferencias entrantes y le resto las transferencias salientes
         */
-        double sumaMovimientos = this.tmovimientoFacade.dineroEntrantePorMovimientos(dniEmisor);
-        double sumaTransferencias = this.ttransferenciaFacade.dineroEntranteTransferencia(dniEmisor);
-        double restaTransferencias = this.ttransferenciaFacade.dineroSalienteTransferencia(dniEmisor);
+        Double sumaMovimientos = this.tmovimientoFacade.dineroEntrantePorMovimientos(emisor.getDniUsuario());
+        Double sumaTransferencias = this.ttransferenciaFacade.dineroEntranteTransferencia(emisor.getDniUsuario());
+        Double restaTransferencias = this.ttransferenciaFacade.dineroSalienteTransferencia(emisor.getDniUsuario());
+        
+        //si no se han hecho transferencias se pone
+
+        if(sumaMovimientos==null){
+            sumaMovimientos = 0.0;
+        }
+        if(sumaTransferencias==null){
+            sumaTransferencias = 0.0;
+        }
+        if(restaTransferencias==null){
+            restaTransferencias = 0.0;
+        }
+        if(cantidad<=0){
+            //lanza error
+        }
+        
+        
         if((sumaMovimientos + sumaTransferencias)>=(restaTransferencias + cantidad)){
             
             //Compruebo que el dniReceptor existe
