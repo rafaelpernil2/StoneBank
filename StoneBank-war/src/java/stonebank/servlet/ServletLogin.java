@@ -68,7 +68,7 @@ public class ServletLogin extends HttpServlet {
         
         request.setAttribute("usuarioLogin", usuario);
         
-        if(usuario.getHashContrasena().equals(hexString.toString())){
+        if(usuario.getHashContrasena().equalsIgnoreCase(hexString.toString())){
             //Usuario existe y tiene contraseña valida
             //Comparamos rol para ver si iniciamos en Usuario o Empleado
             if(usuario.getTrolIdtrol().equals(rolEmpleado)){

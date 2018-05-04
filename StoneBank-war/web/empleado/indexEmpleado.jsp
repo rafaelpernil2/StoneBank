@@ -23,25 +23,31 @@
         <h1>Usuarios</h1> <%-- Falta poner el nombre del usuario en cuestión --%>
         <h2>&Uacute;ltimas Transacciones</h2>
         
-        <form action="/StoneBank-war/ServletBuscarUsuarioEmpleado">
+        <form action="${pageContext.request.contextPath}/ServletBuscarUsuarioEmpleado">
             Nombre: <input type="text" name="nombre" value="">
             <input type="submit" value="Buscar">
         </form>
         <br>
         
-        <%-- Cabecera de la lista --%>
-        <div class="row">
-            <div class="column"><b>Nombre</b> &nbsp;&nbsp;&nbsp;&nbsp; <b>Número de cuenta</b></div>
-        </div>
         
+        <table>
+            <tr>
+                <th>Nombre</th>
+                <th>Número de cuenta</th>
+                <th>Rol </th>
+            </tr>
         <%-- Cuerpo de la lista --%>
         <% for (Tusuario user : listaUsuarios){ %>
-        <div class="row">
-            <div class="column"><%= user.getNombre() %> &nbsp;&nbsp;&nbsp;&nbsp; <%= user.getNumCuenta() %> &nbsp;&nbsp;&nbsp;&nbsp; <%= user.getTrolIdtrol().getIdtrol() %> &nbsp;&nbsp;&nbsp;&nbsp; <a href="usuarioSeleccionado.jsp?dni=<%= user.getDniUsuario() %>">Ver</a> &nbsp;&nbsp;&nbsp;&nbsp; <a href="gestionarUsuario.jsp?dni=<%= user.getDniUsuario() %>">Editar</a></div>
-        </div>
+        <tr>
+            <td ><%= user.getNombre() %> </td>
+            <td><%= user.getNumCuenta() %> </td>
+            <td><%= user.getTrolIdtrol().getIdtrol() %></td>
+            <td><a href="${pageContext.request.contextPath}/ServletGestionarUsuario?dni=<%= user.getDniUsuario() %>">Ver</a> </td>
+            <td><a href="${pageContext.request.contextPath}/ServletGestionarUsuario?dni=<%= user.getDniUsuario() %>">Editar</a></td>
+        </tr>
         
         <% } %>
-        
+        </table>
         <br>
         <br>
         <form action="/StoneBank-war/alta.jsp">
@@ -49,8 +55,8 @@
         </form>
         <br>
         <br>
-        <form action="ServletCerrarSesion.java?=<%= usuario.getDniUsuario() %>">
-            <input type="submit" value="Cerrar Sesión" />
+        <form action="${pageContext.request.contextPath}/ServletCerrarSesion">
+            <input type="submit"  value="Cerrar Sesión" />
         </form>
         
     </body>
