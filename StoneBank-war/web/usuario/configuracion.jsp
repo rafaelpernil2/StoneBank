@@ -43,7 +43,7 @@
                 </tr>
                 <tr>
                     <td>DNI: </td>
-                    <td><input type="text" name="dni" value="<%=usuario.getDniUsuario()%>"/></td>                    
+                    <td><input type="text" name="dni" value="<%=usuario.getDniUsuario()%>" readonly="readonly"/></td>                    
                 </tr>
                 <tr>
                     <td>Contraseña: </td>
