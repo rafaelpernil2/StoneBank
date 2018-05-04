@@ -30,6 +30,7 @@ import stonebank.entity.Tusuario;
  * @author Eduardo Pertierra Puche
  */
 @WebServlet(name = "usuario/ServletBusqueda", urlPatterns = {"/usuario/ServletBusqueda"})
+
 public class ServletBusqueda extends HttpServlet {
 
     @EJB
@@ -38,17 +39,17 @@ public class ServletBusqueda extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
       
-        HttpSession session = request.getSession(); 
+       HttpSession session = request.getSession(); 
        String concepto = request.getParameter("parametrobusqueda");
        Tusuario usuario =  (Tusuario) session.getAttribute("usuarioLogin"); 
        Integer dni = usuario.getDniUsuario(); 
-       request.setAttribute("dni", dni);
-       request.setAttribute("concepto", concepto);
+       String mensaje = "Busqueda por el usuario con DNI: " + dni + " con el concepto: " + concepto; 
+       request.setAttribute("mensaje", mensaje);
        List<Tmovimiento> listamov =  tmovimientoFacade.buscarMovimientoPorConceptoYDNI(concepto,dni); 
         
-       request.setAttribute("resultadoBusqueda", listamov);
+       request.setAttribute("listaMovimientos", listamov);
         //Esto deberia dispatchear a listamovimientos 
-        RequestDispatcher rd = request.getServletContext().getRequestDispatcher("/usuario/resultadoBusqueda.jsp");
+        RequestDispatcher rd = request.getServletContext().getRequestDispatcher("/usuario/historialMovimientos.jsp");
         rd.forward(request, response);
     }
 

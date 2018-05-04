@@ -11,11 +11,9 @@
 <!DOCTYPE html>
 
 <%
-    Tusuario usuario;
+    HttpSession session = request.getSession();
     List<Ttransferencia> listaTransferencias;
-    
-    usuario = (Tusuario) request.getAttribute("user");
-    listaTransferencias = usuario.getTtransferenciaList();
+    listaTransferencias = (List<Ttransferencia>) request.getAttribute("listatransferencias");
     
 %>
 <!DOCTYPE html>

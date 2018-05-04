@@ -11,7 +11,6 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import stonebank.entity.Tmovimiento;
-import static stonebank.entity.Ttransferencia_.id;
 
 /**
  *
@@ -32,6 +31,14 @@ public class TmovimientoFacade extends AbstractFacade<Tmovimiento> {
         super(Tmovimiento.class);
     }
     
+    
+    public double dineroEntrantePorMovimientos(Integer dni){
+        Query q = this.em.createQuery("select SUM(m.cantidad) from Tmovimiento m where m.tusuariodniUsuario.dniUsuario = :par");
+        q.setParameter("par", dni);
+        double total = (double) q.getSingleResult();
+        return total;
+    }
+   
     public List<Tmovimiento> buscarMovimientoPorConceptoYDNI(String concepto, Integer dni){
       
         Query q = this.em.createQuery("select m from Tmovimiento m where m.concepto like :str and m.tusuariodniUsuario.dniUsuario = :id"); 

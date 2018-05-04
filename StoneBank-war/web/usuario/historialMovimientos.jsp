@@ -9,21 +9,20 @@
 <%@page import="stonebank.entity.Tusuario"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%
-    Tusuario usuario;
-    List<Tmovimiento> listaMovimientos;
-    
-    usuario = (Tusuario) request.getAttribute("user");
+    List<Tmovimiento> listaMovimientos = (List<Tmovimiento>)request.getAttribute("listaMovimientos");
+    String mensaje = (String)request.getAttribute("mensaje"); 
+   
     
 %>
 <!DOCTYPE html>
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Movimientos de Sr <%= usuario.getApellidos() %></title>
+        <title><%= mensaje%></title>
     </head>
     <body>
         
-        <h1>Historial</h1>
+        <h1><%= mensaje %></h1>
         <table>
             <th>IDMovimiento</th>             
             <th>DNIReceptor</th>            
@@ -36,7 +35,7 @@
             %>
             <tr>
                 <td><%= movimiento.getIdtmovimiento() %></td>
-                <td><%= usuario.getDniUsuario() %></td>
+                <td><%= movimiento.getTusuariodniUsuario().getDniUsuario() %></td>
                 <td><%= movimiento.getConcepto() %></td>
                 <td><%= movimiento.getCantidad() %></td>
                 <td><%= movimiento.getIbanEntidad() %></td>

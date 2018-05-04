@@ -7,9 +7,10 @@
 <%@page import="stonebank.entity.Tusuario"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%
+    
   Tusuario usuario;
 
-  usuario = (Tusuario) request.getAttribute("user");
+  usuario = (Tusuario) session.getAttribute("usuarioLogin");
     
 %>
 <!DOCTYPE html>
@@ -42,11 +43,7 @@
                     <td>Concepto:</td>
                     <td><input type="text" name="concepto" /></td>
                 </tr>
-                                
-                <tr>
-                    <td>fecha:</td>
-                    <td><input type="text" name="cantidad" value="AA/MM/DD" /></td>
-                </tr>
+
             </table>
             <br>
             <input type="submit" value="Hacer transferencia"/>
