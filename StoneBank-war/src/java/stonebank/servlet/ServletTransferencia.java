@@ -10,6 +10,7 @@ import java.util.Locale;
 import javax.ejb.EJB;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -24,6 +25,8 @@ import stonebank.entity.Tusuario;
  *
  * @author JesusContreras
  */
+
+@WebServlet(name = "usuario/ServletTransferencia", urlPatterns = {"/usuario/ServletTransferencia"})
 public class ServletTransferencia extends HttpServlet {
 
     @EJB
@@ -37,7 +40,7 @@ public class ServletTransferencia extends HttpServlet {
           
     
 
-     
+
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
@@ -60,7 +63,7 @@ public class ServletTransferencia extends HttpServlet {
         cantidad = Double.parseDouble(request.getParameter("cantidad"));
         concepto = request.getParameter("concepto");
         
-        
+        System.out.println(dniReceptor);
         
         /*
         *Compruebo que el dniEmisor puede realizar la transferencia, para ello sumo todos los movimientos 

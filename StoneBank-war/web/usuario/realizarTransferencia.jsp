@@ -10,7 +10,7 @@
     
   Tusuario usuario;
 
-  usuario = (Tusuario) request.getAttribute("usuarioLogin");
+  usuario = (Tusuario) session.getAttribute("usuarioLogin");
     
 %>
 <!DOCTYPE html>

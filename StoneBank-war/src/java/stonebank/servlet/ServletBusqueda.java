@@ -29,7 +29,6 @@ import stonebank.entity.Tusuario;
  *
  * @author Eduardo Pertierra Puche
  */
-@WebServlet(name = "usuario/ServletBusqueda", urlPatterns = {"/usuario/ServletBusqueda"})
 public class ServletBusqueda extends HttpServlet {
 
     @EJB
@@ -38,7 +37,7 @@ public class ServletBusqueda extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
       
-        HttpSession session = request.getSession(); 
+       HttpSession session = request.getSession(); 
        String concepto = request.getParameter("parametrobusqueda");
        Tusuario usuario =  (Tusuario) session.getAttribute("usuarioLogin"); 
        Integer dni = usuario.getDniUsuario(); 

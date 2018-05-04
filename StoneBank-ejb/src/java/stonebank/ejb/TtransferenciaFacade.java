@@ -31,7 +31,7 @@ public class TtransferenciaFacade extends AbstractFacade<Ttransferencia> {
     }
     
     public Double dineroEntranteTransferencia(Integer dni){
-        Query q = this.em.createQuery("SELECT SUM(r.cantidad) from Ttransferencia r where r.dNIReceptor.dniUsuario =:par ");
+        Query q = this.em.createQuery("SELECT SUM(r.cantidad) from Ttransferencia r where r.dNIReceptor.dniUsuario = :par");
         q.setParameter("par", dni);
         Double total = (Double) q.getResultList().get(0);
         return total;
