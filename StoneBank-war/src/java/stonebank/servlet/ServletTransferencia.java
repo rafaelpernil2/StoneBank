@@ -1,39 +1,48 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package stonebank.servlet;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.sql.Date;
+import java.util.Date;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Locale;
+import javax.ejb.EJB;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import stonebank.ejb.TmovimientoFacade;
+import stonebank.ejb.TtransferenciaFacade;
+import stonebank.ejb.TusuarioFacade;
+import stonebank.entity.Ttransferencia;
+import stonebank.entity.Tusuario;
 
 /**
  *
- * @author rafaelpernil
+ * @author JesusContreras
  */
 public class ServletTransferencia extends HttpServlet {
 
-    /**
-     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
-     * methods.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
+    @EJB
+    private TusuarioFacade tusuarioFacade;
+
+    @EJB
+    private TmovimientoFacade tmovimientoFacade;
+
+    @EJB
+    private TtransferenciaFacade ttransferenciaFacade;
+          
+    
+
+     
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         
-        //HttpSession session = request.getSession(); ¿?
+        HttpSession session = request.getSession(); 
     
         /*
         *Coge los atributos que hay en la tabla, todos los campos son obligatorios
@@ -41,18 +50,58 @@ public class ServletTransferencia extends HttpServlet {
         int dniEmisor, dniReceptor;
         double cantidad;
         String concepto;
-        String fecha;
-        boolean ready = true;
+        
+        DateFormat formato = new SimpleDateFormat("yyyy/MM/dd HH:MM:SS",Locale.US);
+        Date fecha = new Date();
+        
+        //Tusuario emisor = (Tusuario) session.getAttribute("usuarioLogin");
+        Tusuario emisor = (Tusuario) request.getAttribute("usuarioLogin");
         
         
         dniEmisor = Integer.parseInt(request.getParameter("dniemisor"));
         dniReceptor = Integer.parseInt(request.getParameter("dnireceptor"));
         cantidad = Double.parseDouble(request.getParameter("cantidad"));
         concepto = request.getParameter("concepto");
-        fecha = request.getParameter("fecha");
         
-        //Compruebo que el dniEmisor puede realizar la transferencia
-        //Compruebo que el dniReceptor existe
+        
+        
+        /*
+        *Compruebo que el dniEmisor puede realizar la transferencia, para ello sumo todos los movimientos 
+        *y transferencias entrantes y le resto las transferencias salientes
+        */
+        double sumaMovimientos = this.tmovimientoFacade.dineroEntrantePorMovimientos(dniEmisor);
+        double sumaTransferencias = this.ttransferenciaFacade.dineroEntranteTransferencia(dniEmisor);
+        double restaTransferencias = this.ttransferenciaFacade.dineroSalienteTransferencia(dniEmisor);
+        if((sumaMovimientos + sumaTransferencias)>=(restaTransferencias + cantidad)){
+            
+            //Compruebo que el dniReceptor existe
+            Tusuario receptor;
+            receptor= this.tusuarioFacade.find(dniReceptor);{
+            
+            if(receptor!=null){
+                Ttransferencia transferencia = new Ttransferencia();
+                transferencia.setDNIEmisor(emisor);
+                transferencia.setDNIReceptor(receptor);
+                transferencia.setCantidad(cantidad);
+                transferencia.setConcepto(concepto);
+                transferencia.setFecha(fecha);
+                
+                this.ttransferenciaFacade.create(transferencia);
+                RequestDispatcher rd = this.getServletContext().getRequestDispatcher("/usuario/indexUsuario.jsp");
+                rd.forward(request, response);
+                
+            }else{
+                //lanzo error usuario no existente
+                //todavia por hacer
+            }
+        }
+            
+        }else{
+            //lanza error no tiene dinero suficiente
+            //pagina de error por hacer, todavia no hace nada
+        }
+        
+        
         
     }
 

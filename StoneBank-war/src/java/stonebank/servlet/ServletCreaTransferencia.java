@@ -4,9 +4,9 @@
  * and open the template in the editor.
  */
 package stonebank.servlet;
+
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.List;
 import javax.ejb.EJB;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -14,44 +14,36 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-import stonebank.ejb.TmovimientoFacade;
-import stonebank.entity.Tmovimiento;
-import static stonebank.entity.Tmovimiento_.concepto;
+import stonebank.ejb.TusuarioFacade;
 import stonebank.entity.Tusuario;
-
-
-
-
-
 
 /**
  *
- * @author Eduardo Pertierra Puche
+ * @author JesusContreras
  */
-@WebServlet(name = "usuario/ServletBusqueda", urlPatterns = {"/usuario/ServletBusqueda"})
-public class ServletBusqueda extends HttpServlet {
+@WebServlet(name = "usuario/ServletCreaTransferencia", urlPatterns = {"/usuario/ServletCreaTransferencia"})
+public class ServletCreaTransferencia extends HttpServlet {
 
     @EJB
-    private TmovimientoFacade tmovimientoFacade;
-    
+    private TusuarioFacade tusuarioFacade;
+
+
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-      
-        HttpSession session = request.getSession(); 
-       String concepto = request.getParameter("parametrobusqueda");
-       Tusuario usuario =  (Tusuario) session.getAttribute("usuarioLogin"); 
-       Integer dni = usuario.getDniUsuario(); 
-       String mensaje = "Busqueda por el usuario con DNI: " + dni + " con el concepto: " + concepto; 
-       request.setAttribute("mensaje", mensaje);
-       List<Tmovimiento> listamov =  tmovimientoFacade.buscarMovimientoPorConceptoYDNI(concepto,dni); 
+        response.setContentType("text/html;charset=UTF-8");
         
-       request.setAttribute("listaMovimientos", listamov);
-        //Esto deberia dispatchear a listamovimientos 
-        RequestDispatcher rd = request.getServletContext().getRequestDispatcher("/usuario/historialMovimientos.jsp");
+        Integer dni = Integer.parseInt(request.getParameter("dni"));
+        
+        Tusuario usuario;
+        
+        if(dni != null){
+            usuario = this.tusuarioFacade.find(dni);
+            request.setAttribute("usuarioLogin", usuario);
+        }
+
+        RequestDispatcher rd = this.getServletContext().getRequestDispatcher("/usuario/realizarTransferencia.jsp");
         rd.forward(request, response);
     }
-
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**

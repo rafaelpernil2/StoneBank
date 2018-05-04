@@ -31,19 +31,17 @@ public class TtransferenciaFacade extends AbstractFacade<Ttransferencia> {
     }
     
     public double dineroEntranteTransferencia(Integer dni){
-        Query q = this.em.createNativeQuery("select SUM(t.cantidad) from Ttransferencia t where t.DNIReceptor.dniUsuario = :par");
+        Query q = this.em.createNativeQuery("SELECT t.cantidad FROM Ttransferencia t WHERE t.dNIReceptor.dniUsuario = :par");
         q.setParameter("par", dni);
-        double total = (double) q.getSingleResult();
+        double total = (double) q.getResultList().get(0);
         return total;
     }
     
         public double dineroSalienteTransferencia(Integer dni){
-        Query q = this.em.createNativeQuery("SELECT t FROM Ttransferencia t WHERE t.dNIEmisor.dniUsuario = :par"); 
+        Query q = this.em.createNativeQuery("SELECT t.cantidad FROM Ttransferencia t WHERE t.dNIEmisor.dniUsuario = :par"); 
         q.setParameter("par", dni);
-        double total = (double) q.getSingleResult();
+        double total = (double) q.getResultList().get(0);
         return total;
     }
-    
-    
     
 }
