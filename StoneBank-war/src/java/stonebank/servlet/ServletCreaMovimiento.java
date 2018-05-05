@@ -7,26 +7,38 @@ package stonebank.servlet;
 
 import java.io.IOException;
 import java.sql.Date;
+import java.util.List;
 import javax.ejb.EJB;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import stonebank.ejb.TmovimientoFacade;
+import stonebank.ejb.TusuarioFacade;
 import stonebank.entity.Tmovimiento;
 import stonebank.entity.Tusuario;
 
 /**
  *
  * @author rafaelpernil
+ * @Editors Victor Garcia Kaikkonen, Jesus Contreras Herreras, Francisco Gambero Salinas, Eduardo Pertierra Puche
  */
+@WebServlet(name = "empleado/ServletCreaMovimiento", urlPatterns = {"/empleado/ServletCreaMovimiento"})
+
 public class ServletCreaMovimiento extends HttpServlet {
+
+    @EJB
+    private TusuarioFacade tusuarioFacade;
 
     @EJB
     private TmovimientoFacade tmovimientoFacade;
 
+    
+    
+    
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -40,11 +52,13 @@ public class ServletCreaMovimiento extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         boolean ready=true;
-        HttpSession session = request.getSession();
+      //  HttpSession session = request.getSession();
         
         Tmovimiento movimiento= new Tmovimiento();
-       
-        movimiento.setTusuariodniUsuario((Tusuario) session.getAttribute("usuarioLogin")); //TODO: CAMBIAR POR USUARIOSELECCIONADO
+        Integer dni = Integer.parseInt(request.getParameter("dni"));
+        Tusuario usuario =  tusuarioFacade.find(dni); 
+        request.setAttribute("usuario", usuario);
+        movimiento.setTusuariodniUsuario(usuario);
         movimiento.setConcepto(request.getParameter("concepto"));
         movimiento.setFecha(new java.util.Date());
         movimiento.setIbanEntidad(request.getParameter("iban"));
@@ -53,7 +67,7 @@ public class ServletCreaMovimiento extends HttpServlet {
         
         if (ready){
             tmovimientoFacade.create(movimiento);
-            RequestDispatcher rd = this.getServletContext().getRequestDispatcher("/empleado/gestionarUsuario.jsp");
+            RequestDispatcher rd = this.getServletContext().getRequestDispatcher("/empleado/ServletVerUsuario");
             rd.forward(request, response);
         }
     }

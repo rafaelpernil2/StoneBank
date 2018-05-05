@@ -23,7 +23,7 @@
         <h1>Usuarios</h1> <%-- Falta poner el nombre del usuario en cuestión --%>
         <h2>&Uacute;ltimas Transacciones</h2>
         
-        <form action="${pageContext.request.contextPath}/ServletBuscarUsuarioEmpleado">
+        <form action="ServletBuscarUsuarioEmpleado">
             Nombre: <input type="text" name="nombre" value="">
             <input type="submit" value="Buscar">
         </form>
@@ -42,8 +42,8 @@
             <td ><%= user.getNombre() %> </td>
             <td><%= user.getNumCuenta() %> </td>
             <td><%= user.getTrolIdtrol().getIdtrol() %></td>
-            <td><a href="${pageContext.request.contextPath}/ServletGestionarUsuario?dni=<%= user.getDniUsuario() %>">Ver</a> </td>
-            <td><a href="${pageContext.request.contextPath}/ServletGestionarUsuario?dni=<%= user.getDniUsuario() %>">Editar</a></td>
+           <td><a href="ServletVerUsuario?dni=<%= user.getDniUsuario() %>">Ver</a> </td>
+           <td><a href="ServletGestionarUsuario?dni=<%= user.getDniUsuario() %>">Editar</a></td> 
         </tr>
         
         <% } %>

@@ -7,6 +7,10 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
+    
+    <% 
+    String dni = request.getParameter("dni");
+    %>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Crear Movimiento</title>
@@ -14,7 +18,8 @@
     <body>
         <div align="center">
         <h1>Crear nuevo movimiento</h1>
-        <form action="${pageContext.request.contextPath}/ServletCreaMovimiento" method="post">
+        <h2><%= dni %></h2>
+        <form action="ServletCreaMovimiento" method="post">
             <table>
                 <tr>
                     <td>Concepto: </td>
@@ -31,6 +36,7 @@
                 
             </table>
             <br>
+            <input type ="text" value ="<%= dni %>" hidden ="dni" name ="dni" /> 
             <input type="submit" value="Crear Movimiento" />
         </form>
         </div>
