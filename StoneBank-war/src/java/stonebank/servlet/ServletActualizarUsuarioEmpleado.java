@@ -25,7 +25,7 @@ import stonebank.entity.Tusuario;
  * @author Jesús Contreras y Fran Gambero
  */
 @WebServlet(name = "ServletActualizarUsuario", urlPatterns = {"/ServletActualizarUsuario"})
-public class ServletActualizarUsuario extends HttpServlet {
+public class ServletActualizarUsuarioEmpleado extends HttpServlet {
 
     @EJB
     private TusuarioFacade tusuarioFacade;
@@ -93,7 +93,7 @@ public class ServletActualizarUsuario extends HttpServlet {
         session.setAttribute("listaUsuarios", listaUsuarios); //antes request
         session.setAttribute("usuarioLogin", usuario);
         request.setAttribute("mensajeExito", "¡Usuario MODIFICADO con éxito!");
-        request.setAttribute("proximaURL", "indexUsuario.jsp"); //Atención, envia sin / inicial
+        request.setAttribute("proximaURL", "empleado/indexEmpleado.jsp"); //Atención, envia sin / inicial
         RequestDispatcher rd = this.getServletContext().getRequestDispatcher("/exito.jsp");
         rd.forward(request, response);        
    
@@ -114,7 +114,7 @@ public class ServletActualizarUsuario extends HttpServlet {
         try {
             processRequest(request, response);
         } catch (NoSuchAlgorithmException ex) {
-            Logger.getLogger(ServletActualizarUsuario.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ServletActualizarUsuarioEmpleado.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -132,7 +132,7 @@ public class ServletActualizarUsuario extends HttpServlet {
         try {
             processRequest(request, response);
         } catch (NoSuchAlgorithmException ex) {
-            Logger.getLogger(ServletActualizarUsuario.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ServletActualizarUsuarioEmpleado.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
