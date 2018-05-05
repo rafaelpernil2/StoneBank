@@ -87,12 +87,12 @@ public class ServletActualizarUsuario extends HttpServlet {
         usuario.setEmail(email);
         usuario.setDomicilio(domicilio);
         
-        //request.setAttribute("usuarioLogin", usuario);
         this.tusuarioFacade.edit(usuario); //Actualiza en BD
         session.setAttribute("usuarioLogin", usuario);
-        RequestDispatcher rd = this.getServletContext().getRequestDispatcher("/usuario/indexUsuario.jsp");
-        rd.forward(request, response);
-        
+        request.setAttribute("mensajeExito", "¡Usuario MODIFICADO con éxito!");
+        request.setAttribute("proximaURL", "indexUsuario.jsp"); //Atención, envia sin / inicial
+        RequestDispatcher rd = this.getServletContext().getRequestDispatcher("/exito.jsp");
+        rd.forward(request, response);        
    
     }
 

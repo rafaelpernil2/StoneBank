@@ -12,6 +12,7 @@
     //A lo mejor hay que usar session en lugar de request
     //usuario.getTmovimientoList()
      List<Tmovimiento> sublista;
+     Double saldo = (Double)session.getAttribute("saldoUsuario");
     if(usuario.getTmovimientoList().size() > 2){
     sublista = (usuario.getTmovimientoList().subList(0, 2));
     //Sublista empieza en 0
@@ -24,7 +25,6 @@
         }
         
     }
-    //TusuarioFacade tusuariofacade;
 %>
 
 <html>
@@ -35,6 +35,8 @@
     <body>
         <h1>¡Bienvenido/a  <%= usuario.getNombre() %> <%= usuario.getApellidos() %>!</h1>
         <hr>
+        
+        <p> <%= saldo  %></p>
         
         <div class = "padre" style="width:100%">
             
@@ -68,7 +70,7 @@
             </table>
             
             <br>
-            <a href="ServletListaMovimientos" >Ver todas las transacciones</a>
+            <a href="ServletListaMovimientos" >Ver todos los movimientos</a>
           </div>
             
           <div class="subdiv-derecho" style="width:40%;display:inline-table;">
@@ -83,6 +85,8 @@
         </div>
               <br><br>
               
-        <a href="EditarUsuario?dni=<%= usuario.getDniUsuario() %>">Configuracion</a>
+        <a href="EditarUsuario?dni=<%= usuario.getDniUsuario() %>">Configuración</a>
+        <br>
+        <a href="CerrarSesion">Cerrar sesión</a>
     </body>
 </html>

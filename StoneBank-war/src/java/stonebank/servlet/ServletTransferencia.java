@@ -23,7 +23,7 @@ import stonebank.entity.Tusuario;
 
 /**
  *
- * @author JesusContreras
+ * @author Jesus Contreras
  */
 
 @WebServlet(name = "usuario/ServletTransferencia", urlPatterns = {"/usuario/ServletTransferencia"})
@@ -104,7 +104,34 @@ public class ServletTransferencia extends HttpServlet {
                 transferencia.setFecha(fecha);
                 
                 this.ttransferenciaFacade.create(transferencia);
-                RequestDispatcher rd = this.getServletContext().getRequestDispatcher("/usuario/indexUsuario.jsp");
+                
+        Double sumaMovimientosAfter = this.tmovimientoFacade.dineroEntrantePorMovimientos(emisor.getDniUsuario());
+        Double sumaTransferenciasAfter = this.ttransferenciaFacade.dineroEntranteTransferencia(emisor.getDniUsuario());
+        Double restaTransferenciasAfter = this.ttransferenciaFacade.dineroSalienteTransferencia(emisor.getDniUsuario());
+        
+        if(sumaMovimientosAfter==null){
+            sumaMovimientosAfter = 0.0;
+        }
+        if(sumaTransferenciasAfter==null){
+            sumaTransferenciasAfter = 0.0;
+        }
+        if(restaTransferenciasAfter==null){
+            restaTransferenciasAfter = 0.0;
+        }
+        if(cantidad<=0){
+            //lanza error
+        }
+        
+        
+                Double saldoAfter = sumaMovimientosAfter + sumaTransferenciasAfter - restaTransferenciasAfter;
+                session.setAttribute("saldoUsuario", saldoAfter);
+                
+                
+                request.setAttribute("mensajeExito", "¡Transferencia creada con éxito!");
+                //request.setAttribute("saldo",saldo);
+                request.setAttribute("proximaURL", "indexUsuario.jsp"); //Atención, envia sin / inicial
+                //RequestDispatcher rd = this.getServletContext().getRequestDispatcher("/login.jsp");
+                RequestDispatcher rd = this.getServletContext().getRequestDispatcher("/exito.jsp");
                 rd.forward(request, response);
                 
             }else{

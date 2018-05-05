@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package stonebank.servlet;
 
 import java.io.IOException;
@@ -21,6 +17,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import stonebank.ejb.TmovimientoFacade;
+import stonebank.ejb.TtransferenciaFacade;
 import stonebank.ejb.TusuarioFacade;
 import stonebank.entity.Trol;
 import stonebank.entity.Tusuario;
@@ -33,6 +31,12 @@ public class ServletLogin extends HttpServlet {
 
     @EJB
     private TusuarioFacade tusuarioFacade; 
+
+    @EJB
+    private TmovimientoFacade tmovimientoFacade;
+
+    @EJB
+    private TtransferenciaFacade ttransferenciaFacade;
     
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException, NoSuchAlgorithmException {
@@ -53,6 +57,7 @@ public class ServletLogin extends HttpServlet {
         
         usuario = this.tusuarioFacade.find(userDNI);
         
+        
         //SHA-256 HASH
         MessageDigest msgdgst = MessageDigest.getInstance("SHA-256");
         byte[] encodedhash = msgdgst.digest(password.getBytes(StandardCharsets.UTF_8));
@@ -65,12 +70,30 @@ public class ServletLogin extends HttpServlet {
             hexString.append(hex);
         }
         //
-        
-        request.setAttribute("usuarioLogin", usuario);
-        
+                
         if(usuario.getHashContrasena().equals(hexString.toString())){
             //Usuario existe y tiene contraseña valida
             //Comparamos rol para ver si iniciamos en Usuario o Empleado
+            
+        Double sumaMovimientos = this.tmovimientoFacade.dineroEntrantePorMovimientos(usuario.getDniUsuario());
+        Double sumaTransferencias = this.ttransferenciaFacade.dineroEntranteTransferencia(usuario.getDniUsuario());
+        Double restaTransferencias = this.ttransferenciaFacade.dineroSalienteTransferencia(usuario.getDniUsuario());
+        
+        //si no se han hecho transferencias se pone
+
+        if(sumaMovimientos==null){
+            sumaMovimientos = 0.0;
+        }
+        if(sumaTransferencias==null){
+            sumaTransferencias = 0.0;
+        }
+        if(restaTransferencias==null){
+            restaTransferencias = 0.0;
+        }
+        
+        Double saldo = sumaMovimientos + sumaTransferencias - restaTransferencias;
+        session.setAttribute("saldoUsuario", saldo);
+            
             if(usuario.getTrolIdtrol().equals(rolEmpleado)){
 
                //request.setAttribute("empleadoLogin", usuario);
@@ -82,8 +105,7 @@ public class ServletLogin extends HttpServlet {
             }else if (usuario.getTrolIdtrol().equals(rolUsuario)){
                 
                session.setAttribute("usuarioLogin", usuario);
-               //RequestDispatcher rd = this.getServletContext().getRequestDispatcher("/usuario/indexUsuario.jsp");
-               //rd.forward(request, response);
+               
                response.sendRedirect("usuario/indexUsuario.jsp");
             } 
             //Falta por añadir jsp Error para controlar mejor
