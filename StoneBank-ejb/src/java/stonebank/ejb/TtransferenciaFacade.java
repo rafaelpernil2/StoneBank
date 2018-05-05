@@ -13,7 +13,7 @@ import stonebank.entity.Ttransferencia;
 
 /**
  *
- * @author rafaelpernil
+ * @author Jesús Contreras
  */
 @Stateless
 public class TtransferenciaFacade extends AbstractFacade<Ttransferencia> {
