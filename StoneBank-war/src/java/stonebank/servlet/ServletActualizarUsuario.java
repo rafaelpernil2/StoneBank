@@ -93,7 +93,7 @@ public class ServletActualizarUsuario extends HttpServlet {
         session.setAttribute("listaUsuarios", listaUsuarios); //antes request
         session.setAttribute("usuarioLogin", usuario);
         request.setAttribute("mensajeExito", "¡Usuario MODIFICADO con éxito!");
-        request.setAttribute("proximaURL", "indexUsuario.jsp"); //Atención, envia sin / inicial
+        request.setAttribute("proximaURL", "usuario/indexUsuario.jsp"); //Atención, envia sin / inicial
         RequestDispatcher rd = this.getServletContext().getRequestDispatcher("/exito.jsp");
         rd.forward(request, response);        
    
