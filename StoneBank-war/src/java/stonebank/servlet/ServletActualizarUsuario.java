@@ -32,7 +32,7 @@ public class ServletActualizarUsuario extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException, NoSuchAlgorithmException {
         
-        HttpSession session = request.getSession();
+        HttpSession session = request.getSession(); 
         
         String nombre, apellido, contrasena, email, domicilio;
         int dni,telefono;
@@ -46,10 +46,9 @@ public class ServletActualizarUsuario extends HttpServlet {
         email = request.getParameter("email");
         domicilio = request.getParameter("domicilio");
         
-        
         usuario = (Tusuario) this.tusuarioFacade.find(dni);
         
-                //SHA-256 HASH
+                //SHA-256 HASH, esto lo movería a un .utils :) 
         MessageDigest msgdgst = MessageDigest.getInstance("SHA-256");
         byte[] encodedhash = msgdgst.digest(contrasena.getBytes(StandardCharsets.UTF_8));
         

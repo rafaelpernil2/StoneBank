@@ -1,3 +1,4 @@
+<%@page import="java.util.ArrayList"%>
 <%@page import="stonebank.ejb.TusuarioFacade"%>
 <%@page import="stonebank.entity.Tmovimiento"%>
 <%@page import="java.util.List"%>
@@ -10,9 +11,19 @@
     List<Tusuario> listaUsuarios = (List<Tusuario>)session.getAttribute("listaUsuarios");
     //A lo mejor hay que usar session en lugar de request
     //usuario.getTmovimientoList()
-    List<Tmovimiento> sublista = (usuario.getTmovimientoList().subList(0, 2));
+     List<Tmovimiento> sublista;
+    if(usuario.getTmovimientoList().size() > 2){
+    sublista = (usuario.getTmovimientoList().subList(0, 2));
     //Sublista empieza en 0
-    
+
+    }    else {
+        
+        sublista = new ArrayList<Tmovimiento>(); 
+        for(Tmovimiento m : usuario.getTmovimientoList()){
+            sublista.add(m); 
+        }
+        
+    }
     //TusuarioFacade tusuariofacade;
 %>
 
@@ -63,14 +74,11 @@
           <div class="subdiv-derecho" style="width:40%;display:inline-table;">
               <h3>Buscador de movimientos</h3>
               <form action="ServletBusqueda" method="post">
-                    <input type="text" name="Buscador" maxlength="30" value="Concepto, nombre..."/>
+                    <input type="text" name="parametrobusqueda" maxlength="30" value="Concepto, nombre..."/>
                     <input type="submit" value="Buscar" />              
               </form>
               <br><br>
-              <%--<a href="/usuario/realizarTransferencia.jsp">Realizar transferecia</a> --%>
-              <form action="/usuario/realizarTransferencia.jsp">
-                   <input type="submit" value="Realizar transferencia" />
-              </form>
+              <a href="ServletCreaTransferencia?dni=<%= usuario.getDniUsuario() %>"> Realizar transferecia</a>
           </div>
         </div>
               <br><br>
