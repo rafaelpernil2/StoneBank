@@ -87,6 +87,6 @@
               
         <a href="EditarUsuario?dni=<%= usuario.getDniUsuario() %>">Configuración</a>
         <br>
-        <a href="CerrarSesion">Cerrar sesión</a>
+        <a href="${pageContext.request.contextPath}/ServletCerrarSesion">Cerrar sesión</a>
     </body>
 </html>

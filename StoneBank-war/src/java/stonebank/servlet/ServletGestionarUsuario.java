@@ -6,7 +6,8 @@
 package stonebank.servlet;
 
 import java.io.IOException;
-import java.sql.Date;
+import java.io.PrintWriter;
+import static java.lang.System.out;
 import javax.ejb.EJB;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -14,18 +15,17 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import stonebank.ejb.TmovimientoFacade;
-import stonebank.entity.Tmovimiento;
+import stonebank.ejb.TusuarioFacade;
 import stonebank.entity.Tusuario;
 
 /**
  *
  * @author rafaelpernil
  */
-public class ServletCreaMovimiento extends HttpServlet {
+public class ServletGestionarUsuario extends HttpServlet {
 
     @EJB
-    private TmovimientoFacade tmovimientoFacade;
+    private TusuarioFacade tusuarioFacade;
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -39,23 +39,14 @@ public class ServletCreaMovimiento extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        boolean ready=true;
         HttpSession session = request.getSession();
         
-        Tmovimiento movimiento= new Tmovimiento();
+        int dni = Integer.parseInt(request.getParameter("dni"));
        
-        movimiento.setTusuariodniUsuario((Tusuario) session.getAttribute("usuarioLogin")); //TODO: CAMBIAR POR USUARIOSELECCIONADO
-        movimiento.setConcepto(request.getParameter("concepto"));
-        movimiento.setFecha(new java.util.Date());
-        movimiento.setIbanEntidad(request.getParameter("iban"));
-        movimiento.setCantidad(Double.parseDouble(request.getParameter("cantidad")));
-       
-        
-        if (ready){
-            tmovimientoFacade.create(movimiento);
-            RequestDispatcher rd = this.getServletContext().getRequestDispatcher("/empleado/gestionarUsuario.jsp");
-            rd.forward(request, response);
-        }
+        //Tusuario u = tusuarioFacade.find(2);
+        request.setAttribute("usuarioSeleccionado", tusuarioFacade.find(dni));
+        RequestDispatcher rd = this.getServletContext().getRequestDispatcher("/empleado/gestionarUsuario.jsp");
+        rd.forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

@@ -5,9 +5,11 @@
  */
 package stonebank.ejb;
 
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 import stonebank.entity.Tusuario;
 
 /**
@@ -28,5 +30,10 @@ public class TusuarioFacade extends AbstractFacade<Tusuario> {
     public TusuarioFacade() {
         super(Tusuario.class);
     }
-    
+    public List<Tusuario> buscarTUsuarioPorNombre(String nombre){
+        
+     Query q = em.createNamedQuery("Tusuario.findByNombre");
+     return q.setParameter("nombre", nombre).getResultList();
+           
+    }
 }
