@@ -7,6 +7,7 @@ package stonebank.servlet;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.List;
 import javax.ejb.EJB;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -14,6 +15,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import stonebank.ejb.TusuarioFacade;
 import stonebank.entity.Tusuario;
 
@@ -21,7 +23,7 @@ import stonebank.entity.Tusuario;
  *
  * @author Jesús Contreras y Fran Gambero
  */
-@WebServlet(name = "ServletEditarUsuario", urlPatterns = {"/usuario/EditarUsuario"})
+@WebServlet(name = "ServletEditarUsuario", urlPatterns = {"/EditarUsuario"})
 public class ServletEditarUsuario extends HttpServlet {
 
     @EJB
@@ -32,7 +34,7 @@ public class ServletEditarUsuario extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         //response.setContentType("text/html;charset=UTF-8");
-        
+        HttpSession session = request.getSession();
         int dni= Integer.parseInt(request.getParameter("dni"));
         
         Tusuario usuario;
@@ -41,7 +43,8 @@ public class ServletEditarUsuario extends HttpServlet {
             usuario = this.tusuarioFacade.find(dni);
             request.setAttribute("usuario", usuario);
         //}
-        
+        List<Tusuario> listaUsuarios = this.tusuarioFacade.findAll();
+        session.setAttribute("listaUsuarios", listaUsuarios); //antes request
         RequestDispatcher rd = this.getServletContext().getRequestDispatcher("/usuario/configuracion.jsp");
         rd.forward(request, response);
         
