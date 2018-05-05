@@ -35,7 +35,10 @@ public class TmovimientoFacade extends AbstractFacade<Tmovimiento> {
     public double dineroEntrantePorMovimientos(Integer dni){
         Query q = this.em.createQuery("select SUM(m.cantidad) from Tmovimiento m where m.tusuariodniUsuario.dniUsuario = :par");
         q.setParameter("par", dni);
-        double total = (double) q.getSingleResult();
+        double total = 0.0; 
+        Double res = (Double) q.getSingleResult();
+        if(res != null){total = res;}
+        
         return total;
     }
    

@@ -30,7 +30,7 @@
                 </tr>
                 <tr>
                     <td>Contraseña: </td>
-                    <td><input type="text" name="contrasena"/></td>                    
+                    <td><input type="password" name="contrasena"/></td>                    
                 </tr>
                 <tr>
                     <td>Telefono: </td>
