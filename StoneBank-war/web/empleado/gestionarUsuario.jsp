@@ -14,6 +14,7 @@
     String nombre, apellido, email, domicilio;
     
     usuario=(Tusuario) request.getAttribute("usuarioSeleccionado");
+    
     if(usuario !=null){
         dni=usuario.getDniUsuario();
         nombre=usuario.getNombre();
@@ -33,6 +34,7 @@
            <div align="center">
         <h1>Datos usuario</h1>
         <form action="ServletActualizaEmpleado" method="post">
+
             <table>
                 <tr>
                     <td>Nombre: </td>
@@ -69,6 +71,10 @@
             <br>
             <input type="submit" value="Editar usuario" />
         </form>
+                <form action="${pageContext.request.contextPath}/ServletEliminaUsuario" method="post">
+                    <input type="hidden" name="dni" value="<%=usuario.getDniUsuario()%>"/>
+                    <input type="submit" value="Eliminar usuario" />
+                </form>        
                 <p> Es necesario introducir la contraseña para aplicar cambios</p>
         </div>
     </body>

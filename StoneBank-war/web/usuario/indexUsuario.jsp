@@ -85,7 +85,7 @@
         </div>
               <br><br>
               
-        <a href="EditarUsuario?dni=<%= usuario.getDniUsuario() %>">Configuración</a>
+        <a href="${pageContext.request.contextPath}/EditarUsuario?dni=<%= usuario.getDniUsuario() %>">Configuración</a>
         <br>
         <a href="${pageContext.request.contextPath}/ServletCerrarSesion">Cerrar sesión</a>
     </body>

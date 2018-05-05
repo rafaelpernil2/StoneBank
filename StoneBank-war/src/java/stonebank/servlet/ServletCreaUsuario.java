@@ -118,6 +118,8 @@ public class ServletCreaUsuario extends HttpServlet {
             HttpSession session = request.getSession(); 
             Tusuario empleado = (Tusuario) session.getAttribute("empleadoLogin"); 
             this.tusuarioFacade.create(usuario);
+            List<Tusuario> listaUsuarios = this.tusuarioFacade.findAll();
+            session.setAttribute("listaUsuarios", listaUsuarios); //antes request
             request.setAttribute("usuarioCreado", usuario);//Creado para el alta.jsp
             request.setAttribute("mensajeExito", "¡Usuario creado con éxito!");
             if(empleado == null){
