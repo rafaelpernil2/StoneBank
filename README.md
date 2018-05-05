@@ -8,17 +8,19 @@ aceptar, modificar o eliminar a los clientes.
 Funcionalidades actuales:
   - Login
   - Creación de usuarios
+  - indexUsuario con saldo, últimos movimientos, configuración...
+  - Buscador de movimientos
+  - Realizar transferencias a otros clientes
 
 Próximamente:
-  - Buscador de movimientos
-  - Vistas de pantalla principal Cliente y Empleado
-  - Vista de Transacciones
+  - vista Empleado
+  - visualización y edición de usuarios desde un empleado
 
 Herramientas utilizadas:
   - Netbeans
   - MySQL
 
 
-Última actualización de este readme: 1 de mayo de 2018
+Última actualización de este readme: 5 de mayo de 2018
 
 Por... Personas geniales
