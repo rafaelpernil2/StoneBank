@@ -19,6 +19,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import stonebank.ejb.TusuarioFacade;
 import stonebank.entity.Trol;
 import stonebank.entity.Tusuario;
@@ -114,10 +115,16 @@ public class ServletCreaUsuario extends HttpServlet {
                        
         
         if (ready){
+            HttpSession session = request.getSession(); 
+            Tusuario empleado = (Tusuario) session.getAttribute("empleadoLogin"); 
             this.tusuarioFacade.create(usuario);
             request.setAttribute("usuarioCreado", usuario);//Creado para el alta.jsp
             request.setAttribute("mensajeExito", "¡Usuario creado con éxito!");
+            if(empleado == null){
             request.setAttribute("proximaURL", "login.jsp"); //Atención, envia sin / inicial
+            } else {
+                 request.setAttribute("proximaURL", "empleado/indexEmpleado.jsp");
+            }
             //RequestDispatcher rd = this.getServletContext().getRequestDispatcher("/login.jsp");
             RequestDispatcher rd = this.getServletContext().getRequestDispatcher("/exito.jsp");
             rd.forward(request, response);
