@@ -36,7 +36,7 @@
         <h1>¡Bienvenido/a  <%= usuario.getNombre() %> <%= usuario.getApellidos() %>!</h1>
         <hr>
         
-        <p> <%= saldo  %></p>
+        <p>Saldo actual: <%= saldo  %> euros.</p>
         
         <div class = "padre" style="width:100%">
             

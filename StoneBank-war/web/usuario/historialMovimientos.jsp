@@ -21,6 +21,11 @@
         <title><%= mensaje%></title>
     </head>
     <body>
+        <div align="left">
+            <form action="indexUsuario.jsp">
+                <input type="submit" value="<<< Volver atrás" />
+            </form>
+        </div>
         
         <h1><%= mensaje %></h1>
         <table>

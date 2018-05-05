@@ -20,6 +20,11 @@
         <title>Realizar Transferencia</title>
     </head>
     <body>
+        <div align="left">
+            <form action="indexUsuario.jsp">
+                <input type="submit" value="<<< Volver atrás" />
+            </form>
+        </div>
         <div align="center">
         <h1>Datos transferencia</h1>
         <form action="ServletTransferencia" method="post">

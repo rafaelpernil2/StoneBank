@@ -12,6 +12,12 @@
         <title>Alta Cliente</title>
     </head>
     <body>
+        <div align="left">
+            <form action="login.jsp">
+                <input type="submit" value="<<< Volver atrás" />
+            </form>
+        </div>        
+        
         <div align="center">
         <h1>Crear nuevo cliente</h1>
         <form action="ServletCreaUsuario" method="post">
