@@ -8,6 +8,7 @@ package stonebank.entity;
 import java.io.Serializable;
 import java.util.List;
 import javax.persistence.Basic;
+import javax.persistence.Cacheable;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -35,6 +36,8 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Trol.findAll", query = "SELECT t FROM Trol t")
     , @NamedQuery(name = "Trol.findByIdtrol", query = "SELECT t FROM Trol t WHERE t.idtrol = :idtrol")
     , @NamedQuery(name = "Trol.findByNombre", query = "SELECT t FROM Trol t WHERE t.nombre = :nombre")})
+
+@Cacheable(false)
 public class Trol implements Serializable {
 
     private static final long serialVersionUID = 1L;

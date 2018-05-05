@@ -48,7 +48,7 @@ public class ServletEliminaUsuario extends HttpServlet {
             usuario = this.tusuarioFacade.find(dni);
             tusuarioFacade.remove(usuario);
         //}
-        List<Tusuario> listaUsuarios = this.tusuarioFacade.findAll();
+         List<Tusuario> listaUsuarios = this.tusuarioFacade.findAll();
         session.setAttribute("listaUsuarios", listaUsuarios); //antes request
         RequestDispatcher rd = this.getServletContext().getRequestDispatcher("/empleado/indexEmpleado.jsp");
         rd.forward(request, response);

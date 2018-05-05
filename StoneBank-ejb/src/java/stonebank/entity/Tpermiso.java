@@ -8,6 +8,7 @@ package stonebank.entity;
 import java.io.Serializable;
 import java.util.List;
 import javax.persistence.Basic;
+import javax.persistence.Cacheable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -35,6 +36,7 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Tpermiso.findAll", query = "SELECT t FROM Tpermiso t")
     , @NamedQuery(name = "Tpermiso.findByIdtpermiso", query = "SELECT t FROM Tpermiso t WHERE t.idtpermiso = :idtpermiso")
     , @NamedQuery(name = "Tpermiso.findByNombre", query = "SELECT t FROM Tpermiso t WHERE t.nombre = :nombre")})
+@Cacheable(false)
 public class Tpermiso implements Serializable {
 
     private static final long serialVersionUID = 1L;

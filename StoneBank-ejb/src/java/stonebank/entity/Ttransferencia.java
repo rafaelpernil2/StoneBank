@@ -8,6 +8,7 @@ package stonebank.entity;
 import java.io.Serializable;
 import java.util.Date;
 import javax.persistence.Basic;
+import javax.persistence.Cacheable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -37,6 +38,7 @@ import javax.xml.bind.annotation.XmlRootElement;
     , @NamedQuery(name = "Ttransferencia.findByCantidad", query = "SELECT t FROM Ttransferencia t WHERE t.cantidad = :cantidad")
     , @NamedQuery(name = "Ttransferencia.findByConcepto", query = "SELECT t FROM Ttransferencia t WHERE t.concepto = :concepto")
     , @NamedQuery(name = "Ttransferencia.findByFecha", query = "SELECT t FROM Ttransferencia t WHERE t.fecha = :fecha")})
+@Cacheable(false)
 public class Ttransferencia implements Serializable {
 
     private static final long serialVersionUID = 1L;

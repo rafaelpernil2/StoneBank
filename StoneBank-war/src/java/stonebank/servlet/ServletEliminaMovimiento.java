@@ -36,11 +36,14 @@ public class ServletEliminaMovimiento extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        int idMovimiento =Integer.parseInt(request.getParameter("idmov"));
+        int idMovimiento =Integer.parseInt(request.getParameter("idm"));
+        int dni = Integer.parseInt(request.getParameter("dni"));
         Tmovimiento m = tmovimientoFacade.find(idMovimiento);
-        if (m!=null)
+        
         tmovimientoFacade.remove(m);
-        RequestDispatcher rd = this.getServletContext().getRequestDispatcher("/empleado/usuarioSeleccionado.jsp");
+       
+        request.setAttribute("dni", dni);
+        RequestDispatcher rd = this.getServletContext().getRequestDispatcher("/ServletVerUsuario");
         rd.forward(request,response);
     }
 

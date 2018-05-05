@@ -4,6 +4,7 @@
     Author     : JesusContreras
 --%>
 
+<%@page import="java.util.ArrayList"%>
 <%@page import="stonebank.entity.Tusuario"%>
 <%@page import="stonebank.entity.Ttransferencia"%>
 <%@page import="stonebank.entity.Tmovimiento"%>
@@ -11,9 +12,9 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 
 <%
-    List<Tmovimiento> listaMovimientos;  
-    List<Ttransferencia> listaTransferencias;
-    Tusuario usuario =(Tusuario) request.getAttribute("usuario"); 
+    List<Tmovimiento> listaMovimientos = (List<Tmovimiento>) request.getAttribute("listaMov");  
+    List<Ttransferencia> listaTransferencias = (List<Ttransferencia>) request.getAttribute("listaTrans");
+    Tusuario usuario =(Tusuario) request.getAttribute("usuarioVer");
     listaMovimientos = usuario.getTmovimientoList();
     listaTransferencias = usuario.getTtransferenciaList();
     
@@ -54,13 +55,15 @@
                     <td><input type="text" name="domicilio" value="<%= usuario.getDomicilio() %>" readonly="readonly"/></td>                    
                 </tr>
             </table>
-                <table>
+        <table>
+            <tr>
             <th>IDMovimiento</th>             
             <th>DNIReceptor</th>            
             <th>Concepto</th>               
             <th>Cantidad</th>                          
             <th>ibanEntidad</th>               
-            <th>Fecha</th>                
+            <th>Fecha</th> 
+            </tr>
             <%
               for (Tmovimiento movimiento : listaMovimientos){  
             %>
@@ -71,6 +74,11 @@
                 <td><%= movimiento.getCantidad() %></td>
                 <td><%= movimiento.getIbanEntidad() %></td>
                 <td><%= movimiento.getFecha() %></td>
+                        <td><form method="post" action="${pageContext.request.contextPath}/empleado/confirmarEliminarMovimiento.jsp">
+                                <input type="hidden" name="idmov" value="<%=movimiento.getIdtmovimiento() %>" />
+                                <input type="hidden" name="dni" value="<%=usuario.getDniUsuario()%>" />
+                                       <input type="submit" value="Eliminar movimiento" />
+                    </form>
             </tr>
             
             <%
@@ -78,7 +86,11 @@
             %>
            
                 </table>
-            <a href="nuevoMovimiento.jsp?dni=<%=usuario.getDniUsuario()%>"> Crear Nuevo Movimiento </a> 
+            <form action="${pageContext.request.contextPath}/empleado/nuevoMovimiento.jsp" method="post">
+                <input type="submit" value="Crear Nuevo Movimiento" />
+                <input type="hidden" name="dni" value="<%=usuario.getDniUsuario()%>"/>
+            </form>
+            
                 
                     <h1>Historial Transferencia</h1>
         <table>

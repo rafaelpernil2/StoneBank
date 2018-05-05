@@ -5,6 +5,7 @@
  */
 package stonebank.servlet;
 
+import com.sun.org.apache.bcel.internal.generic.PushInstruction;
 import java.io.IOException;
 import java.sql.Date;
 import java.util.List;
@@ -53,11 +54,11 @@ public class ServletCreaMovimiento extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         boolean ready=true;
       //  HttpSession session = request.getSession();
-        
+        HttpSession session = request.getSession();
         Tmovimiento movimiento= new Tmovimiento();
         Integer dni = Integer.parseInt(request.getParameter("dni"));
         Tusuario usuario =  tusuarioFacade.find(dni); 
-        request.setAttribute("usuario", usuario);
+        
         movimiento.setTusuariodniUsuario(usuario);
         movimiento.setConcepto(request.getParameter("concepto"));
         movimiento.setFecha(new java.util.Date());
@@ -67,7 +68,16 @@ public class ServletCreaMovimiento extends HttpServlet {
         
         if (ready){
             tmovimientoFacade.create(movimiento);
-            RequestDispatcher rd = this.getServletContext().getRequestDispatcher("/empleado/ServletVerUsuario");
+            
+            //List<Tusuario> listaUsuarios = this.tusuarioFacade.findAll();
+            //session.setAttribute("listaUsuarios", listaUsuarios); //antes request
+            request.removeAttribute("usuario");
+            request.setAttribute("usuarioCrea", usuario);
+            List<Tusuario> listaUsuarios = this.tusuarioFacade.findAll();
+            session.removeAttribute("listaUsuarios");
+            session.setAttribute("listaUsuarios", listaUsuarios); //antes request
+            
+            RequestDispatcher rd = this.getServletContext().getRequestDispatcher("/ServletVerUsuario");
             rd.forward(request, response);
         }
     }

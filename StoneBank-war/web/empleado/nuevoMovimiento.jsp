@@ -19,7 +19,7 @@
         <div align="center">
         <h1>Crear nuevo movimiento</h1>
         <h2><%= dni %></h2>
-        <form action="ServletCreaMovimiento" method="post">
+        <form action="${pageContext.request.contextPath}/ServletCreaMovimiento" method="post">
             <table>
                 <tr>
                     <td>Concepto: </td>
@@ -36,7 +36,7 @@
                 
             </table>
             <br>
-            <input type ="text" value ="<%= dni %>" hidden ="dni" name ="dni" /> 
+            <input type ="hidden" value ="<%= dni %>"  name ="dni" /> 
             <input type="submit" value="Crear Movimiento" />
         </form>
         </div>
