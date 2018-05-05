@@ -32,7 +32,7 @@
     <body>
            <div align="center">
         <h1>Datos usuario</h1>
-        <form action="${pageContext.request.contextPath}/ServletActualizarUsuario" method="post">
+        <form action="ServletActualizaEmpleado" method="post">
             <table>
                 <tr>
                     <td>Nombre: </td>

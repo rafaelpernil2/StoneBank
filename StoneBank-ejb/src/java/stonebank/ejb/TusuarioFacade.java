@@ -33,7 +33,14 @@ public class TusuarioFacade extends AbstractFacade<Tusuario> {
     public List<Tusuario> buscarTUsuarioPorNombre(String nombre){
         
      Query q = em.createNamedQuery("Tusuario.findByNombre");
-     return q.setParameter("nombre", nombre).getResultList();
+    List<Tusuario> res; 
+     if(nombre.equals("")){
+        res = findAll(); 
+     } else {
+        res = q.setParameter("nombre", nombre).getResultList();
+     }
+     return res; 
+     
            
     }
 }
