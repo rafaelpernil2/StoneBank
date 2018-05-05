@@ -27,7 +27,7 @@ import stonebank.entity.Tusuario;
  *
  * @author JesusContreras
  */
-@WebServlet(name = "ServletActualizaEmpleado", urlPatterns = {"/empleado/ServletActualizaEmpleado"})
+@WebServlet(name = "ServletActualizaEmpleado", urlPatterns = {"/ServletActualizaEmpleado"})
 public class ServletActualizaEmpleado extends HttpServlet {
 
     @EJB
@@ -98,7 +98,7 @@ public class ServletActualizaEmpleado extends HttpServlet {
         this.tusuarioFacade.edit(usuario); //Actualiza en BD
         
         request.setAttribute("mensajeExito", "¡Usuario MODIFICADO con éxito!");
-        request.setAttribute("proximaURL", "indexEmpleado.jsp");
+        request.setAttribute("proximaURL", "empleado/indexEmpleado.jsp");
         RequestDispatcher rd = this.getServletContext().getRequestDispatcher("/exito.jsp");
         rd.forward(request, response);
 

@@ -9,6 +9,7 @@
     <class>stonebank.entity.Tusuario</class>
     <exclude-unlisted-classes>false</exclude-unlisted-classes>
     <properties>
+      <property name="eclipselink.cache.type.default" value="NONE"/>
     </properties>
   </persistence-unit>
 </persistence>

@@ -20,6 +20,7 @@ import stonebank.entity.Tusuario;
 public class TusuarioFacade extends AbstractFacade<Tusuario> {
 
     @PersistenceContext(unitName = "StoneBank-ejbPU")
+    
     private EntityManager em;
 
     @Override

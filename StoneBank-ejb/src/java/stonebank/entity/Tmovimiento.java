@@ -8,6 +8,7 @@ package stonebank.entity;
 import java.io.Serializable;
 import java.util.Date;
 import javax.persistence.Basic;
+import javax.persistence.Cacheable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -38,6 +39,7 @@ import javax.xml.bind.annotation.XmlRootElement;
     , @NamedQuery(name = "Tmovimiento.findByCantidad", query = "SELECT t FROM Tmovimiento t WHERE t.cantidad = :cantidad")
     , @NamedQuery(name = "Tmovimiento.findByIbanEntidad", query = "SELECT t FROM Tmovimiento t WHERE t.ibanEntidad = :ibanEntidad")
     , @NamedQuery(name = "Tmovimiento.findByFecha", query = "SELECT t FROM Tmovimiento t WHERE t.fecha = :fecha")})
+@Cacheable(false)
 public class Tmovimiento implements Serializable {
 
     private static final long serialVersionUID = 1L;

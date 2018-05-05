@@ -40,6 +40,10 @@
         <servlet-name>ServletGestionarUsuario</servlet-name>
         <servlet-class>stonebank.servlet.ServletGestionarUsuario</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>ServletVerUsuario</servlet-name>
+        <servlet-class>stonebank.servlet.ServletVerUsuario</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>ServletLogin</servlet-name>
         <url-pattern>/ServletLogin</url-pattern>
@@ -79,6 +83,10 @@
     <servlet-mapping>
         <servlet-name>ServletGestionarUsuario</servlet-name>
         <url-pattern>/ServletGestionarUsuario</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ServletVerUsuario</servlet-name>
+        <url-pattern>/ServletVerUsuario</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

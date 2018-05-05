@@ -8,6 +8,7 @@ package stonebank.entity;
 import java.io.Serializable;
 import java.util.List;
 import javax.persistence.Basic;
+import javax.persistence.Cacheable;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -41,6 +42,7 @@ import javax.xml.bind.annotation.XmlTransient;
     , @NamedQuery(name = "Tusuario.findByTelefono", query = "SELECT t FROM Tusuario t WHERE t.telefono = :telefono")
     , @NamedQuery(name = "Tusuario.findByEmail", query = "SELECT t FROM Tusuario t WHERE t.email = :email")
     , @NamedQuery(name = "Tusuario.findByDomicilio", query = "SELECT t FROM Tusuario t WHERE t.domicilio = :domicilio")})
+@Cacheable(false)
 public class Tusuario implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -77,14 +79,14 @@ public class Tusuario implements Serializable {
     @Size(max = 400)
     @Column(name = "domicilio")
     private String domicilio;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "dNIEmisor")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "dNIEmisor", fetch = FetchType.EAGER )
     private List<Ttransferencia> ttransferenciaList;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "dNIReceptor")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "dNIReceptor",fetch = FetchType.EAGER)
     private List<Ttransferencia> ttransferenciaList1;
     @JoinColumn(name = "trol_idtrol", referencedColumnName = "idtrol")
     @ManyToOne(optional = false)
     private Trol trolIdtrol;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "tusuariodniUsuario")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "tusuariodniUsuario", fetch = FetchType.EAGER)
     private List<Tmovimiento> tmovimientoList;
     
 

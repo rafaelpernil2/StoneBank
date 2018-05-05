@@ -42,15 +42,15 @@
             <td ><%= user.getNombre() %> </td>
             <td><%= user.getNumCuenta() %> </td>
             <td><%= user.getTrolIdtrol().getIdtrol() %></td>
-           <td><a href="ServletVerUsuario?dni=<%= user.getDniUsuario() %>">Ver</a> </td>
-           <td><a href="ServletGestionarUsuario?dni=<%= user.getDniUsuario() %>">Editar</a></td> 
+           <td><a href="${pageContext.request.contextPath}/ServletVerUsuario?dni=<%= user.getDniUsuario() %>">Ver</a> </td>
+           <td><a href="${pageContext.request.contextPath}/ServletGestionarUsuario?dni=<%= user.getDniUsuario() %>">Editar</a></td> 
         </tr>
         
         <% } %>
         </table>
         <br>
         <br>
-        <form action="/StoneBank-war/alta.jsp">
+        <form action="${pageContext.request.contextPath}/alta.jsp">
             <input type="submit" value="Dar de alta" />
         </form>
         <br>
