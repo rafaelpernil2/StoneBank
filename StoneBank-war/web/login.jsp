@@ -32,7 +32,7 @@
             
             <table width="25%">
                 <tr>
-                  <th width="23%"><label for="user">Usuario:    </label>
+                  <th width="23%"><label for="user">DNI:    </label>
                   </th>
                   <td width="87%"><input type="text" name="user">
                   </td>

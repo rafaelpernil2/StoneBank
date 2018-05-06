@@ -52,13 +52,36 @@ public class ServletLogin extends HttpServlet {
         String password;
         Tusuario usuario;
         
+        
+        if (request.getParameter("user").equalsIgnoreCase("")||request.getParameter("pass").equalsIgnoreCase("")){
+        request.setAttribute("mensaje", "Faltan datos");
+            request.setAttribute("url","/StoneBank-war/login.jsp");
+            RequestDispatcher rd = this.getServletContext().getRequestDispatcher("/error.jsp");
+            rd.forward(request, response);
+        
+        }
+        if(!request.getParameter("user").matches(".*\\d+.*")){
+         request.setAttribute("mensaje", "Introduce el DNI sin letra");
+            request.setAttribute("url","/StoneBank-war/login.jsp");
+            RequestDispatcher rd = this.getServletContext().getRequestDispatcher("/error.jsp");
+            rd.forward(request, response);
+        
+        
+        
+        }
         userDNI = Integer.parseInt(request.getParameter("user"));
         password = request.getParameter("pass");
         Trol rolEmpleado = new Trol(2);// Lo ideal sería coger los roles de la fachada
         Trol rolUsuario = new Trol(1);
         
         usuario = this.tusuarioFacade.find(userDNI);
+        if(usuario==null){
+         request.setAttribute("mensaje", "Usuario o contraseña incorrectos");
+            request.setAttribute("url","/StoneBank-war/login.jsp");
+            RequestDispatcher rd = this.getServletContext().getRequestDispatcher("/error.jsp");
+            rd.forward(request, response);
         
+        }
         
         //SHA-256 HASH
         MessageDigest msgdgst = MessageDigest.getInstance("SHA-256");
@@ -114,11 +137,11 @@ public class ServletLogin extends HttpServlet {
             } 
             //Falta por añadir jsp Error para controlar mejor
         }else{
-            request.setAttribute("mensaje", "Error, contraseña incorrecta");
+            request.setAttribute("mensaje", "Usuario o contraseña incorrectos");
             request.setAttribute("url","/StoneBank-war/login.jsp");
             RequestDispatcher rd = this.getServletContext().getRequestDispatcher("/error.jsp");
             rd.forward(request, response);
-            //System.out.print("Error, contraseña incorrecta");
+            System.out.print("Error, contraseña incorrecta");
         }
         
     }

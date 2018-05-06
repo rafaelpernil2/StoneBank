@@ -30,9 +30,11 @@
         <div align="center">
         <h1>Página de error</h1>
         <hr>
-        
-        <h3 style="background-color:Tomato;">El mensaje recibido es: <%= mensaje %></h3>
-        <a href="<%= url %>">Siguiente</a>   
+        <div class="alert-danger">
+            <strong>Error:</strong> <%= mensaje %>
+        </div>
+        <%--<h3 style="background-color:Tomato;">El mensaje recibido es: <%= mensaje %></h3> --%>
+        <a href="<%= url %>" class="btn btn-default">Siguiente</a>   
         <%-- 
         <form action="<%= url %>">
                 <input type="submit" value="Siguiente" />
