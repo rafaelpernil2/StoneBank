@@ -23,7 +23,7 @@ import stonebank.entity.Tusuario;
  *
  * @author JesusContreras
  */
-@WebServlet(name = "ServletHistorialTransferencia", urlPatterns = {"/ServletHistorialTransferencia"})
+//@WebServlet(name = "ServletHistorialTransferencia", urlPatterns = {"/usuario/ServletHistorialTransferencia"})
 public class ServletHistorialTransferencia extends HttpServlet {
 
     @EJB

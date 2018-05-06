@@ -55,11 +55,13 @@
                 </tr>
             </table>
             <br>
-            
-            <input type="submit" class="btn btn-default" value="Crear usuario" />
-            <a href="empleado/indexEmpleado.jsp" class="btn btn">Cancelar</a>
+            <input type="submit" class="btn-primary" value="Crear usuario" />
         </form>
-        
+        <form action="login.jsp" method="post" >
+            <input type="submit" class="btn-default" value="Cancelar" />
+            
+            
+        </form>
         </div>
     </body>
 </html>

@@ -1,20 +1,17 @@
 <%-- 
-    Document   : gestionarUsuario
-    Created on : 19-abr-2018, 13:32:18
-    Author     : rafaelpernil
+    Document   : configuracion
+    Created on : 19-abr-2018, 13:29:13
+    Author     : JesusContreras
 --%>
 
 <%@page import="stonebank.entity.Tusuario"%>
-<%@page import="stonebank.entity.Tusuario"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<!DOCTYPE html>
 <%
     Tusuario usuario;
     int dni,telefono;
     String nombre, apellido, email, domicilio;
     
-    usuario=(Tusuario) request.getAttribute("usuarioSeleccionado");
-    
+    usuario=(Tusuario) request.getAttribute("usuario");
     if(usuario !=null){
         dni=usuario.getDniUsuario();
         nombre=usuario.getNombre();
@@ -25,6 +22,7 @@
         //uno mas para contraseña preguntar como se haría a fran
     }
 %>
+<!DOCTYPE html>
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -37,13 +35,13 @@
         <!-- Latest compiled JavaScript -->
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>Gestionar Usuario</title>
+        <title>Editar empleado</title>
     </head>
     <body class="container-fluid">
         <jsp:include page="../headerEmpleado.jsp"/>
-           <div align="center">
-        <h1>Datos usuario</h1>
-        <form action="${pageContext.request.contextPath}/ServletActualizarUsuarioEmpleado" method="post">
+          <div align="center">
+        <h1>Datos empleado</h1>
+        <form action="${pageContext.request.contextPath}/ServletActualizaEmpleado" method="post">
 
             <table class="table">
                 <tr>
@@ -79,18 +77,13 @@
                 </tr>
             </table>
             <br>
-            <p> Es necesario introducir la contraseña para aplicar cambios</p>
             <input type="submit" class="btn btn-primary" value="Editar usuario"  onclick="javascript: form.action='${pageContext.request.contextPath}/ServletActualizaEmpleado';"/>
-            <form action="${pageContext.request.contextPath}/ServletEliminaUsuario" method="post">
-                    <input type="hidden" name="dni" value="<%=usuario.getDniUsuario()%>"/>
-                    
-                     <input type="submit" onclick="javascript: form.action='${pageContext.request.contextPath}/ServletEliminaUsuario';" value="Eliminar" class="btn btn-danger">
+                                
+                
                      <input type="submit" onclick="javascript: form.action='${pageContext.request.contextPath}/empleado/indexEmpleado.jsp';" value="Cancelar" class="btn btn-default"> 
                 </form>
         </form>
-                <br>
-                        
-                
+                <p> Es necesario introducir la contraseña para aplicar cambios</p>
         </div>
     </body>
 </html>

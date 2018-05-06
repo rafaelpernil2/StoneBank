@@ -1,0 +1,29 @@
+#parent {
+    width:100%;
+    height: 30px;
+    
+    padding-left: 70%;
+    
+    overflow-x: hidden;
+    overflow-y: hidden;
+}
+
+#childWrapper {
+    list-style: none;
+    width: 450px;
+    height: 90px;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+}
+
+#childWrapper > li {
+    float: left;
+    width: 150px;
+    height: 90px;
+    
+}
+
+#childWrapper > li:nth-child(even) {
+    
+}

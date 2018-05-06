@@ -21,7 +21,7 @@ import stonebank.entity.Tusuario;
  *
  * @author Victor
  */
-@WebServlet(name = "ServletIndexUsuario", urlPatterns = {"/ServletIndexUsuario"})
+//@WebServlet(name = "ServletIndexUsuario", urlPatterns = {"/ServletIndexUsuario"})
 public class ServletIndexEmpleado extends HttpServlet {
 
     @EJB

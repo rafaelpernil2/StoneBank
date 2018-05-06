@@ -25,7 +25,7 @@ import stonebank.ejb.TusuarioFacade;
  * Este Servlet sólo sirve para filtrar usuarios desde la vista principal de empleado.
  * No tiene nada que ver con ServletBusqueda creado por Edu
  */
-@WebServlet(name = "ServletBuscarUsuarioEmpleado", urlPatterns = {"/empleado/ServletBuscarUsuarioEmpleado"})
+//@WebServlet(name = "ServletBuscarUsuarioEmpleado", urlPatterns = {"/empleado/ServletBuscarUsuarioEmpleado"})
 public class ServletBuscarUsuarioEmpleado extends HttpServlet {
 
     @EJB
@@ -48,7 +48,7 @@ public class ServletBuscarUsuarioEmpleado extends HttpServlet {
             throws ServletException, IOException {
             HttpSession session = request.getSession(); 
             session.setAttribute("listaUsuarios", tusuarioFacade.buscarTUsuarioPorNombre(request.getParameter("nombre")));
-            RequestDispatcher rd  = request.getServletContext().getRequestDispatcher("/empleado/indexEmpleado.jsp");
+            RequestDispatcher rd  = request.getServletContext().getRequestDispatcher("/empleado/indexEmpleadoBusqueda.jsp");
             rd.forward(request, response);
         
             /*

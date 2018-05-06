@@ -24,7 +24,7 @@ import stonebank.entity.Tusuario;
  *
  * @author Jesús Contreras y Fran Gambero
  */
-@WebServlet(name = "ServletActualizarUsuarioEmpleado", urlPatterns = {"/ServletActualizarUsuarioEmpleado"})
+//@WebServlet(name = "ServletActualizarUsuarioEmpleado", urlPatterns = {"/empleado/ServletActualizarUsuarioEmpleado"})
 public class ServletActualizarUsuarioEmpleado extends HttpServlet {
 
     @EJB

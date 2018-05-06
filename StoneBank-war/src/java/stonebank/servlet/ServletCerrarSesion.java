@@ -18,7 +18,7 @@ import stonebank.entity.Tusuario;
  *
  * @author Fran Gambero
  */
-@WebServlet(name = "ServletCerrarSesion", urlPatterns = {"/usuario/CerrarSesion"})
+//@WebServlet(name = "ServletCerrarSesion", urlPatterns = {"/ServletCerrarSesion"})
 public class ServletCerrarSesion extends HttpServlet {
 
     @EJB
@@ -31,9 +31,10 @@ public class ServletCerrarSesion extends HttpServlet {
         
         session.invalidate();
         
-        request.setAttribute("mensajeExito", "¡Sesión CERRADA con éxito!");
-        request.setAttribute("proximaURL", "/StoneBank-war/login.jsp"); //Atención, envia sin / inicial
-        RequestDispatcher rd = this.getServletContext().getRequestDispatcher("/exito.jsp");
+       // request.setAttribute("mensajeExito", "¡Sesión CERRADA con éxito!");
+       // request.setAttribute("proximaURL", "/StoneBank-war/login.jsp"); //Atención, envia sin / inicial
+       // RequestDispatcher rd = this.getServletContext().getRequestDispatcher("/exito.jsp");
+       RequestDispatcher rd = this.getServletContext().getRequestDispatcher("/login.jsp");
         rd.forward(request, response);
         
         return;

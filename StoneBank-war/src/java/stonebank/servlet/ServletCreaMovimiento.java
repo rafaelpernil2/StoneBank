@@ -27,7 +27,7 @@ import stonebank.entity.Tusuario;
  * @author rafaelpernil
  * @Editors Victor Garcia Kaikkonen, Jesus Contreras Herreras, Francisco Gambero Salinas, Eduardo Pertierra Puche
  */
-@WebServlet(name = "empleado/ServletCreaMovimiento", urlPatterns = {"/empleado/ServletCreaMovimiento"})
+//@WebServlet(name = "ServletCreaMovimiento", urlPatterns = {"/empleado/ServletCreaMovimiento"})
 
 public class ServletCreaMovimiento extends HttpServlet {
 

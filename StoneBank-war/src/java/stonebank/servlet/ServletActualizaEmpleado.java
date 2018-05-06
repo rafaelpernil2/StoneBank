@@ -10,6 +10,7 @@ import java.io.PrintWriter;
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.ejb.EJB;
@@ -27,7 +28,7 @@ import stonebank.entity.Tusuario;
  *
  * @author JesusContreras
  */
-@WebServlet(name = "ServletActualizaEmpleado", urlPatterns = {"/ServletActualizaEmpleado"})
+//@WebServlet(name = "ServletActualizaEmpleado", urlPatterns = {"/empleado/ServletActualizaEmpleado"})
 public class ServletActualizaEmpleado extends HttpServlet {
 
     @EJB
@@ -96,7 +97,8 @@ public class ServletActualizaEmpleado extends HttpServlet {
         usuario.setDomicilio(domicilio);
         
         this.tusuarioFacade.edit(usuario); //Actualiza en BD
-        
+         List<Tusuario> listaUsuarios = this.tusuarioFacade.findAll();
+        session.setAttribute("listaUsuarios", listaUsuarios); //antes request
         request.setAttribute("mensajeExito", "¡Usuario MODIFICADO con éxito!");
         request.setAttribute("proximaURL", "empleado/indexEmpleado.jsp");
         RequestDispatcher rd = this.getServletContext().getRequestDispatcher("/exito.jsp");

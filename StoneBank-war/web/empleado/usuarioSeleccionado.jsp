@@ -25,37 +25,55 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <!-- Latest compiled and minified CSS -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+        <!-- jQuery library -->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+        <!-- Latest compiled JavaScript -->
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>Usuario Seleccionado</title>
     </head>
-    <body>
-                    <table>
+    <body class="container-fluid">
+        
+         <jsp:include page="../headerEmpleadoUsuarioSeleccionado.jsp"/>
+         <div class="row">
+             
+             <div class="col-md-3">
+                    <table class="table">
                 <tr>
                     <td>Nombre: </td>
-                    <td><input type="text" name="nombre" value="<%=usuario.getNombre()%>" readonly="readonly"/></td>                    
+                    <td><input class="form-control"  type="text" name="nombre" value="<%=usuario.getNombre()%>" readonly="readonly"/></td>                    
                 </tr>
                 <tr>
                     <td>Apellido: </td>
-                    <td><input type="text" name="apellido" value="<%=usuario.getApellidos()%>" readonly="readonly"/></td>                    
+                    <td><input class="form-control" type="text" name="apellido" value="<%=usuario.getApellidos()%>" readonly="readonly"/></td>                    
                 </tr>
                 <tr>
                     <td>DNI: </td>
-                    <td><input type="text" name="dni" value="<%=usuario.getDniUsuario()%>" readonly="readonly"/></td>                    
+                    <td><input class="form-control" type="text" name="dni" value="<%=usuario.getDniUsuario()%>" readonly="readonly"/></td>                    
                 </tr>
 
                 <tr>
                     <td>Telefono: </td>
-                    <td><input type="text" name="telefono" value="<%=usuario.getTelefono()%>" readonly="readonly"/></td>                    
+                    <td><input class="form-control" type="text" name="telefono" value="<%=usuario.getTelefono()%>" readonly="readonly"/></td>                    
                 </tr>
                 <tr>
                     <td>Email: </td>
-                    <td><input type="text" name="email" value="<%=usuario.getEmail() %>" readonly="readonly"/></td>                    
+                    <td><input class="form-control" type="text" name="email" value="<%=usuario.getEmail() %>" readonly="readonly"/></td>                    
                 </tr>
                 <tr>
                     <td>Domicilio: </td>
-                    <td><input type="text" name="domicilio" value="<%= usuario.getDomicilio() %>" readonly="readonly"/></td>                    
+                    <td><input  class="form-control" type="text" name="domicilio" value="<%= usuario.getDomicilio() %>" readonly="readonly"/></td>                    
                 </tr>
             </table>
-        <table>
+             </div>
+                
+                <div class="col-md-9">
+                    <h3>Historial de Movimientos</h3>
+        <table class="table">
             <tr>
             <th>IDMovimiento</th>             
             <th>DNIReceptor</th>            
@@ -77,7 +95,7 @@
                         <td><form method="post" action="${pageContext.request.contextPath}/empleado/confirmarEliminarMovimiento.jsp">
                                 <input type="hidden" name="idmov" value="<%=movimiento.getIdtmovimiento() %>" />
                                 <input type="hidden" name="dni" value="<%=usuario.getDniUsuario()%>" />
-                                       <input type="submit" value="Eliminar movimiento" />
+                                       <input type="submit" class="btn btn-danger" value="Eliminar movimiento" />
                     </form>
             </tr>
             
@@ -86,14 +104,10 @@
             %>
            
                 </table>
-            <form action="${pageContext.request.contextPath}/empleado/nuevoMovimiento.jsp" method="post">
-                <input type="submit" value="Crear Nuevo Movimiento" />
-                <input type="hidden" name="dni" value="<%=usuario.getDniUsuario()%>"/>
-            </form>
-            
-                
-                    <h1>Historial Transferencia</h1>
-        <table>
+                </div>
+           <div class="col-md-9">
+                    <h3>Historial de Transferencias</h3>
+        <table class="table">
             <th>DNIEmisor</th>             
             <th>DNIReceptor</th>            
             <th>Concepto</th>               
@@ -115,8 +129,8 @@
            
             
         </table>
-            
-            
         
+         </div>   
+         </div>
     </body>
 </html>
