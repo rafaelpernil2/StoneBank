@@ -1,4 +1,3 @@
-
 package stonebank.servlet;
 
 import java.io.IOException;
@@ -34,33 +33,31 @@ public class ServletCreaUsuario extends HttpServlet {
 
     @EJB
     private TusuarioFacade tusuarioFacade;
-        
-    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
 
+    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException, NoSuchAlgorithmException {
 
-        
         String nombre, apellido, contrasena, email, domicilio;
-        int dni,telefono;
+        int dni, telefono;
         Tusuario usuario;
         boolean ready = true;
         if (request.getParameter("nombre").equals("") || request.getParameter("apellido").equals("")
-                || request.getParameter("contrasena").equals("") || request.getParameter("dni").equals("")){
+                || request.getParameter("contrasena").equals("") || request.getParameter("dni").equals("")) {
             request.setAttribute("mensaje", "Faltan datos");
-            request.setAttribute("url","alta.jsp");
+            request.setAttribute("url", "alta.jsp");
             RequestDispatcher rd = this.getServletContext().getRequestDispatcher("/error.jsp");
             rd.forward(request, response);
-        
+
         }
-        if (!request.getParameter("dni").matches("^\\d{1,8}$")){
-        request.setAttribute("mensaje", "Introduce el DNI sin letra");
-            request.setAttribute("url","alta.jsp");
+        if (!request.getParameter("dni").matches("^\\d{1,8}$")) {
+            request.setAttribute("mensaje", "Introduce el DNI sin letra");
+            request.setAttribute("url", "alta.jsp");
             RequestDispatcher rd = this.getServletContext().getRequestDispatcher("/error.jsp");
             rd.forward(request, response);
         }
-        if (!request.getParameter("telefono").matches(".*\\d+.*")){
-        request.setAttribute("mensaje", "Número de telefono mal introducido");
-            request.setAttribute("url","alta.jsp");
+        if (!request.getParameter("telefono").isEmpty() && !request.getParameter("telefono").matches(".*\\d+.*")) {
+            request.setAttribute("mensaje", "Número de telefono mal introducido");
+            request.setAttribute("url", "alta.jsp");
             RequestDispatcher rd = this.getServletContext().getRequestDispatcher("/error.jsp");
             rd.forward(request, response);
         }
@@ -68,9 +65,24 @@ public class ServletCreaUsuario extends HttpServlet {
         apellido = request.getParameter("apellido");
         dni = Integer.parseInt(request.getParameter("dni"));
         contrasena = request.getParameter("contrasena");
-        telefono = Integer.parseInt(request.getParameter("telefono"));
-        email = request.getParameter("email");
-        domicilio = request.getParameter("domicilio");
+        if (!request.getParameter("telefono").isEmpty()) {
+            telefono = Integer.parseInt(request.getParameter("telefono"));
+        }
+        else{
+            telefono=0;
+        }
+        if (!request.getParameter("email").isEmpty()) {
+             email = request.getParameter("email");
+        }
+        else{
+            email="";
+        }
+        if (!request.getParameter("domicilio").isEmpty()){
+            domicilio = request.getParameter("domicilio");  
+        }
+        else{
+            domicilio="";
+        }
         Trol trol = new Trol(1);
         /* Esto se usará cuando se implementa crear y editar aquí
         if("".equals(id)){ //Nuevo usuario
@@ -79,74 +91,74 @@ public class ServletCreaUsuario extends HttpServlet {
             usuario = this.tusuarioFacade.find(dni);
 
         }
-        */
-        
-        /*if(!"".equals(dni)){ //Solo sirve para crear usuarios, asegura que existe dni
+         */
+
+ /*if(!"".equals(dni)){ //Solo sirve para crear usuarios, asegura que existe dni
             usuario = new Tusuario();
         } else{
             System.out.println("Error en usuario");
         } */
-        
         usuario = new Tusuario();
-        
+
         usuario.setNombre(nombre);
         usuario.setApellidos(apellido);
         //usuario.setDniUsuario(dni);
         usuario.setTelefono(telefono);
         usuario.setEmail(email);
         usuario.setDomicilio(domicilio);
-        
+
         //SHA-256 HASH
         MessageDigest msgdgst = MessageDigest.getInstance("SHA-256");
         byte[] encodedhash = msgdgst.digest(contrasena.getBytes(StandardCharsets.UTF_8));
-        
+
         StringBuilder hexString = new StringBuilder();
         for (int i = 0; i < encodedhash.length; i++) {
             String hex = Integer.toHexString(0xff & encodedhash[i]);
-            if(hex.length() == 1) 
+            if (hex.length() == 1) {
                 hexString.append('0');
+            }
             hexString.append(hex);
         }
         //
         usuario.setHashContrasena(hexString.toString());
         usuario.setTrolIdtrol(trol);
         // Generacíon número de cuenta
-         List<Tusuario> lista = tusuarioFacade.findAll();
+        List<Tusuario> lista = tusuarioFacade.findAll();
         int i = 0;
         Random random = new Random();
         int rand = Math.abs(random.nextInt());
-        while(i<lista.size()){
-            if (lista.get(i).getNumCuenta() == rand){
+        while (i < lista.size()) {
+            if (lista.get(i).getNumCuenta() == rand) {
                 rand = Math.abs(random.nextInt());
-                i=0;
+                i = 0;
             }
             i++;
         }
         usuario.setNumCuenta(rand);
-        
-        i=0;
-        while (i<lista.size() && lista.get(i).getDniUsuario()!= dni)
+
+        i = 0;
+        while (i < lista.size() && lista.get(i).getDniUsuario() != dni) {
             i++;
-        
-        if (i!=lista.size())
+        }
+
+        if (i != lista.size()) {
             ready = false;
-               
-        else
+        } else {
             usuario.setDniUsuario(dni);
-                       
-        
-        if (ready){
-            HttpSession session = request.getSession(); 
-            Tusuario empleado = (Tusuario) session.getAttribute("empleadoLogin"); 
+        }
+
+        if (ready) {
+            HttpSession session = request.getSession();
+            Tusuario empleado = (Tusuario) session.getAttribute("empleadoLogin");
             this.tusuarioFacade.create(usuario);
             List<Tusuario> listaUsuarios = this.tusuarioFacade.findAll();
             session.setAttribute("listaUsuarios", listaUsuarios); //antes request
             request.setAttribute("usuarioCreado", usuario);//Creado para el alta.jsp
             request.setAttribute("mensajeExito", "¡Usuario creado con éxito!");
-            if(empleado == null){
-            request.setAttribute("proximaURL", "login.jsp"); //Atención, envia sin / inicial
+            if (empleado == null) {
+                request.setAttribute("proximaURL", "login.jsp"); //Atención, envia sin / inicial
             } else {
-                 request.setAttribute("proximaURL", "empleado/indexEmpleado.jsp");
+                request.setAttribute("proximaURL", "empleado/indexEmpleado.jsp");
             }
             //RequestDispatcher rd = this.getServletContext().getRequestDispatcher("/login.jsp");
             RequestDispatcher rd = this.getServletContext().getRequestDispatcher("/exito.jsp");
@@ -154,7 +166,7 @@ public class ServletCreaUsuario extends HttpServlet {
         }
 
     }
-  
+
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
