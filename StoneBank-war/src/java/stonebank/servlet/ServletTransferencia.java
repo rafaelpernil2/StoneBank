@@ -62,7 +62,7 @@ public class ServletTransferencia extends HttpServlet {
 
         }
 
-        if (!request.getParameter("dnireceptor").matches(".*\\d+.*")) {
+        if (!request.getParameter("dnireceptor").matches("^\\d{1,8}$")) {
             request.setAttribute("mensaje", "Introduce el DNI sin letra");
             request.setAttribute("url", "ServletCreaTransferencia?dni=" + emisor.getDniUsuario());
             RequestDispatcher rd = this.getServletContext().getRequestDispatcher("/error.jsp");
