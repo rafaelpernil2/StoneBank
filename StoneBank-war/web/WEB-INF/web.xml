@@ -44,6 +44,38 @@
         <servlet-name>ServletVerUsuario</servlet-name>
         <servlet-class>stonebank.servlet.ServletVerUsuario</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>ServletActualizarUsuario</servlet-name>
+        <servlet-class>stonebank.servlet.ServletActualizarUsuario</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ServletActualizaEmpleado</servlet-name>
+        <servlet-class>stonebank.servlet.ServletActualizaEmpleado</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ServletBuscarUsuarioEmpleado</servlet-name>
+        <servlet-class>stonebank.servlet.ServletBuscarUsuarioEmpleado</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ServletCreaTransferencia</servlet-name>
+        <servlet-class>stonebank.servlet.ServletCreaTransferencia</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ServletEditarUsuario</servlet-name>
+        <servlet-class>stonebank.servlet.ServletEditarUsuario</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ServletHistorialTransferencia</servlet-name>
+        <servlet-class>stonebank.servlet.ServletHistorialTransferencia</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ServletIndexEmpleado</servlet-name>
+        <servlet-class>stonebank.servlet.ServletIndexEmpleado</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ServletEditarEmpleado</servlet-name>
+        <servlet-class>stonebank.servlet.ServletEditarEmpleado</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>ServletLogin</servlet-name>
         <url-pattern>/ServletLogin</url-pattern>
@@ -87,6 +119,38 @@
     <servlet-mapping>
         <servlet-name>ServletVerUsuario</servlet-name>
         <url-pattern>/ServletVerUsuario</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ServletActualizarUsuario</servlet-name>
+        <url-pattern>/ServletActualizarUsuario</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ServletActualizaEmpleado</servlet-name>
+        <url-pattern>/ServletActualizaEmpleado</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ServletCreaTransferencia</servlet-name>
+        <url-pattern>/ServletCreaTransferencia</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ServletEditarUsuario</servlet-name>
+        <url-pattern>/ServletEditarUsuario</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ServletHistorialTransferencia</servlet-name>
+        <url-pattern>/ServletHistorialTransferencia</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ServletIndexEmpleado</servlet-name>
+        <url-pattern>/ServletIndexEmpleado</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ServletEditarEmpleado</servlet-name>
+        <url-pattern>/ServletEditarEmpleado</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ServletBuscarUsuarioEmpleado</servlet-name>
+        <url-pattern>/ServletBuscarUsuarioEmpleado</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

@@ -26,7 +26,7 @@ import stonebank.entity.Tusuario;
  * @author Jesus Contreras
  */
 
-@WebServlet(name = "usuario/ServletTransferencia", urlPatterns = {"/usuario/ServletTransferencia"})
+//@WebServlet(name = "ServletTransferencia", urlPatterns = {"/usuario/ServletTransferencia"})
 public class ServletTransferencia extends HttpServlet {
 
     @EJB
@@ -129,20 +129,29 @@ public class ServletTransferencia extends HttpServlet {
                 
                 request.setAttribute("mensajeExito", "¡Transferencia creada con éxito!");
                 //request.setAttribute("saldo",saldo);
-                request.setAttribute("proximaURL", "indexUsuario.jsp"); //Atención, envia sin / inicial
+                request.setAttribute("proximaURL", "usuario/indexUsuario.jsp"); //Atención, envia sin / inicial
                 //RequestDispatcher rd = this.getServletContext().getRequestDispatcher("/login.jsp");
                 RequestDispatcher rd = this.getServletContext().getRequestDispatcher("/exito.jsp");
                 rd.forward(request, response);
                 
             }else{
-                //lanzo error usuario no existente
-                //todavia por hacer
+                
+                String url = "ServletCreaTransferencia?dni=" + request.getParameter("dniemisor");
+                request.setAttribute("mensaje", "Error, usuario inexistente");
+                request.setAttribute("url",url);
+                RequestDispatcher rd = this.getServletContext().getRequestDispatcher("/error.jsp");
+                rd.forward(request, response);
             }
         }
             
         }else{
             //lanza error no tiene dinero suficiente
             //pagina de error por hacer, todavia no hace nada
+            String url = "ServletCreaTransferencia?dni=" + request.getParameter("dniemisor");
+            request.setAttribute("mensaje", "Error, dinero insuficiente");
+            request.setAttribute("url",url);
+            RequestDispatcher rd = this.getServletContext().getRequestDispatcher("/error.jsp");
+            rd.forward(request, response);
         }
         
         

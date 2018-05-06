@@ -17,36 +17,46 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <!-- Latest compiled and minified CSS -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+        <!-- jQuery library -->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+        <!-- Latest compiled JavaScript -->
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>Realizar Transferencia</title>
     </head>
-    <body>
+    <body class="container-fluid">
+        <jsp:include page="../headerUsuarioTransferencia.jsp"/>
         <div align="center">
         <h1>Datos transferencia</h1>
-        <form action="ServletTransferencia" method="post">
+        <form class="form-horizontal" action="${pageContext.request.contextPath}/ServletTransferencia" method="post">
             <table>
                 <tr>
                     <td>DNIEmisor:</td>
-                    <td><input type="text" name="dniemisor" readonly="readonly" value="<%= usuario.getDniUsuario() %>" /></td>
+                    <td><input class="form-control" type="text" name="dniemisor" readonly="readonly" value="<%= usuario.getDniUsuario() %>" /></td>
                 </tr>
                 
                 <tr>
                     <td>DNIReceptor:</td>
-                    <td><input type="text" name="dnireceptor" /></td>
+                    <td><input class="form-control" type="text" name="dnireceptor" /></td>
                 </tr>
                                 
                 <tr>
                     <td>Cantidad:</td>
-                    <td><input type="text" name="cantidad" /></td>
+                    <td><input class="form-control" type="text" name="cantidad" /></td>
                 </tr>
                                 
                 <tr>
                     <td>Concepto:</td>
-                    <td><input type="text" name="concepto" /></td>
+                    <td><input  class="form-control" type="text" name="concepto" /></td>
                 </tr>
 
             </table>
             <br>
-            <input type="submit" value="Hacer transferencia"/>
+            <input type="submit" class="btn btn-default " value="Hacer transferencia"/>
         </form>
         </div>
     </body>

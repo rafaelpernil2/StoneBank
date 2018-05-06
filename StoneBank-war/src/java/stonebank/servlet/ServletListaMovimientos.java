@@ -23,7 +23,7 @@ import stonebank.entity.Tusuario;
  * @author Eduardo Pertierra Puche
  */
 
-@WebServlet(name = "usuario/ServletListaMovimientos", urlPatterns = {"/usuario/ServletListaMovimientos"})
+//@WebServlet(name = "ServletListaMovimientos", urlPatterns = {"/usuario/ServletListaMovimientos"})
 
 public class ServletListaMovimientos extends HttpServlet {
 

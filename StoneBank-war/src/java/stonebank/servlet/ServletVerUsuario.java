@@ -26,7 +26,7 @@ import stonebank.entity.Tusuario;
  *
  * @author JesusContreras
  */
-@WebServlet(name = "ServletVerUsuario", urlPatterns = {"/ServletVerUsuario"})
+//@WebServlet(name = "ServletVerUsuario", urlPatterns = {"empleado/ServletVerUsuario"})
 public class ServletVerUsuario extends HttpServlet {
 
     @EJB
@@ -53,6 +53,7 @@ public class ServletVerUsuario extends HttpServlet {
         List<Tmovimiento> listMov = u.getTmovimientoList();
         List<Ttransferencia> listTrans = u.getTtransferenciaList();
         request.setAttribute("usuarioVer", u);
+        request.setAttribute("dniVer",dni);
        // }
         //else{
            //request.setAttribute("usuarioVer", u);

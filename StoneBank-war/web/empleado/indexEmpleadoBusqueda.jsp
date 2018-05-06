@@ -29,9 +29,9 @@
         <title>Vista General</title>
     </head>
     <body class="container-fluid">
-        <jsp:include page="headerEmpleado.jsp"/>
-        <h1>Lista de usuarios</h1> <%-- Falta poner el nombre del usuario en cuestión --%>
-        
+        <jsp:include page="../headerEmpleadoBusqueda.jsp"/>
+        <h1>Usuarios</h1> <%-- Falta poner el nombre del usuario en cuestión --%>
+        <h2>&Uacute;ltimas Transacciones</h2>
         
         
         

@@ -10,6 +10,7 @@ import java.io.PrintWriter;
 import javax.ejb.EJB;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -20,6 +21,7 @@ import stonebank.entity.Tmovimiento;
  *
  * @author rafaelpernil
  */
+//@WebServlet(name = "ServletEliminaMovimiento", urlPatterns = {"/empleado/ServletEliminaMovimiento"})
 public class ServletEliminaMovimiento extends HttpServlet {
 
     @EJB

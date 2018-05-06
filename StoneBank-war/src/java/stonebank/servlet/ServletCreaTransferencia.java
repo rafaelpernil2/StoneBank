@@ -21,7 +21,7 @@ import stonebank.entity.Tusuario;
  *
  * @author JesusContreras
  */
-@WebServlet(name = "usuario/ServletCreaTransferencia", urlPatterns = {"/usuario/ServletCreaTransferencia"})
+//@WebServlet(name = "ServletCreaTransferencia", urlPatterns = {"/usuario/ServletCreaTransferencia"})
 public class ServletCreaTransferencia extends HttpServlet {
 
     @EJB

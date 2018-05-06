@@ -16,6 +16,7 @@ import java.util.logging.Logger;
 import javax.ejb.EJB;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -28,6 +29,7 @@ import stonebank.entity.Tusuario;
  *
  * @author Fran Gambero
  */
+//@WebServlet(name = "ServletCreaUsuario", urlPatterns = {"/empleado/ServletCreaUsuario"})
 public class ServletCreaUsuario extends HttpServlet {
 
     @EJB

@@ -13,6 +13,7 @@ import java.util.logging.Logger;
 import javax.ejb.EJB;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -27,6 +28,7 @@ import stonebank.entity.Tusuario;
  *
  * @author Fran Gambero
  */
+//@WebServlet(name = "ServletLogin", urlPatterns = {"/ServletLogin"})
 public class ServletLogin extends HttpServlet {
 
     @EJB
@@ -112,7 +114,11 @@ public class ServletLogin extends HttpServlet {
             } 
             //Falta por añadir jsp Error para controlar mejor
         }else{
-            System.out.print("Error, contraseña incorrecta");
+            request.setAttribute("mensaje", "Error, contraseña incorrecta");
+            request.setAttribute("url","/StoneBank-war/login.jsp");
+            RequestDispatcher rd = this.getServletContext().getRequestDispatcher("/error.jsp");
+            rd.forward(request, response);
+            //System.out.print("Error, contraseña incorrecta");
         }
         
     }
