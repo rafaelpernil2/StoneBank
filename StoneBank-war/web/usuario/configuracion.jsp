@@ -16,9 +16,22 @@
         dni=usuario.getDniUsuario();
         nombre=usuario.getNombre();
         apellido=usuario.getApellidos();
-        telefono=usuario.getTelefono();
-        email=usuario.getEmail();
-        domicilio=usuario.getDomicilio();
+        if (usuario.getTelefono() == null) {
+            telefono = 0;
+        } else {
+            telefono = usuario.getTelefono();
+        }
+        if (usuario.getEmail() == null) {
+            email = "";
+        } else {
+            email = usuario.getEmail();
+        }
+        if (usuario.getDomicilio() == null) {
+            domicilio = "";
+
+        } else {
+            domicilio = usuario.getDomicilio();
+        }
         //uno mas para contraseña preguntar como se haría a fran
     }
 %>

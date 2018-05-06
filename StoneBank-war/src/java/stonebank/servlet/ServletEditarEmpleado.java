@@ -41,6 +41,7 @@ public class ServletEditarEmpleado extends HttpServlet {
         
         //if(dni != null){ //no hace falta, dni nunca es null
             usuario = this.tusuarioFacade.find(dni);
+            System.out.println(usuario);
             request.setAttribute("usuario", usuario);
         //}
         List<Tusuario> listaUsuarios = this.tusuarioFacade.findAll();
