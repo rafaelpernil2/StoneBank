@@ -11,16 +11,19 @@ Funcionalidades actuales:
   - indexUsuario con saldo, últimos movimientos, configuración...
   - Buscador de movimientos
   - Realizar transferencias a otros clientes
+  - Vista general de empleado
+  - Visualización y edición de usuarios desde empleado
+  - Crear movimientos para un cliente
 
 Próximamente:
-  - vista Empleado
-  - visualización y edición de usuarios desde un empleado
+  - 
 
 Herramientas utilizadas:
   - Netbeans
   - MySQL
+  - Github
 
 
 Última actualización de este readme: 5 de mayo de 2018
 
-Por... Personas geniales
+Trabajo realizado por: Jesús, Francisco, Eduardo, Rafael y Víctor.
