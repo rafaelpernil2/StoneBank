@@ -57,9 +57,24 @@ public class ServletActualizaEmpleado extends HttpServlet {
         apellido = request.getParameter("apellido");
         dni = Integer.parseInt(request.getParameter("dni"));
         contrasena = request.getParameter("contrasena");
-        telefono = Integer.parseInt(request.getParameter("telefono"));
-        email = request.getParameter("email");
-        domicilio = request.getParameter("domicilio");
+       if (!request.getParameter("telefono").isEmpty()) {
+            telefono = Integer.parseInt(request.getParameter("telefono"));
+        }
+        else{
+            telefono=0;
+        }
+        if (!request.getParameter("email").isEmpty()) {
+             email = request.getParameter("email");
+        }
+        else{
+            email="";
+        }
+        if (!request.getParameter("domicilio").isEmpty()){
+            domicilio = request.getParameter("domicilio");  
+        }
+        else{
+            domicilio="";
+        }
         
         usuario = (Tusuario) this.tusuarioFacade.find(dni);
         
