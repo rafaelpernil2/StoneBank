@@ -25,14 +25,15 @@
         <title>Crear Movimiento</title>
     </head>
     <body class="container-fluid">
+         <jsp:include page="../headerEmpleado.jsp"/>
         <div align="center" >
         <h1>Crear nuevo movimiento</h1>
         <h2>para el usuario con DNI: <%= dni %></h2>
         <form  class="form-horizontal"  action="${pageContext.request.contextPath}/ServletCreaMovimiento" method="post">
-            <table class="table">
+            <table>
                 <tr class="form-group">
                     <td>Concepto: </td>
-                    <td><input class="form-control" type="text" name="concepto"></td>                    
+                    <td><input class="form-control" type="text" name="concepto" ></td>                    
                 </tr>
                 <tr class="form-group">
                     <td>Cantidad: </td>
@@ -46,8 +47,8 @@
             </table>
             <br>
             <input type ="hidden" value ="<%= dni %>"  name ="dni" /> 
-            <input type="submit" onclick="javascript: form.action='${pageContext.request.contextPath}/ServletCreaMovimiento';"class="btn btn-primary" value="Crear Movimiento" />
-            <input type="submit" onclick="javascript: form.action='${pageContext.request.contextPath}/ServletVerUsuario?dni=<%=dni%>';" value="Cancelar" class="btn btn-default"> 
+            <input type="submit" onclick="javascript: form.action='${pageContext.request.contextPath}/ServletCreaMovimiento';"class="btn btn-default" value="Crear Movimiento" />
+            <input type="submit" onclick="javascript: form.action='${pageContext.request.contextPath}/ServletVerUsuario?dni=<%=dni%>';" value="Cancelar" class="btn btn-link"> 
         </form>
         </div>
     </body>

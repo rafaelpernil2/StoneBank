@@ -44,7 +44,13 @@ public class ServletActualizaEmpleado extends HttpServlet {
         String nombre, apellido, contrasena, email, domicilio;
         int dni,telefono;
         Tusuario usuario,empleado;
+        if (request.getParameter("nombre").equalsIgnoreCase("")||request.getParameter("apellido").equalsIgnoreCase("")){
+        request.setAttribute("mensaje", "No puede dejar el nombre vacío");
+            request.setAttribute("url","ServletEditarEmpleado?dni="+request.getParameter("dni"));
+            RequestDispatcher rd = this.getServletContext().getRequestDispatcher("/error.jsp");
+            rd.forward(request, response);
         
+        }
         empleado=(Tusuario) session.getAttribute("empleadoLogin");
         
         nombre = request.getParameter("nombre");

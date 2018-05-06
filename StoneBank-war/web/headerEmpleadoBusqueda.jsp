@@ -35,10 +35,10 @@
                     </div>
                     <ul class="nav navbar-nav navbar-right">
                         <li>
-                            <a href="${pageContext.request.contextPath}/alta.jsp"><span class="glyphicon glyphicon-pencil"></span> Registrar cliente</a>
+                            <a href="${pageContext.request.contextPath}/alta.jsp"><span class="glyphicon glyphicon-pencil"></span>  Registrar cliente</a>
                         </li>
-                         <li><a href="${pageContext.request.contextPath}/ServletEditarEmpleado?dni=<%= usuario.getDniUsuario() %>"><span class="glyphicon glyphicon-cog"></span>Configuración</a></li>
-                         <li><a href="${pageContext.request.contextPath}/ServletCerrarSesion"><span class="glyphicon glyphicon-log-in"></span>Cerrar sesión</a></li>
+                         <li><a href="${pageContext.request.contextPath}/ServletEditarEmpleado?dni=<%= usuario.getDniUsuario() %>"><span class="glyphicon glyphicon-cog"></span>    Configuración</a></li>
+                         <li><a href="${pageContext.request.contextPath}/ServletCerrarSesion"><span class="glyphicon glyphicon-log-in"></span>  Cerrar sesión</a></li>
                     </ul>
                 
                  

@@ -44,7 +44,26 @@ public class ServletCreaUsuario extends HttpServlet {
         int dni,telefono;
         Tusuario usuario;
         boolean ready = true;
-
+        if (request.getParameter("nombre").equals("") || request.getParameter("apellido").equals("")
+                || request.getParameter("contrasena").equals("") || request.getParameter("dni").equals("")){
+            request.setAttribute("mensaje", "Faltan datos");
+            request.setAttribute("url","alta.jsp");
+            RequestDispatcher rd = this.getServletContext().getRequestDispatcher("/error.jsp");
+            rd.forward(request, response);
+        
+        }
+        if (!request.getParameter("dni").matches(".*\\d+.*")){
+        request.setAttribute("mensaje", "Introduce el DNI sin letra");
+            request.setAttribute("url","alta.jsp");
+            RequestDispatcher rd = this.getServletContext().getRequestDispatcher("/error.jsp");
+            rd.forward(request, response);
+        }
+        if (!request.getParameter("telefono").matches(".*\\d+.*")){
+        request.setAttribute("mensaje", "Número de telefono mal introducido");
+            request.setAttribute("url","alta.jsp");
+            RequestDispatcher rd = this.getServletContext().getRequestDispatcher("/error.jsp");
+            rd.forward(request, response);
+        }
         nombre = request.getParameter("nombre");
         apellido = request.getParameter("apellido");
         dni = Integer.parseInt(request.getParameter("dni"));

@@ -80,7 +80,7 @@
             </table>
             <br>
             <p> Es necesario introducir la contraseña para aplicar cambios</p>
-            <input type="submit" class="btn btn-primary" value="Editar usuario"  onclick="javascript: form.action='${pageContext.request.contextPath}/ServletActualizaEmpleado';"/>
+            <input type="submit" class="btn btn-primary" value="Editar usuario"  onclick="javascript: form.action='${pageContext.request.contextPath}/ServletActualizarUsuarioEmpleado';"/>
             <form action="${pageContext.request.contextPath}/ServletEliminaUsuario" method="post">
                     <input type="hidden" name="dni" value="<%=usuario.getDniUsuario()%>"/>
                     

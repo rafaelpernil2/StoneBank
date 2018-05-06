@@ -42,31 +42,32 @@
          <div class="row">
              
              <div class="col-md-3">
+                 <h3>Datos del usuario</h3>
                     <table class="table">
                 <tr>
                     <td>Nombre: </td>
-                    <td><input class="form-control"  type="text" name="nombre" value="<%=usuario.getNombre()%>" readonly="readonly"/></td>                    
+                    <td><input class="form-control"  type="hidden" name="nombre" value="<%=usuario.getNombre()%>" readonly="readonly"/><%=usuario.getNombre()%></td>                    
                 </tr>
                 <tr>
                     <td>Apellido: </td>
-                    <td><input class="form-control" type="text" name="apellido" value="<%=usuario.getApellidos()%>" readonly="readonly"/></td>                    
+                    <td><input class="form-control" type="hidden" name="apellido" value="<%=usuario.getApellidos()%>" readonly="readonly"/><%=usuario.getApellidos()%></td>                    
                 </tr>
                 <tr>
                     <td>DNI: </td>
-                    <td><input class="form-control" type="text" name="dni" value="<%=usuario.getDniUsuario()%>" readonly="readonly"/></td>                    
+                    <td><input class="form-control" type="hidden" name="dni" value="<%=usuario.getDniUsuario()%>" readonly="readonly"/><%=usuario.getDniUsuario()%></td>                    
                 </tr>
 
                 <tr>
                     <td>Telefono: </td>
-                    <td><input class="form-control" type="text" name="telefono" value="<%=usuario.getTelefono()%>" readonly="readonly"/></td>                    
+                    <td><input class="form-control" type="hidden" name="telefono" value="<%=usuario.getTelefono()%>" readonly="readonly"/><%=usuario.getTelefono()%></td>                    
                 </tr>
                 <tr>
                     <td>Email: </td>
-                    <td><input class="form-control" type="text" name="email" value="<%=usuario.getEmail() %>" readonly="readonly"/></td>                    
+                    <td><input class="form-control" type="hidden" name="email" value="<%=usuario.getEmail() %>" readonly="readonly"/><%=usuario.getEmail() %></td>                    
                 </tr>
                 <tr>
                     <td>Domicilio: </td>
-                    <td><input  class="form-control" type="text" name="domicilio" value="<%= usuario.getDomicilio() %>" readonly="readonly"/></td>                    
+                    <td><input  class="form-control" type="hidden" name="domicilio" value="<%= usuario.getDomicilio() %>" readonly="readonly"/><%= usuario.getDomicilio() %></td>                    
                 </tr>
             </table>
              </div>
@@ -105,6 +106,7 @@
            
                 </table>
                 </div>
+            <div class="col-md-3"></div>
            <div class="col-md-9">
                     <h3>Historial de Transferencias</h3>
         <table class="table">

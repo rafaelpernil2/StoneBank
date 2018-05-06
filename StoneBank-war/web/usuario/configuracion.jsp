@@ -77,10 +77,10 @@
                 </tr>
             </table>
             <br>
-            <input type="submit" class="btn btn-primary" value="Editar usuario"  onclick="javascript: form.action='${pageContext.request.contextPath}/ServletActualizarUsuario';"/>
+            <input type="submit" class="btn btn-default" value="Editar usuario"  onclick="javascript: form.action='${pageContext.request.contextPath}/ServletActualizarUsuario';"/>
                                 
                 
-                     <input type="submit" onclick="javascript: form.action='${pageContext.request.contextPath}/usuario/indexUsuario.jsp';" value="Cancelar" class="btn btn-default"> 
+                     <input type="submit" onclick="javascript: form.action='${pageContext.request.contextPath}/usuario/indexUsuario.jsp';" value="Cancelar" class="btn btn-link"> 
                 </form>
         </form>
                 <p> Es necesario introducir la contraseña para aplicar cambios</p>
