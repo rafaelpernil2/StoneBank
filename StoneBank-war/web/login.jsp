@@ -32,7 +32,7 @@
 
 
             <div class="form-group">
-                <label for="user" class="control-label col-sm-offset-3 col-sm-2">DNI:  </label>
+                <label for="user" class="control-label col-sm-offset-3 col-sm-2">DNI:    </label>
                 <div class="  col-sm-2">
                     <input class="form-control" type="text" name="user" >
                 </div>

@@ -8,17 +8,30 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%
     Tusuario usuario;
-    int dni,telefono;
+    int dni, telefono;
     String nombre, apellido, email, domicilio;
-    
-    usuario=(Tusuario) request.getAttribute("usuario");
-    if(usuario !=null){
-        dni=usuario.getDniUsuario();
-        nombre=usuario.getNombre();
-        apellido=usuario.getApellidos();
-        telefono=usuario.getTelefono();
-        email=usuario.getEmail();
-        domicilio=usuario.getDomicilio();
+
+    usuario = (Tusuario) request.getAttribute("usuario");
+    if (usuario != null) {
+        dni = usuario.getDniUsuario();
+        nombre = usuario.getNombre();
+        apellido = usuario.getApellidos();
+        if (usuario.getTelefono() == null) {
+            telefono = 0;
+        } else {
+            telefono = usuario.getTelefono();
+        }
+        if (usuario.getEmail() == null) {
+            email = "";
+        } else {
+            email = usuario.getEmail();
+        }
+        if (usuario.getDomicilio() == null) {
+            domicilio = "";
+
+        } else {
+            domicilio = usuario.getDomicilio();
+        }
         //uno mas para contraseña preguntar como se haría a fran
     }
 %>
@@ -39,51 +52,51 @@
     </head>
     <body class="container-fluid">
         <jsp:include page="../headerEmpleado.jsp"/>
-          <div align="center">
-        <h1>Datos empleado</h1>
-        <form action="${pageContext.request.contextPath}/ServletActualizaEmpleado" method="post">
+        <div align="center">
+            <h1>Datos empleado</h1>
+            <form action="${pageContext.request.contextPath}/ServletActualizaEmpleado" method="post">
 
-            <table class="table">
-                <tr>
-                    <td>Nombre: </td>
-                    <td><input class="form-control" type="text" name="nombre" value="<%=usuario.getNombre()%>"/></td>                    
-                </tr>
-                <tr>
-                    <td>Apellido: </td>
-                    <td><input class="form-control" type="text" name="apellido" value="<%=usuario.getApellidos()%>"/></td>                    
-                </tr>
-                <tr>
-                    <td>DNI: </td>
-                    <td><input  class="form-control" type="text" name="dni" value="<%=usuario.getDniUsuario()%>" readonly="readonly"/></td>                    
-                </tr>
-                <tr>
-                    <td>Contraseña: </td>
-                    <td><input class="form-control" type="password" name="contrasena"  /></td>
-                                        
-                    <td>Nueva contraseña: </td>
-                    <td><input class="form-control" type="password" name="nuevacontrasena" /></td>        
-                </tr>
-                <tr>
-                    <td>Telefono: </td>
-                    <td><input  class="form-control"type="text" name="telefono" value="<%=usuario.getTelefono()%>"/></td>                    
-                </tr>
-                <tr>
-                    <td>Email: </td>
-                    <td><input class="form-control" type="text" name="email" value="<%=usuario.getEmail() %>"/></td>                    
-                </tr>
-                <tr>
-                    <td>Domicilio: </td>
-                    <td><input class="form-control" type="text" name="domicilio" value="<%= usuario.getDomicilio() %>"/></td>                    
-                </tr>
-            </table>
-            <br>
-            <input type="submit" class="btn btn-primary" value="Editar usuario"  onclick="javascript: form.action='${pageContext.request.contextPath}/ServletActualizaEmpleado';"/>
-                                
-                
-                     <input type="submit" onclick="javascript: form.action='${pageContext.request.contextPath}/empleado/indexEmpleado.jsp';" value="Cancelar" class="btn btn-default"> 
-                </form>
+                <table class="table">
+                    <tr>
+                        <td>Nombre: </td>
+                        <td><input class="form-control" type="text" name="nombre" value="<%=usuario.getNombre()%>"/></td>                    
+                    </tr>
+                    <tr>
+                        <td>Apellido: </td>
+                        <td><input class="form-control" type="text" name="apellido" value="<%=usuario.getApellidos()%>"/></td>                    
+                    </tr>
+                    <tr>
+                        <td>DNI: </td>
+                        <td><input  class="form-control" type="text" name="dni" value="<%=usuario.getDniUsuario()%>" readonly="readonly"/></td>                    
+                    </tr>
+                    <tr>
+                        <td>Contraseña: </td>
+                        <td><input class="form-control" type="password" name="contrasena"  /></td>
+
+                        <td>Nueva contraseña: </td>
+                        <td><input class="form-control" type="password" name="nuevacontrasena" /></td>        
+                    </tr>
+                    <tr>
+                        <td>Telefono: </td>
+                        <td><input  class="form-control"type="text" name="telefono" value="<%=usuario.getTelefono()%>"/></td>                    
+                    </tr>
+                    <tr>
+                        <td>Email: </td>
+                        <td><input class="form-control" type="text" name="email" value="<%=usuario.getEmail()%>"/></td>                    
+                    </tr>
+                    <tr>
+                        <td>Domicilio: </td>
+                        <td><input class="form-control" type="text" name="domicilio" value="<%= usuario.getDomicilio()%>"/></td>                    
+                    </tr>
+                </table>
+                <br>
+                <input type="submit" class="btn btn-primary" value="Editar usuario"  onclick="javascript: form.action = '${pageContext.request.contextPath}/ServletActualizaEmpleado';"/>
+
+
+                <input type="submit" onclick="javascript: form.action = '${pageContext.request.contextPath}/empleado/indexEmpleado.jsp';" value="Cancelar" class="btn btn-default"> 
+            </form>
         </form>
-                <p> Es necesario introducir la contraseña para aplicar cambios</p>
-        </div>
-    </body>
+        <p> Es necesario introducir la contraseña para aplicar cambios</p>
+    </div>
+</body>
 </html>
