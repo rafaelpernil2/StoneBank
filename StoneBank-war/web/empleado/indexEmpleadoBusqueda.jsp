@@ -39,6 +39,7 @@
         <table class="table">
             <tr>
                 <th>Nombre</th>
+                <th>Apellidos</th>
                 <th>Número de cuenta</th>
                 <th>Rol </th>
             </tr>
@@ -46,8 +47,9 @@
         <% for (Tusuario user : listaUsuarios){ %>
         <tr>
             <td ><%= user.getNombre() %> </td>
+            <td><%=user.getApellidos()%></td>
             <td><%= user.getNumCuenta() %> </td>
-            <td><%= user.getTrolIdtrol().getIdtrol() %></td>
+            <td><%= user.getTrolIdtrol().getNombre() %></td>
            <td><a href="${pageContext.request.contextPath}/ServletVerUsuario?dni=<%= user.getDniUsuario()%>" class="btn btn-primary">Ver</a> </td>
            <td><a href="${pageContext.request.contextPath}/ServletGestionarUsuario?dni=<%= user.getDniUsuario()%>" class="btn btn-warning">Editar</a></td> 
         </tr>

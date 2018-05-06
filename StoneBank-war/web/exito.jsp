@@ -30,11 +30,14 @@
         <div align="center">
         <h1>Página de éxito</h1>
         <hr>
+        <div class="alert-success">
+            
+            <h3 ><%= mensaje %></h3>
+        </div>
         
-        <h3 style="color: #2D9024">El mensaje recibido es: <%= mensaje %></h3>
         
          <form action="<%= url %>">
-                <input type="submit" value="Siguiente" />
+                <input type="submit" class="btn btn-default" value="Siguiente" />
             </form>
          
         </div>        
