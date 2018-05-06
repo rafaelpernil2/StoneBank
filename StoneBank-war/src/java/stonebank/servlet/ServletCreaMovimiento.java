@@ -56,7 +56,28 @@ public class ServletCreaMovimiento extends HttpServlet {
       //  HttpSession session = request.getSession();
         HttpSession session = request.getSession();
         Tmovimiento movimiento= new Tmovimiento();
-        Integer dni = Integer.parseInt(request.getParameter("dni"));
+        
+        if (!request.getParameter("dni").matches(".*\\d+.*")){
+        request.setAttribute("mensaje", "¡No toques la URL!");
+            request.setAttribute("url","empleado/indexEmpleado.jsp");
+            RequestDispatcher rd = this.getServletContext().getRequestDispatcher("/error.jsp");
+            rd.forward(request, response);
+        }
+         Integer dni = Integer.parseInt(request.getParameter("dni"));
+        if (request.getParameter("iban").equals("") || request.getParameter("cantidad").equals("")){
+        
+        request.setAttribute("mensaje", "Faltan datos");
+        
+            request.setAttribute("url","empleado/nuevoMovimiento.jsp?dni="+dni);
+            RequestDispatcher rd = this.getServletContext().getRequestDispatcher("/error.jsp");
+            rd.forward(request, response);
+        }
+        if(!request.getParameter("cantidad").matches(".*\\d+.*") || request.getParameter("cantidad").contains(",")){
+            request.setAttribute("mensaje", "La cantidad debe ser numérica. Use . para los decimales");
+            request.setAttribute("url","empleado/nuevoMovimiento.jsp?dni="+dni);
+            RequestDispatcher rd = this.getServletContext().getRequestDispatcher("/error.jsp");
+            rd.forward(request, response);
+        }
         Tusuario usuario =  tusuarioFacade.find(dni); 
         
         movimiento.setTusuariodniUsuario(usuario);

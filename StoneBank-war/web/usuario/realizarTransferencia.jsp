@@ -56,7 +56,13 @@
 
             </table>
             <br>
-            <input type="submit" class="btn btn-default " value="Hacer transferencia"/>
+            <%--<input type="submit" class="btn btn-default " value="Hacer transferencia"/> --%>
+            
+            
+            <input type="submit" onclick="javascript: form.action='${pageContext.request.contextPath}/ServletTransferencia';"class="btn btn-default" value="Hacer transferencia" />
+            <input type="submit" onclick="javascript: form.action='${pageContext.request.contextPath}/usuario/indexUsuario.jsp';" value="Cancelar" class="btn btn-link"> 
+            
+            
         </form>
         </div>
     </body>

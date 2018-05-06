@@ -43,12 +43,12 @@
                   <td><input type="password" name="pass" ></td>
                 </tr>
                 <tr>
-                  <td colspan="2" align="center"><input type="submit" class="btn btn-primary" name="button" value="Acceder"></td>
+                  <td colspan="2" align="center"><input type="submit" class="btn btn-default" name="button" value="Acceder"></td>
                 </tr>
-                <tr>    
+                <%--<tr>    
                     <td colspan="2" align="center"> <a href="altaSinLogin.jsp">¿No te has registrado aun? Pulsa aquí</a></td>
                 </tr>
-                
+                --%>
              </table>
         </form> 
     </center>

@@ -21,6 +21,7 @@
         <title>Alta Cliente</title>
     </head>
     <body class="container-fluid">
+        <jsp:include page="headerEmpleadoNuevoCliente.jsp"/>
         <div align="center">
         <h1>Crear nuevo cliente</h1>
         <form class="form-horizontal" action="ServletCreaUsuario" method="post">
