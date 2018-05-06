@@ -57,7 +57,7 @@ public class ServletCreaMovimiento extends HttpServlet {
         HttpSession session = request.getSession();
         Tmovimiento movimiento= new Tmovimiento();
         
-        if (!request.getParameter("dni").matches(".*\\d+.*")){
+        if (!request.getParameter("dni").matches("^\\d{1,8}$")){
         request.setAttribute("mensaje", "¡No toques la URL!");
             request.setAttribute("url","empleado/indexEmpleado.jsp");
             RequestDispatcher rd = this.getServletContext().getRequestDispatcher("/error.jsp");

@@ -52,7 +52,7 @@ public class ServletCreaUsuario extends HttpServlet {
             rd.forward(request, response);
         
         }
-        if (!request.getParameter("dni").matches(".*\\d+.*")){
+        if (!request.getParameter("dni").matches("^\\d{1,8}$")){
         request.setAttribute("mensaje", "Introduce el DNI sin letra");
             request.setAttribute("url","alta.jsp");
             RequestDispatcher rd = this.getServletContext().getRequestDispatcher("/error.jsp");

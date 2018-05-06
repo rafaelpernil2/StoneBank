@@ -60,7 +60,7 @@ public class ServletLogin extends HttpServlet {
             rd.forward(request, response);
         
         }
-        if(!request.getParameter("user").matches(".*\\d+.*")){
+        if(!request.getParameter("user").matches("^\\d{1,8}$")){
          request.setAttribute("mensaje", "Introduce el DNI sin letra");
             request.setAttribute("url","/StoneBank-war/login.jsp");
             RequestDispatcher rd = this.getServletContext().getRequestDispatcher("/error.jsp");
