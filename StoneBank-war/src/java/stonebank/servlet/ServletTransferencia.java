@@ -49,13 +49,14 @@ public class ServletTransferencia extends HttpServlet {
         int dniReceptor;
         double cantidad;
         String concepto;
-
+        boolean ready=true;
         DateFormat formato = new SimpleDateFormat("yyyy/MM/dd HH:MM:SS", Locale.US);
         Date fecha = new Date();
 
         Tusuario emisor = (Tusuario) session.getAttribute("usuarioLogin");
 
         if (request.getParameter("dnireceptor").equals("") || request.getParameter("cantidad").equals("")) {
+            ready=false;
             request.setAttribute("mensaje", "Faltan datos");
             request.setAttribute("url", "ServletCreaTransferencia?dni=" + emisor.getDniUsuario());
             RequestDispatcher rd = this.getServletContext().getRequestDispatcher("/error.jsp");
@@ -64,6 +65,7 @@ public class ServletTransferencia extends HttpServlet {
         }
 
         if (!BankAccountUtil.correctDNIFormat(request.getParameter("dnireceptor"))) {
+            ready=false;
             request.setAttribute("mensaje", "Introduce el DNI sin letra");
             request.setAttribute("url", "ServletCreaTransferencia?dni=" + emisor.getDniUsuario());
             RequestDispatcher rd = this.getServletContext().getRequestDispatcher("/error.jsp");
@@ -71,12 +73,13 @@ public class ServletTransferencia extends HttpServlet {
         }
 
         if (!BankAccountUtil.correctMoneyFormat(request.getParameter("cantidad"))) {
+            ready=false;
             request.setAttribute("mensaje", "La cantidad debe ser numérica y con decimales válidos. Use . para separar euros de céntimos");
             request.setAttribute("url", "ServletCreaTransferencia?dni=" + emisor.getDniUsuario());
             RequestDispatcher rd = this.getServletContext().getRequestDispatcher("/error.jsp");
             rd.forward(request, response);
         }
-
+        
         //Tusuario emisor = (Tusuario) session.getAttribute("usuarioLogin");
         dniReceptor = Integer.parseInt(request.getParameter("dnireceptor"));
         cantidad = Double.parseDouble(request.getParameter("cantidad"));
@@ -104,7 +107,7 @@ public class ServletTransferencia extends HttpServlet {
             //lanza error
         }
 
-        if ((sumaMovimientos + sumaTransferencias) >= (restaTransferencias + cantidad)) {
+        if (ready && (sumaMovimientos + sumaTransferencias) >= (restaTransferencias + cantidad)) {
 
             //Compruebo que el dniReceptor existe
             Tusuario receptor;

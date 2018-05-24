@@ -47,13 +47,13 @@ public class ServletCreaMovimiento extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         //response.setContentType("text/html;charset=UTF-8");
-
+        boolean ready = true;
         //  HttpSession session = request.getSession();
         HttpSession session = request.getSession();
         Tmovimiento movimiento = new Tmovimiento();
 
         if (!BankAccountUtil.correctDNIFormat(request.getParameter("dni"))) {
-
+            ready=false;
             request.setAttribute("mensaje", "¡No toques la URL!");
             request.setAttribute("url", "empleado/indexEmpleado.jsp");
             RequestDispatcher rd = this.getServletContext().getRequestDispatcher("/error.jsp");
@@ -61,7 +61,7 @@ public class ServletCreaMovimiento extends HttpServlet {
         }
         Integer dni = Integer.parseInt(request.getParameter("dni"));
         if (request.getParameter("iban").equals("") || request.getParameter("cantidad").equals("")) {
-
+            ready=false;
             request.setAttribute("mensaje", "Faltan datos");
 
             request.setAttribute("url", "empleado/nuevoMovimiento.jsp?dni=" + dni);
@@ -69,6 +69,7 @@ public class ServletCreaMovimiento extends HttpServlet {
             rd.forward(request, response);
         }
         if (!BankAccountUtil.correctMoneyFormat(request.getParameter("cantidad"))) {
+            ready=false;
             request.setAttribute("mensaje", "La cantidad debe ser numérica y con decimales válidos. Use . para separar euros de céntimos");
             request.setAttribute("url", "empleado/nuevoMovimiento.jsp?dni=" + dni);
             RequestDispatcher rd = this.getServletContext().getRequestDispatcher("/error.jsp");
@@ -81,8 +82,8 @@ public class ServletCreaMovimiento extends HttpServlet {
         movimiento.setFecha(new java.util.Date());
         movimiento.setIbanEntidad(request.getParameter("iban"));
         movimiento.setCantidad(Double.parseDouble(request.getParameter("cantidad")));
-
         
+        if(ready==true){
             tmovimientoFacade.create(movimiento);
 
             //List<Tusuario> listaUsuarios = this.tusuarioFacade.findAll();
@@ -95,7 +96,7 @@ public class ServletCreaMovimiento extends HttpServlet {
 
             RequestDispatcher rd = this.getServletContext().getRequestDispatcher("/ServletVerUsuario");
             rd.forward(request, response);
-        
+        }
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
