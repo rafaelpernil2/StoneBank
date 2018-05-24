@@ -10,8 +10,8 @@
 <!DOCTYPE html>
 
 <%
-    Tusuario usuario = (Tusuario)session.getAttribute("empleadoLogin"); //antes request
-    List<Tusuario> listaUsuarios = (List<Tusuario>)session.getAttribute("listaUsuarios");
+    Tusuario usuario = (Tusuario) session.getAttribute("empleadoLogin"); //antes request
+    List<Tusuario> listaUsuarios = (List<Tusuario>) session.getAttribute("listaUsuarios");
 %>
 
 <html>
@@ -32,31 +32,31 @@
         <jsp:include page="../headerEmpleadoBusqueda.jsp"/>
         <h1>Usuarios</h1> <%-- Falta poner el nombre del usuario en cuestión --%>
         <h2>&Uacute;ltimas Transacciones</h2>
-        
-        
-        
-        
-        <table class="table">
-            <tr>
-                <th>Nombre</th>
-                <th>Apellidos</th>
-                <th>Número de cuenta</th>
-                <th>Rol </th>
-            </tr>
-        <%-- Cuerpo de la lista --%>
-        <% for (Tusuario user : listaUsuarios){ %>
-        <tr>
-            <td ><%= user.getNombre() %> </td>
-            <td><%=user.getApellidos()%></td>
-            <td><%= user.getNumCuenta() %> </td>
-            <td><%= user.getTrolIdtrol().getNombre() %></td>
-           <td><a href="${pageContext.request.contextPath}/ServletVerUsuario?dni=<%= user.getDniUsuario()%>" class="btn btn-primary">Ver</a> </td>
-           <td><a href="${pageContext.request.contextPath}/ServletGestionarUsuario?dni=<%= user.getDniUsuario()%>" class="btn btn-warning">Editar</a></td> 
-        </tr>
-        
-        <% } %>
-        </table>
-        
+
+
+
+        <div class="table-responsive">
+            <table class="table">
+                <tr>
+                    <th>Nombre</th>
+                    <th>Apellidos</th>
+                    <th>Número de cuenta</th>
+                    <th>Rol </th>
+                </tr>
+                <%-- Cuerpo de la lista --%>
+                <% for (Tusuario user : listaUsuarios) {%>
+                <tr>
+                    <td ><%= user.getNombre()%> </td>
+                    <td><%=user.getApellidos()%></td>
+                    <td><%= user.getNumCuenta()%> </td>
+                    <td><%= user.getTrolIdtrol().getNombre()%></td>
+                    <td><a href="${pageContext.request.contextPath}/ServletVerUsuario?dni=<%= user.getDniUsuario()%>" class="btn btn-primary">Ver</a> </td>
+                    <td><a href="${pageContext.request.contextPath}/ServletGestionarUsuario?dni=<%= user.getDniUsuario()%>" class="btn btn-warning">Editar</a></td> 
+                </tr>
+
+                <% }%>
+            </table>
+        </div>
         <%--<form action="${pageContext.request.contextPath}/ServletCerrarSesion">
             <input type="submit"  value="Cerrar Sesión" />
         </form>

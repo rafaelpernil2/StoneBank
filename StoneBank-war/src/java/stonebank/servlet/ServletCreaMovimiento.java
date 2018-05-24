@@ -5,14 +5,11 @@
  */
 package stonebank.servlet;
 
-import com.sun.org.apache.bcel.internal.generic.PushInstruction;
 import java.io.IOException;
-import java.sql.Date;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -57,7 +54,7 @@ public class ServletCreaMovimiento extends HttpServlet {
         HttpSession session = request.getSession();
         Tmovimiento movimiento= new Tmovimiento();
         
-        if (!request.getParameter("dni").matches("^\\d{1,8}$")){
+        if (!request.getParameter("dni").matches("^\\d{1,9}$")){
         request.setAttribute("mensaje", "¡No toques la URL!");
             request.setAttribute("url","empleado/indexEmpleado.jsp");
             RequestDispatcher rd = this.getServletContext().getRequestDispatcher("/error.jsp");

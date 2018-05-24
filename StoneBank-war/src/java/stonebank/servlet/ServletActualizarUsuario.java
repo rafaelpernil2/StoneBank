@@ -19,7 +19,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import stonebank.ejb.TusuarioFacade;
 import stonebank.entity.Tusuario;
-
+import stonebank.utils.*;
 /**
  *
  * @author Jesús Contreras y Fran Gambero
@@ -70,33 +70,13 @@ public class ServletActualizarUsuario extends HttpServlet {
         
         usuario = (Tusuario) this.tusuarioFacade.find(dni);
         
-                //SHA-256 HASH, esto lo movería a un .utils :) 
-        MessageDigest msgdgst = MessageDigest.getInstance("SHA-256");
-        byte[] encodedhash = msgdgst.digest(contrasena.getBytes(StandardCharsets.UTF_8));
         
-        StringBuilder hexString = new StringBuilder();
-        for (int i = 0; i < encodedhash.length; i++) {
-            String hex = Integer.toHexString(0xff & encodedhash[i]);
-            if(hex.length() == 1) 
-                hexString.append('0');
-            hexString.append(hex);
-        }
         //
         
-        if(usuario.getHashContrasena().equals(hexString.toString())){
+        
+        if(usuario.getHashContrasena().equalsIgnoreCase(PasswordUtil.generateHash(contrasena))){
             String nuevaContrasena = request.getParameter("nuevacontrasena"); //antes request
-           
-            encodedhash = msgdgst.digest(nuevaContrasena.getBytes(StandardCharsets.UTF_8));
-            hexString = new StringBuilder();
-        for (int i = 0; i < encodedhash.length; i++) {
-            String hex = Integer.toHexString(0xff & encodedhash[i]);
-            if(hex.length() == 1) 
-                hexString.append('0');
-            hexString.append(hex);
-            
-            
-        }
-            usuario.setHashContrasena(hexString.toString());
+            usuario.setHashContrasena(PasswordUtil.generateHash(nuevaContrasena));
         }else{
             //Lanza error
             //pero por ahora simplemente no lo modificara

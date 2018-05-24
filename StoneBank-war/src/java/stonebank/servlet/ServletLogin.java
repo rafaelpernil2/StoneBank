@@ -23,6 +23,7 @@ import stonebank.ejb.TtransferenciaFacade;
 import stonebank.ejb.TusuarioFacade;
 import stonebank.entity.Trol;
 import stonebank.entity.Tusuario;
+import stonebank.utils.PasswordUtil;
 
 /**
  *
@@ -83,22 +84,10 @@ public class ServletLogin extends HttpServlet {
         
         }
         
-        //SHA-256 HASH
-        MessageDigest msgdgst = MessageDigest.getInstance("SHA-256");
-        byte[] encodedhash = msgdgst.digest(password.getBytes(StandardCharsets.UTF_8));
-        
-        StringBuilder hexString = new StringBuilder();
-        for (int i = 0; i < encodedhash.length; i++) {
-            String hex = Integer.toHexString(0xff & encodedhash[i]);
-            if(hex.length() == 1) 
-                hexString.append('0');
-            hexString.append(hex);
-        }
-        //
-        
+     
         request.setAttribute("usuarioLogin", usuario);
         
-        if(usuario.getHashContrasena().equalsIgnoreCase(hexString.toString())){
+        if(usuario.getHashContrasena().equalsIgnoreCase(PasswordUtil.generateHash(password))){
             //Usuario existe y tiene contraseña valida
             //Comparamos rol para ver si iniciamos en Usuario o Empleado
             
