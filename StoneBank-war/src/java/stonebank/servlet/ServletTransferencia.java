@@ -68,7 +68,7 @@ public class ServletTransferencia extends HttpServlet {
             rd.forward(request, response);
         }
 
-        if (!request.getParameter("cantidad").matches("^\\d+\\d{0,3}") || request.getParameter("cantidad").contains(",")) {
+        if (!request.getParameter("cantidad").matches("^\\d+.\\d{0,2}") || request.getParameter("cantidad").contains(",")) {
             request.setAttribute("mensaje", "La cantidad debe ser numérica. Use . para los decimales");
             request.setAttribute("url", "ServletCreaTransferencia?dni=" + emisor.getDniUsuario());
             RequestDispatcher rd = this.getServletContext().getRequestDispatcher("/error.jsp");

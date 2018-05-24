@@ -25,7 +25,7 @@
         <title>Crear Movimiento</title>
     </head>
     <body class="container-fluid">
-         <jsp:include page="../headerEmpleado.jsp"/>
+         <jsp:include page="./headerEmpleado.jsp"/>
         <div align="center" >
         <h1>Crear nuevo movimiento</h1>
         <h2>para el usuario con DNI: <%= dni %></h2>

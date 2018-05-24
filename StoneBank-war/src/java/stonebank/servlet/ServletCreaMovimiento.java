@@ -50,8 +50,9 @@ public class ServletCreaMovimiento extends HttpServlet {
         //  HttpSession session = request.getSession();
         HttpSession session = request.getSession();
         Tmovimiento movimiento = new Tmovimiento();
-
+        
         if (!request.getParameter("dni").matches("^\\d{8}$")) {
+           
             request.setAttribute("mensaje", "¡No toques la URL!");
             request.setAttribute("url", "empleado/indexEmpleado.jsp");
             RequestDispatcher rd = this.getServletContext().getRequestDispatcher("/error.jsp");
@@ -59,14 +60,15 @@ public class ServletCreaMovimiento extends HttpServlet {
         }
         Integer dni = Integer.parseInt(request.getParameter("dni"));
         if (request.getParameter("iban").equals("") || request.getParameter("cantidad").equals("")) {
-
+      
             request.setAttribute("mensaje", "Faltan datos");
 
             request.setAttribute("url", "empleado/nuevoMovimiento.jsp?dni=" + dni);
             RequestDispatcher rd = this.getServletContext().getRequestDispatcher("/error.jsp");
             rd.forward(request, response);
         }
-        if (!request.getParameter("cantidad").matches("^\\d+\\d{0,3}") || request.getParameter("cantidad").contains(",")) {
+        if (!request.getParameter("cantidad").matches("^\\d+.\\d{0,2}") || request.getParameter("cantidad").contains(",")) {
+       
             request.setAttribute("mensaje", "La cantidad debe ser numérica y con decimales válidos. Use . para los decimales");
             request.setAttribute("url", "empleado/nuevoMovimiento.jsp?dni=" + dni);
             RequestDispatcher rd = this.getServletContext().getRequestDispatcher("/error.jsp");

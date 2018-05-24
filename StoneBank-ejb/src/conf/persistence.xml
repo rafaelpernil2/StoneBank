@@ -7,7 +7,7 @@
     <class>stonebank.entity.Trol</class>
     <class>stonebank.entity.Ttransferencia</class>
     <class>stonebank.entity.Tusuario</class>
-    <exclude-unlisted-classes>false</exclude-unlisted-classes>
+    <exclude-unlisted-classes>true</exclude-unlisted-classes>
     <properties>
       <property name="eclipselink.cache.type.default" value="NONE"/>
     </properties>
