@@ -5,14 +5,11 @@
  */
 package stonebank.servlet;
 
-import com.sun.org.apache.bcel.internal.generic.PushInstruction;
 import java.io.IOException;
-import java.sql.Date;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -25,10 +22,10 @@ import stonebank.entity.Tusuario;
 /**
  *
  * @author rafaelpernil
- * @Editors Victor Garcia Kaikkonen, Jesus Contreras Herreras, Francisco Gambero Salinas, Eduardo Pertierra Puche
+ * @Editors Victor Garcia Kaikkonen, Jesus Contreras Herreras, Francisco Gambero
+ * Salinas, Eduardo Pertierra Puche
  */
 //@WebServlet(name = "ServletCreaMovimiento", urlPatterns = {"/empleado/ServletCreaMovimiento"})
-
 public class ServletCreaMovimiento extends HttpServlet {
 
     @EJB
@@ -37,9 +34,6 @@ public class ServletCreaMovimiento extends HttpServlet {
     @EJB
     private TmovimientoFacade tmovimientoFacade;
 
-    
-    
-    
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -52,44 +46,43 @@ public class ServletCreaMovimiento extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        boolean ready=true;
-      //  HttpSession session = request.getSession();
+        boolean ready = true;
+        //  HttpSession session = request.getSession();
         HttpSession session = request.getSession();
-        Tmovimiento movimiento= new Tmovimiento();
-        
-        if (!request.getParameter("dni").matches("^\\d{1,8}$")){
-        request.setAttribute("mensaje", "¡No toques la URL!");
-            request.setAttribute("url","empleado/indexEmpleado.jsp");
+        Tmovimiento movimiento = new Tmovimiento();
+
+        if (!request.getParameter("dni").matches("^\\d{8}$")) {
+            request.setAttribute("mensaje", "¡No toques la URL!");
+            request.setAttribute("url", "empleado/indexEmpleado.jsp");
             RequestDispatcher rd = this.getServletContext().getRequestDispatcher("/error.jsp");
             rd.forward(request, response);
         }
-         Integer dni = Integer.parseInt(request.getParameter("dni"));
-        if (request.getParameter("iban").equals("") || request.getParameter("cantidad").equals("")){
-        
-        request.setAttribute("mensaje", "Faltan datos");
-        
-            request.setAttribute("url","empleado/nuevoMovimiento.jsp?dni="+dni);
+        Integer dni = Integer.parseInt(request.getParameter("dni"));
+        if (request.getParameter("iban").equals("") || request.getParameter("cantidad").equals("")) {
+
+            request.setAttribute("mensaje", "Faltan datos");
+
+            request.setAttribute("url", "empleado/nuevoMovimiento.jsp?dni=" + dni);
             RequestDispatcher rd = this.getServletContext().getRequestDispatcher("/error.jsp");
             rd.forward(request, response);
         }
-        if(!request.getParameter("cantidad").matches(".*\\d+.*") || request.getParameter("cantidad").contains(",")){
-            request.setAttribute("mensaje", "La cantidad debe ser numérica. Use . para los decimales");
-            request.setAttribute("url","empleado/nuevoMovimiento.jsp?dni="+dni);
+        if (!request.getParameter("cantidad").matches("^\\d+\\d{0,3}") || request.getParameter("cantidad").contains(",")) {
+            request.setAttribute("mensaje", "La cantidad debe ser numérica y con decimales válidos. Use . para los decimales");
+            request.setAttribute("url", "empleado/nuevoMovimiento.jsp?dni=" + dni);
             RequestDispatcher rd = this.getServletContext().getRequestDispatcher("/error.jsp");
             rd.forward(request, response);
         }
-        Tusuario usuario =  tusuarioFacade.find(dni); 
-        
+        Tusuario usuario = tusuarioFacade.find(dni);
+
         movimiento.setTusuariodniUsuario(usuario);
         movimiento.setConcepto(request.getParameter("concepto"));
         movimiento.setFecha(new java.util.Date());
         movimiento.setIbanEntidad(request.getParameter("iban"));
         movimiento.setCantidad(Double.parseDouble(request.getParameter("cantidad")));
-       
-        
-        if (ready){
+
+        if (ready) {
             tmovimientoFacade.create(movimiento);
-            
+
             //List<Tusuario> listaUsuarios = this.tusuarioFacade.findAll();
             //session.setAttribute("listaUsuarios", listaUsuarios); //antes request
             request.removeAttribute("usuario");
@@ -97,7 +90,7 @@ public class ServletCreaMovimiento extends HttpServlet {
             List<Tusuario> listaUsuarios = this.tusuarioFacade.findAll();
             session.removeAttribute("listaUsuarios");
             session.setAttribute("listaUsuarios", listaUsuarios); //antes request
-            
+
             RequestDispatcher rd = this.getServletContext().getRequestDispatcher("/ServletVerUsuario");
             rd.forward(request, response);
         }

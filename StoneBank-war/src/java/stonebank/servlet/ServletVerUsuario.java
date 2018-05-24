@@ -6,13 +6,10 @@
 package stonebank.servlet;
 
 import java.io.IOException;
-import java.io.PrintWriter;
-import static java.lang.System.out;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -44,27 +41,26 @@ public class ServletVerUsuario extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-       
+
         HttpSession session = request.getSession();
         //Tusuario u = (Tusuario) request.getAttribute("usuarioCrea");
         //if (u==null){
         int dni = Integer.parseInt(request.getParameter("dni"));
-        Tusuario u= tusuarioFacade.find(dni);
+        Tusuario u = tusuarioFacade.find(dni);
         List<Tmovimiento> listMov = u.getTmovimientoList();
         List<Ttransferencia> listTrans = u.getTtransferenciaList();
         request.setAttribute("usuarioVer", u);
-        request.setAttribute("dniVer",dni);
-       // }
+        request.setAttribute("dniVer", dni);
+        // }
         //else{
-           //request.setAttribute("usuarioVer", u);
-       // }
-       request.setAttribute("listaMov",listMov);
-       request.setAttribute("listaTrans",listTrans);
+        //request.setAttribute("usuarioVer", u);
+        // }
+        request.setAttribute("listaMov", listMov);
+        request.setAttribute("listaTrans", listTrans);
         RequestDispatcher rd = this.getServletContext().getRequestDispatcher("/empleado/usuarioSeleccionado.jsp");
         rd.forward(request, response);
     }
 
-   
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {

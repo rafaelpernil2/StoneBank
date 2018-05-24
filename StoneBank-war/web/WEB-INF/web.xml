@@ -168,4 +168,14 @@
     <welcome-file-list>
         <welcome-file>login.jsp</welcome-file>
     </welcome-file-list>
+    <ejb-local-ref>
+        <ejb-ref-name>TusuarioFacade</ejb-ref-name>
+        <ejb-ref-type>Session</ejb-ref-type>
+        <ejb-link>StoneBank-ejb.jar#TusuarioFacade</ejb-link>
+    </ejb-local-ref>
+    <ejb-local-ref>
+        <ejb-ref-name>TusuarioFacade1</ejb-ref-name>
+        <ejb-ref-type>Session</ejb-ref-type>
+        <ejb-link>StoneBank-ejb.jar#TusuarioFacade</ejb-link>
+    </ejb-local-ref>
 </web-app>
