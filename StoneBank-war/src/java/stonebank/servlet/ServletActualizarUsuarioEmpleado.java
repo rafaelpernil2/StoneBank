@@ -92,7 +92,7 @@ public class ServletActualizarUsuarioEmpleado extends HttpServlet {
         } else {
             ready = false;
             request.setAttribute("mensaje", "Teléfono incorrecto");
-            request.setAttribute("url", "ServletEditarEmpleado?dni=" + request.getParameter("dni"));
+            request.setAttribute("url", "ServletGestionarUsuario?dni=" + request.getParameter("dni"));
             RequestDispatcher rd = this.getServletContext().getRequestDispatcher("/error.jsp");
             rd.forward(request, response);
         }
