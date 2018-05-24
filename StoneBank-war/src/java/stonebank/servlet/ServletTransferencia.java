@@ -1,7 +1,6 @@
 package stonebank.servlet;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.Date;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -9,7 +8,6 @@ import java.util.Locale;
 import javax.ejb.EJB;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -23,6 +21,7 @@ import stonebank.entity.Tusuario;
 /**
  *
  * @author Jesus Contreras
+ * @editor Rafael Pernil
  */
 //@WebServlet(name = "ServletTransferencia", urlPatterns = {"/usuario/ServletTransferencia"})
 public class ServletTransferencia extends HttpServlet {
@@ -62,14 +61,14 @@ public class ServletTransferencia extends HttpServlet {
 
         }
 
-        if (!request.getParameter("dnireceptor").matches("^\\d{1,8}$")) {
+        if (!request.getParameter("dnireceptor").matches("^\\d{8}")) {
             request.setAttribute("mensaje", "Introduce el DNI sin letra");
             request.setAttribute("url", "ServletCreaTransferencia?dni=" + emisor.getDniUsuario());
             RequestDispatcher rd = this.getServletContext().getRequestDispatcher("/error.jsp");
             rd.forward(request, response);
         }
 
-        if (!request.getParameter("cantidad").matches(".*\\d+.*") || request.getParameter("cantidad").contains(",")) {
+        if (!request.getParameter("cantidad").matches("^\\d+.\\d{0,2}") || request.getParameter("cantidad").contains(",")) {
             request.setAttribute("mensaje", "La cantidad debe ser numérica. Use . para los decimales");
             request.setAttribute("url", "ServletCreaTransferencia?dni=" + emisor.getDniUsuario());
             RequestDispatcher rd = this.getServletContext().getRequestDispatcher("/error.jsp");
