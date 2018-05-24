@@ -6,7 +6,6 @@
 package stonebank.servlet;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.servlet.RequestDispatcher;
@@ -38,17 +37,17 @@ public class ServletEliminaUsuario extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
+        //response.setContentType("text/html;charset=UTF-8");
         HttpSession session = request.getSession();
-         int dni= Integer.parseInt(request.getParameter("dni"));
-        
+        int dni = Integer.parseInt(request.getParameter("dni"));
+
         Tusuario usuario;
-        
+
         //if(dni != null){ //no hace falta, dni nunca es null
-            usuario = this.tusuarioFacade.find(dni);
-            tusuarioFacade.remove(usuario);
+        usuario = this.tusuarioFacade.find(dni);
+        tusuarioFacade.remove(usuario);
         //}
-         List<Tusuario> listaUsuarios = this.tusuarioFacade.findAll();
+        List<Tusuario> listaUsuarios = this.tusuarioFacade.findAll();
         session.setAttribute("listaUsuarios", listaUsuarios); //antes request
         RequestDispatcher rd = this.getServletContext().getRequestDispatcher("/empleado/indexEmpleado.jsp");
         rd.forward(request, response);

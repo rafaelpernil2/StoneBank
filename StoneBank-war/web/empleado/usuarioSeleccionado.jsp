@@ -12,14 +12,13 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 
 <%
-    List<Tmovimiento> listaMovimientos = (List<Tmovimiento>) request.getAttribute("listaMov");  
+    List<Tmovimiento> listaMovimientos = (List<Tmovimiento>) request.getAttribute("listaMov");
     List<Ttransferencia> listaTransferencias = (List<Ttransferencia>) request.getAttribute("listaTrans");
-    Tusuario usuario =(Tusuario) request.getAttribute("usuarioVer");
+    Tusuario usuario = (Tusuario) request.getAttribute("usuarioVer");
     listaMovimientos = usuario.getTmovimientoList();
     listaTransferencias = usuario.getTtransferenciaList();
-    
-    
-    
+
+
 %>
 <!DOCTYPE html>
 <html>
@@ -37,102 +36,102 @@
         <title>Usuario Seleccionado</title>
     </head>
     <body class="container-fluid">
-        
-         <jsp:include page="../headerEmpleadoUsuarioSeleccionado.jsp"/>
-         <div class="row">
-             
-             <div class="col-md-3">
-                 <h3>Datos del usuario</h3>
-                    <table class="table">
-                <tr>
-                    <td>Nombre: </td>
-                    <td><input class="form-control"  type="hidden" name="nombre" value="<%=usuario.getNombre()%>" readonly="readonly"/><%=usuario.getNombre()%></td>                    
-                </tr>
-                <tr>
-                    <td>Apellido: </td>
-                    <td><input class="form-control" type="hidden" name="apellido" value="<%=usuario.getApellidos()%>" readonly="readonly"/><%=usuario.getApellidos()%></td>                    
-                </tr>
-                <tr>
-                    <td>DNI: </td>
-                    <td><input class="form-control" type="hidden" name="dni" value="<%=usuario.getDniUsuario()%>" readonly="readonly"/><%=usuario.getDniUsuario()%></td>                    
-                </tr>
 
-                <tr>
-                    <td>Telefono: </td>
-                    <td><input class="form-control" type="hidden" name="telefono" value="<%=usuario.getTelefono()%>" readonly="readonly"/><%=usuario.getTelefono()%></td>                    
-                </tr>
-                <tr>
-                    <td>Email: </td>
-                    <td><input class="form-control" type="hidden" name="email" value="<%=usuario.getEmail() %>" readonly="readonly"/><%=usuario.getEmail() %></td>                    
-                </tr>
-                <tr>
-                    <td>Domicilio: </td>
-                    <td><input  class="form-control" type="hidden" name="domicilio" value="<%= usuario.getDomicilio() %>" readonly="readonly"/><%= usuario.getDomicilio() %></td>                    
-                </tr>
-            </table>
-             </div>
-                
-                <div class="col-md-9">
-                    <h3>Historial de Movimientos</h3>
-        <table class="table">
-            <tr>
-            <th>IDMovimiento</th>             
-            <th>DNIReceptor</th>            
-            <th>Concepto</th>               
-            <th>Cantidad</th>                          
-            <th>ibanEntidad</th>               
-            <th>Fecha</th> 
-            </tr>
-            <%
-              for (Tmovimiento movimiento : listaMovimientos){  
-            %>
-            <tr>
-                <td><%= movimiento.getIdtmovimiento() %></td>
-                <td><%= movimiento.getTusuariodniUsuario().getDniUsuario() %></td>
-                <td><%= movimiento.getConcepto() %></td>
-                <td><%= movimiento.getCantidad() %></td>
-                <td><%= movimiento.getIbanEntidad() %></td>
-                <td><%= movimiento.getFecha() %></td>
-                        <td><form method="post" action="${pageContext.request.contextPath}/empleado/confirmarEliminarMovimiento.jsp">
-                                <input type="hidden" name="idmov" value="<%=movimiento.getIdtmovimiento() %>" />
-                                <input type="hidden" name="dni" value="<%=usuario.getDniUsuario()%>" />
-                                       <input type="submit" class="btn btn-danger" value="Eliminar movimiento" />
-                    </form>
-            </tr>
-            
-            <%
-              }  
-            %>
-           
+        <jsp:include page="../headerEmpleadoUsuarioSeleccionado.jsp"/>
+        <div class="row">
+
+            <div class="col-md-3">
+                <h3>Datos del usuario</h3>
+                <table class="table">
+                    <tr>
+                        <td>Nombre: </td>
+                        <td><input class="form-control"  type="hidden" name="nombre" value="<%=usuario.getNombre()%>" readonly="readonly"/><%=usuario.getNombre()%></td>                    
+                    </tr>
+                    <tr>
+                        <td>Apellido: </td>
+                        <td><input class="form-control" type="hidden" name="apellido" value="<%=usuario.getApellidos()%>" readonly="readonly"/><%=usuario.getApellidos()%></td>                    
+                    </tr>
+                    <tr>
+                        <td>DNI: </td>
+                        <td><input class="form-control" type="hidden" name="dni" value="<%=usuario.getDniUsuario()%>" readonly="readonly"/><%=usuario.getDniUsuario()%></td>                    
+                    </tr>
+
+                    <tr>
+                        <td>Telefono: </td>
+                        <td><input class="form-control" type="hidden" name="telefono" value="<%=usuario.getTelefono()%>" readonly="readonly"/><%=usuario.getTelefono()%></td>                    
+                    </tr>
+                    <tr>
+                        <td>Email: </td>
+                        <td><input class="form-control" type="hidden" name="email" value="<%=usuario.getEmail()%>" readonly="readonly"/><%=usuario.getEmail()%></td>                    
+                    </tr>
+                    <tr>
+                        <td>Domicilio: </td>
+                        <td><input  class="form-control" type="hidden" name="domicilio" value="<%= usuario.getDomicilio()%>" readonly="readonly"/><%= usuario.getDomicilio()%></td>                    
+                    </tr>
                 </table>
-                </div>
+            </div>
+
+            <div class="table-responsive col-md-9">
+                <h3>Historial de Movimientos</h3>
+                <table class="table">
+                    <tr>
+                        <th>IDMovimiento</th>             
+                        <th>DNIReceptor</th>            
+                        <th>Concepto</th>               
+                        <th>Cantidad</th>                          
+                        <th>ibanEntidad</th>               
+                        <th>Fecha</th> 
+                    </tr>
+                    <%
+                        for (Tmovimiento movimiento : listaMovimientos) {
+                    %>
+                    <tr>
+                        <td><%= movimiento.getIdtmovimiento()%></td>
+                        <td><%= movimiento.getTusuariodniUsuario().getDniUsuario()%></td>
+                        <td><%= movimiento.getConcepto()%></td>
+                        <td><%= movimiento.getCantidad()%></td>
+                        <td><%= movimiento.getIbanEntidad()%></td>
+                        <td><%= movimiento.getFecha()%></td>
+                        <td><form method="post" action="${pageContext.request.contextPath}/empleado/confirmarEliminarMovimiento.jsp">
+                                <input type="hidden" name="idmov" value="<%=movimiento.getIdtmovimiento()%>" />
+                                <input type="hidden" name="dni" value="<%=usuario.getDniUsuario()%>" />
+                                <input type="submit" class="btn btn-danger" value="Eliminar movimiento" />
+                            </form>
+                    </tr>
+
+                    <%
+                        }
+                    %>
+
+                </table>
+            </div>
             <div class="col-md-3"></div>
-           <div class="col-md-9">
-                    <h3>Historial de Transferencias</h3>
-        <table class="table">
-            <th>DNIEmisor</th>             
-            <th>DNIReceptor</th>            
-            <th>Concepto</th>               
-            <th>Cantidad</th>                                       
-            <th>Fecha</th>                
-            <%
-              for (Ttransferencia transferencia : listaTransferencias){  
-            %>
-            <tr>
-                <td><%= transferencia.getDNIEmisor() %></td>
-                <td><%= transferencia.getDNIReceptor() %></td>
-                <td><%= transferencia.getConcepto() %></td>
-                <td><%= transferencia.getCantidad() %></td>
-                <td><%= transferencia.getFecha() %></td>
-            </tr>
-            <%
-              }  
-            %>
-           
-            
-        </table>
-        
-         </div>   
-         </div>
+            <div class="table-responsive col-md-9">
+                <h3>Historial de Transferencias</h3>
+                <table class="table">
+                    <th>DNIEmisor</th>             
+                    <th>DNIReceptor</th>            
+                    <th>Concepto</th>               
+                    <th>Cantidad</th>                                       
+                    <th>Fecha</th>                
+                        <%
+                            for (Ttransferencia transferencia : listaTransferencias) {
+                        %>
+                    <tr>
+                        <td><%= transferencia.getDNIEmisor()%></td>
+                        <td><%= transferencia.getDNIReceptor()%></td>
+                        <td><%= transferencia.getConcepto()%></td>
+                        <td><%= transferencia.getCantidad()%></td>
+                        <td><%= transferencia.getFecha()%></td>
+                    </tr>
+                    <%
+                        }
+                    %>
+
+
+                </table>
+
+            </div>   
+        </div>
     </body>
 </html>
