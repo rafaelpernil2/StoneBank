@@ -36,10 +36,11 @@ public class ServletCreaUsuario extends HttpServlet {
         String nombre, apellido, contrasena, email, domicilio;
         int dni, telefono;
         Tusuario usuario, empleado;
-        
-        
+        boolean ready = true;
+
         if (request.getParameter("nombre").equals("") || request.getParameter("apellido").equals("")
                 || request.getParameter("contrasena").equals("") || request.getParameter("dni").equals("")) {
+            ready = false;
             request.setAttribute("mensaje", "Faltan datos");
             request.setAttribute("url", "alta.jsp");
             RequestDispatcher rd = this.getServletContext().getRequestDispatcher("/error.jsp");
@@ -47,12 +48,14 @@ public class ServletCreaUsuario extends HttpServlet {
 
         }
         if (!BankAccountUtil.correctDNIFormat(request.getParameter("dni"))) {
+            ready = false;
             request.setAttribute("mensaje", "Introduce los 8 dígitos del  DNI sin letra");
             request.setAttribute("url", "alta.jsp");
             RequestDispatcher rd = this.getServletContext().getRequestDispatcher("/error.jsp");
             rd.forward(request, response);
         }
         if (!BankAccountUtil.correctTelephoneFormat(request.getParameter("telefono"))) {
+            ready = false;
             request.setAttribute("mensaje", "Número de telefono mal introducido");
             request.setAttribute("url", "alta.jsp");
             RequestDispatcher rd = this.getServletContext().getRequestDispatcher("/error.jsp");
@@ -82,21 +85,8 @@ public class ServletCreaUsuario extends HttpServlet {
 
         usuario.setNombre(nombre);
         usuario.setApellidos(apellido);
-        
-        Integer num = telefono;
+        usuario.setTelefono(telefono);
 
-            if (BankAccountUtil.correctTelephoneFormat(num.toString())) {
-                usuario.setTelefono(telefono);
-
-            } else {
-                request.setAttribute("mensaje", "Teléfono incorrecto");
-                request.setAttribute("url", "ServletEditarEmpleado?dni=" + request.getParameter("dni"));
-                RequestDispatcher rd = this.getServletContext().getRequestDispatcher("/error.jsp");
-                rd.forward(request, response);
-            }
-        
-        
-        
         usuario.setEmail(email);
         usuario.setDomicilio(domicilio);
 
@@ -109,23 +99,24 @@ public class ServletCreaUsuario extends HttpServlet {
         if (!BankAccountUtil.alreadyRegisteredDNI(tusuarioFacade, dni)) {
             usuario.setDniUsuario(dni);
         } else {
+            ready = false;
             request.setAttribute("mensaje", "DNI ya registrado");
             request.setAttribute("url", "alta.jsp");
             RequestDispatcher rd = this.getServletContext().getRequestDispatcher("/error.jsp");
             rd.forward(request, response);
         }
-
-        HttpSession session = request.getSession();
-        empleado = (Tusuario) session.getAttribute("empleadoLogin");
-        this.tusuarioFacade.create(usuario);
-        List<Tusuario> listaUsuarios = this.tusuarioFacade.findAll();
-        session.setAttribute("listaUsuarios", listaUsuarios); //antes request
-        request.setAttribute("usuarioCreado", usuario);//Creado para el alta.jsp
-        request.setAttribute("mensajeExito", "¡Usuario creado con éxito!");
-        request.setAttribute("proximaURL", "empleado/indexEmpleado.jsp");
-        RequestDispatcher rd = this.getServletContext().getRequestDispatcher("/exito.jsp");
-        rd.forward(request, response);
-
+        if (ready) {
+            HttpSession session = request.getSession();
+            empleado = (Tusuario) session.getAttribute("empleadoLogin");
+            this.tusuarioFacade.create(usuario);
+            List<Tusuario> listaUsuarios = this.tusuarioFacade.findAll();
+            session.setAttribute("listaUsuarios", listaUsuarios); //antes request
+            request.setAttribute("usuarioCreado", usuario);//Creado para el alta.jsp
+            request.setAttribute("mensajeExito", "¡Usuario creado con éxito!");
+            request.setAttribute("proximaURL", "empleado/indexEmpleado.jsp");
+            RequestDispatcher rd = this.getServletContext().getRequestDispatcher("/exito.jsp");
+            rd.forward(request, response);
+        }
     }
 
     @Override
