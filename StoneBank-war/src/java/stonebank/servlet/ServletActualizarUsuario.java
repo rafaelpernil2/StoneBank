@@ -51,7 +51,7 @@ public class ServletActualizarUsuario extends HttpServlet {
         if (!request.getParameter("telefono").isEmpty()) {
             telefono = Integer.parseInt(request.getParameter("telefono"));
         } else {
-            telefono = 0;
+            telefono = 111111111;
         }
         if (!request.getParameter("email").isEmpty()) {
             email = request.getParameter("email");

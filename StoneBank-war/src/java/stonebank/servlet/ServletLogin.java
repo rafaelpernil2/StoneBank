@@ -17,6 +17,7 @@ import stonebank.ejb.TtransferenciaFacade;
 import stonebank.ejb.TusuarioFacade;
 import stonebank.entity.Trol;
 import stonebank.entity.Tusuario;
+import stonebank.utils.BankAccountUtil;
 import stonebank.utils.PasswordUtil;
 
 /**
@@ -54,8 +55,8 @@ public class ServletLogin extends HttpServlet {
             rd.forward(request, response);
 
         }
-        if (!request.getParameter("user").matches("^\\d{8}$")) {
-            request.setAttribute("mensaje", "Introduce el DNI sin letra");
+        if (!BankAccountUtil.correctDNIFormat(request.getParameter("user"))) {
+            request.setAttribute("mensaje", "Introduce los 8 dígitos del  DNI sin letra");
             request.setAttribute("url", "/StoneBank-war/login.jsp");
             RequestDispatcher rd = this.getServletContext().getRequestDispatcher("/error.jsp");
             rd.forward(request, response);

@@ -17,6 +17,8 @@ import stonebank.ejb.TtransferenciaFacade;
 import stonebank.ejb.TusuarioFacade;
 import stonebank.entity.Ttransferencia;
 import stonebank.entity.Tusuario;
+import stonebank.utils.BankAccountUtil;
+import stonebank.utils.PasswordUtil;
 
 /**
  *
@@ -61,15 +63,15 @@ public class ServletTransferencia extends HttpServlet {
 
         }
 
-        if (!request.getParameter("dnireceptor").matches("^\\d{8}")) {
+        if (!BankAccountUtil.correctDNIFormat(request.getParameter("dnireceptor"))) {
             request.setAttribute("mensaje", "Introduce el DNI sin letra");
             request.setAttribute("url", "ServletCreaTransferencia?dni=" + emisor.getDniUsuario());
             RequestDispatcher rd = this.getServletContext().getRequestDispatcher("/error.jsp");
             rd.forward(request, response);
         }
 
-        if (!request.getParameter("cantidad").matches("^\\d+.\\d{0,2}") || request.getParameter("cantidad").contains(",")) {
-            request.setAttribute("mensaje", "La cantidad debe ser numérica. Use . para los decimales");
+        if (!BankAccountUtil.correctMoneyFormat(request.getParameter("cantidad"))) {
+            request.setAttribute("mensaje", "La cantidad debe ser numérica y con decimales válidos. Use . para separar euros de céntimos");
             request.setAttribute("url", "ServletCreaTransferencia?dni=" + emisor.getDniUsuario());
             RequestDispatcher rd = this.getServletContext().getRequestDispatcher("/error.jsp");
             rd.forward(request, response);

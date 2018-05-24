@@ -49,13 +49,13 @@ public class ServletCreaUsuario extends HttpServlet {
             rd.forward(request, response);
 
         }
-        if (!request.getParameter("dni").matches("^\\d{8}")) {
-            request.setAttribute("mensaje", "Introduce el DNI sin letra");
+        if (!BankAccountUtil.correctDNIFormat(request.getParameter("dni"))) {
+            request.setAttribute("mensaje", "Introduce los 8 dígitos del  DNI sin letra");
             request.setAttribute("url", "alta.jsp");
             RequestDispatcher rd = this.getServletContext().getRequestDispatcher("/error.jsp");
             rd.forward(request, response);
         }
-        if (!request.getParameter("telefono").isEmpty() && !request.getParameter("telefono").matches("^\\d{9}")) {
+        if (!BankAccountUtil.correctTelephoneFormat(request.getParameter("telefono"))) {
             request.setAttribute("mensaje", "Número de telefono mal introducido");
             request.setAttribute("url", "alta.jsp");
             RequestDispatcher rd = this.getServletContext().getRequestDispatcher("/error.jsp");
@@ -68,7 +68,7 @@ public class ServletCreaUsuario extends HttpServlet {
         if (!request.getParameter("telefono").isEmpty()) {
             telefono = Integer.parseInt(request.getParameter("telefono"));
         } else {
-            telefono = 0;
+            telefono = 111111111;
         }
         if (!request.getParameter("email").isEmpty()) {
             email = request.getParameter("email");

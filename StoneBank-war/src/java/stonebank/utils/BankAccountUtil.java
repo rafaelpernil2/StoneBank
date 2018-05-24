@@ -39,4 +39,19 @@ public class BankAccountUtil {
         }
         return i != lista.size();
     }
+
+    public static boolean correctDNIFormat(String dni) {
+        return dni.matches("^\\d{8}$");
+    }
+
+    public static boolean correctMoneyFormat(String dinero) {
+
+        return dinero.matches("^\\d+.\\d{0,2}");
+    }
+
+    public static boolean correctTelephoneFormat(String tel) {
+
+        return tel.matches("^\\d{9}");
+
+    }
 }
