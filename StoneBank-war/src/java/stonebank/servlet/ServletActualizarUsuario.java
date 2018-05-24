@@ -35,14 +35,16 @@ public class ServletActualizarUsuario extends HttpServlet {
         String nombre, apellido, contrasena, email, domicilio;
         int dni, telefono;
         Tusuario usuario;
+        boolean ready = true;
         if (request.getParameter("nombre").equalsIgnoreCase("") || request.getParameter("apellido").equalsIgnoreCase("")) {
+            ready = false;
             request.setAttribute("mensaje", "No puede dejar el nombre vacío");
             request.setAttribute("url", "ServletEditarUsuario?dni=" + request.getParameter("dni"));
             RequestDispatcher rd = this.getServletContext().getRequestDispatcher("/error.jsp");
             rd.forward(request, response);
 
         }
-        
+
         // RECIBIR DATOS
         nombre = request.getParameter("nombre");
         apellido = request.getParameter("apellido");
@@ -66,7 +68,7 @@ public class ServletActualizarUsuario extends HttpServlet {
 
         usuario = (Tusuario) this.tusuarioFacade.find(dni);
 
-       // OPERACIONES
+        // OPERACIONES
         if (usuario.getHashContrasena().equalsIgnoreCase(PasswordUtil.generateHash(contrasena))) {
 
             String nuevaContrasena = request.getParameter("nuevacontrasena");
@@ -79,20 +81,33 @@ public class ServletActualizarUsuario extends HttpServlet {
             usuario.setNombre(nombre);
             usuario.setApellidos(apellido);
             usuario.setDniUsuario(dni);
-            usuario.setTelefono(telefono);
+
+            Integer num = telefono;
+
+            if (BankAccountUtil.correctTelephoneFormat(num.toString())) {
+                usuario.setTelefono(telefono);
+
+            } else {
+                ready = false;
+                request.setAttribute("mensaje", "Teléfono incorrecto");
+                request.setAttribute("url", "ServletEditarEmpleado?dni=" + request.getParameter("dni"));
+                RequestDispatcher rd = this.getServletContext().getRequestDispatcher("/error.jsp");
+                rd.forward(request, response);
+            }
+
             usuario.setEmail(email);
             usuario.setDomicilio(domicilio);
-            
-            
-            
-            this.tusuarioFacade.edit(usuario); //Actualiza en BD
-            
-            List<Tusuario> listaUsuarios = this.tusuarioFacade.findAll();
-            session.setAttribute("listaUsuarios", listaUsuarios); //antes request
-            request.setAttribute("mensajeExito", "¡Usuario MODIFICADO con éxito!");
-            request.setAttribute("proximaURL", "usuario/indexUsuario.jsp");
-            RequestDispatcher rd = this.getServletContext().getRequestDispatcher("/exito.jsp");
-            rd.forward(request, response);
+
+            if (ready) {
+                this.tusuarioFacade.edit(usuario); //Actualiza en BD
+
+                List<Tusuario> listaUsuarios = this.tusuarioFacade.findAll();
+                session.setAttribute("listaUsuarios", listaUsuarios); //antes request
+                request.setAttribute("mensajeExito", "¡Usuario MODIFICADO con éxito!");
+                request.setAttribute("proximaURL", "usuario/indexUsuario.jsp");
+                RequestDispatcher rd = this.getServletContext().getRequestDispatcher("/exito.jsp");
+                rd.forward(request, response);
+            }
         } else {
             request.setAttribute("mensaje", "Contraseña incorrecta");
             request.setAttribute("url", "ServletEditarUsuario?dni=" + request.getParameter("dni"));

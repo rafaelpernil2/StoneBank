@@ -14,6 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import stonebank.ejb.TusuarioFacade;
 import stonebank.entity.Tusuario;
+import stonebank.utils.BankAccountUtil;
 import stonebank.utils.PasswordUtil;
 
 /**
@@ -35,7 +36,9 @@ public class ServletActualizarUsuarioEmpleado extends HttpServlet {
         String nombre, apellido, contrasena, email, domicilio;
         int dni, telefono;
         Tusuario usuario;
+        boolean ready = true;
         if (request.getParameter("nombre").equalsIgnoreCase("") || request.getParameter("apellido").equalsIgnoreCase("")) {
+            ready = false;
             request.setAttribute("mensaje", "No puede dejar el nombre vacío");
             request.setAttribute("url", "ServletGestionarUsuario?dni=" + request.getParameter("dni"));
             RequestDispatcher rd = this.getServletContext().getRequestDispatcher("/error.jsp");
@@ -80,18 +83,34 @@ public class ServletActualizarUsuarioEmpleado extends HttpServlet {
         usuario.setNombre(nombre);
         usuario.setApellidos(apellido);
         usuario.setDniUsuario(dni);
-        usuario.setTelefono(telefono);
-        usuario.setEmail(email);
-        usuario.setDomicilio(domicilio);
 
-        this.tusuarioFacade.edit(usuario); //Actualiza en BD
+        Integer num = telefono;
 
-        List<Tusuario> listaUsuarios = this.tusuarioFacade.findAll();
-        session.setAttribute("listaUsuarios", listaUsuarios); //antes request
-        request.setAttribute("mensajeExito", "¡Usuario MODIFICADO con éxito!");
-        request.setAttribute("proximaURL", "empleado/indexEmpleado.jsp");
-        RequestDispatcher rd = this.getServletContext().getRequestDispatcher("/exito.jsp");
-        rd.forward(request, response);
+        if (BankAccountUtil.correctTelephoneFormat(num.toString())) {
+            usuario.setTelefono(telefono);
+
+        } else {
+            ready = false;
+            request.setAttribute("mensaje", "Teléfono incorrecto");
+            request.setAttribute("url", "ServletEditarEmpleado?dni=" + request.getParameter("dni"));
+            RequestDispatcher rd = this.getServletContext().getRequestDispatcher("/error.jsp");
+            rd.forward(request, response);
+        }
+
+        if (ready) {
+
+            usuario.setEmail(email);
+            usuario.setDomicilio(domicilio);
+
+            this.tusuarioFacade.edit(usuario); //Actualiza en BD
+
+            List<Tusuario> listaUsuarios = this.tusuarioFacade.findAll();
+            session.setAttribute("listaUsuarios", listaUsuarios); //antes request
+            request.setAttribute("mensajeExito", "¡Usuario MODIFICADO con éxito!");
+            request.setAttribute("proximaURL", "empleado/indexEmpleado.jsp");
+            RequestDispatcher rd = this.getServletContext().getRequestDispatcher("/exito.jsp");
+            rd.forward(request, response);
+        }
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

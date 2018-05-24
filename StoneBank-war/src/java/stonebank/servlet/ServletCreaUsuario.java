@@ -2,11 +2,8 @@ package stonebank.servlet;
 
 import java.io.IOException;
 
-import java.nio.charset.StandardCharsets;
-import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.List;
-import java.util.Random;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -85,7 +82,21 @@ public class ServletCreaUsuario extends HttpServlet {
 
         usuario.setNombre(nombre);
         usuario.setApellidos(apellido);
-        usuario.setTelefono(telefono);
+        
+        Integer num = telefono;
+
+            if (BankAccountUtil.correctTelephoneFormat(num.toString())) {
+                usuario.setTelefono(telefono);
+
+            } else {
+                request.setAttribute("mensaje", "Teléfono incorrecto");
+                request.setAttribute("url", "ServletEditarEmpleado?dni=" + request.getParameter("dni"));
+                RequestDispatcher rd = this.getServletContext().getRequestDispatcher("/error.jsp");
+                rd.forward(request, response);
+            }
+        
+        
+        
         usuario.setEmail(email);
         usuario.setDomicilio(domicilio);
 
