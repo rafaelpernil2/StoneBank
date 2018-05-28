@@ -3,7 +3,7 @@
 Este documento servirá para mantener al tanto a los distintos colaboradores de este proyecto. Marcaremos qué Servlets del proyecto StoneBank se convertirán en Beans y qué JSPs se convierten en qué JSFs.
 
 
-Plan de refactorización: 
+Plan de refactorizacione: 
 
 1 JSP -> 1 XHTML --------------- Hasta que no se diga lo contrario
 
