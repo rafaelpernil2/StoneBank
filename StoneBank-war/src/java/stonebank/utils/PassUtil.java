@@ -13,9 +13,15 @@ import java.security.NoSuchAlgorithmException;
  *
  * @author rafaelpernil
  */
-public class PasswordUtil {
-
-    public static String generateHash(String contrasena) throws NoSuchAlgorithmException {
+public class PassUtil {
+    
+    /**Genera el hash de la contraseña que se le pase por parámetro
+     * 
+     * @param contrasena
+     * @return
+     * @throws NoSuchAlgorithmException 
+     */
+    public static String generarHash(String contrasena) throws NoSuchAlgorithmException {
         MessageDigest msgdgst = MessageDigest.getInstance("SHA-256");
         byte[] encodedhash = msgdgst.digest(contrasena.getBytes(StandardCharsets.UTF_8));
 
@@ -32,7 +38,7 @@ public class PasswordUtil {
     }
 
     public static boolean contrasenaVacia(String contrasena) throws NoSuchAlgorithmException {
-        return PasswordUtil.generateHash(contrasena).equalsIgnoreCase("e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855");
+        return PassUtil.generarHash(contrasena).equalsIgnoreCase("e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855");
     }
 
 }
