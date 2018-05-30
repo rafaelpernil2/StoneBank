@@ -1,6 +1,9 @@
 package stonebank.bean;
 
+import java.security.NoSuchAlgorithmException;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.enterprise.context.RequestScoped;
@@ -112,6 +115,19 @@ public class UsuarioBean {
         usuario.setTelefono(tel);
     }
     
+    public String getHashContrasena(){
+        return usuario.getHashContrasena();
+    }
+    
+    public void setContrasena(String contrasena){
+        try {
+            usuario.setHashContrasena(PassUtil.generarHash(contrasena));
+        } catch (NoSuchAlgorithmException ex) {
+            Logger.getLogger(UsuarioBean.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+    }
+    
     public Double getSaldo(){
         Double dineroEntranteMovimientos=this.tmovimientoFacade.dineroEntrantePorMovimientos(usuario.getDniUsuario());
         Double dineroEntranteTransferencias=this.ttransferenciaFacade.dineroEntranteTransferencia(usuario.getDniUsuario());
@@ -126,6 +142,11 @@ public class UsuarioBean {
             dineroSalienteTransferencias=0.0;
         }
         return (dineroEntranteMovimientos+dineroEntranteTransferencias)- dineroSalienteTransferencias;
+    }
+    
+    public String doEditar(){
+        
+        return "indexUsuario";
     }
     
 
