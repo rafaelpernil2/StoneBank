@@ -5,12 +5,12 @@
  */
 package stonebank.bean;
 
+import java.io.Serializable;
 import java.security.NoSuchAlgorithmException;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.inject.Named;
-import javax.enterprise.context.Dependent;
-import javax.enterprise.context.RequestScoped;
+import javax.enterprise.context.SessionScoped;
 import stonebank.ejb.TusuarioFacade;
 import stonebank.entity.Trol;
 import stonebank.entity.Tusuario;
@@ -21,8 +21,8 @@ import stonebank.utils.PassUtil;
  * @author Victor
  */
 @Named(value = "loginBean")
-@RequestScoped
-public class LoginBean {
+@SessionScoped
+public class LoginBean implements Serializable{
 
     @EJB
     private TusuarioFacade tusuarioFacade;

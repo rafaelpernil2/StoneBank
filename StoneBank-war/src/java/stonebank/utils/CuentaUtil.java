@@ -10,11 +10,16 @@ import java.util.Random;
 import stonebank.ejb.TusuarioFacade;
 import stonebank.entity.Tusuario;
 
+
 /**
  *
  * @author rafaelpernil
  */
 public class CuentaUtil {
+
+    
+    
+    
 
     /**Genera un número de cuenta válido
      * 
@@ -83,4 +88,6 @@ public class CuentaUtil {
         return tel.matches("^\\d{9}");
 
     }
+    
+
 }

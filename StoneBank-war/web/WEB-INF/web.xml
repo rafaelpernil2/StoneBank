@@ -19,6 +19,7 @@
         </session-timeout>
     </session-config>
     <welcome-file-list>
-        <welcome-file>login.jsf</welcome-file>
+        <welcome-file>usuario/indexUsuario.jsf</welcome-file>
     </welcome-file-list>
+
 </web-app>

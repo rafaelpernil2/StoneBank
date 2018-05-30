@@ -4,14 +4,16 @@ import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.enterprise.context.RequestScoped;
-import javax.faces.bean.SessionScoped;
 
 import javax.inject.Named;
 
 import javax.inject.Inject;
+import stonebank.ejb.TmovimientoFacade;
+import stonebank.ejb.TtransferenciaFacade;
 import stonebank.ejb.TusuarioFacade;
 import stonebank.entity.Tmovimiento;
 import stonebank.entity.Tusuario;
+import stonebank.utils.*;
 
 /**
  *
@@ -21,11 +23,18 @@ import stonebank.entity.Tusuario;
 @RequestScoped
 public class UsuarioBean {
 
+    @EJB
+    private TtransferenciaFacade ttransferenciaFacade;
+
+    @EJB
+    private TmovimientoFacade tmovimientoFacade;
+
     @Inject
-    private LoginBean loginBean;
+    protected LoginBean loginBean;
     
     @EJB
     private TusuarioFacade tusuarioFacade;
+    
     
     
     
@@ -42,8 +51,8 @@ public class UsuarioBean {
     
     @PostConstruct
     public void init(){
-        
-        usuario= loginBean.usuarioLoggeado;
+        Integer dni= 77777777;
+        usuario= this.tusuarioFacade.find(dni);//loginBean.usuarioLoggeado;
         listaMovimientos = usuario.getTmovimientoList();
     }
     
@@ -103,7 +112,21 @@ public class UsuarioBean {
         usuario.setTelefono(tel);
     }
     
-    public void setContraseña(){
-        usuario.getHashContrasena();
+    public Double getSaldo(){
+        Double dineroEntranteMovimientos=this.tmovimientoFacade.dineroEntrantePorMovimientos(usuario.getDniUsuario());
+        Double dineroEntranteTransferencias=this.ttransferenciaFacade.dineroEntranteTransferencia(usuario.getDniUsuario());
+        Double dineroSalienteTransferencias=this.ttransferenciaFacade.dineroSalienteTransferencia(usuario.getDniUsuario());
+        if(dineroEntranteMovimientos==null){
+            dineroEntranteMovimientos=0.0;
+        }
+        if(dineroEntranteTransferencias==null){
+            dineroEntranteTransferencias=0.0;
+        }
+        if(dineroSalienteTransferencias==null){
+            dineroSalienteTransferencias=0.0;
+        }
+        return (dineroEntranteMovimientos+dineroEntranteTransferencias)- dineroSalienteTransferencias;
     }
+    
+
 }
