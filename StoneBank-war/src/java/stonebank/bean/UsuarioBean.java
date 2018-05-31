@@ -7,10 +7,12 @@ import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.enterprise.context.RequestScoped;
+import javax.faces.context.FacesContext;
 
 import javax.inject.Named;
 
 import javax.inject.Inject;
+import javax.swing.text.Document;
 import stonebank.ejb.TmovimientoFacade;
 import stonebank.ejb.TtransferenciaFacade;
 import stonebank.ejb.TusuarioFacade;
@@ -54,8 +56,7 @@ public class UsuarioBean {
     
     @PostConstruct
     public void init(){
-        Integer dni= 77777777;
-        usuario= this.tusuarioFacade.find(dni);//loginBean.usuarioLoggeado;
+        usuario= loginBean.getUsuarioLoggeado();
         listaMovimientos = usuario.getTmovimientoList();
     }
     
@@ -145,6 +146,8 @@ public class UsuarioBean {
     }
     
     public String doEditar(){
+
+        //String comprobarContrasena = PassUtil.generarHash();
         
         return "indexUsuario";
     }

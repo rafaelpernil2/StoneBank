@@ -11,6 +11,7 @@ import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
+import stonebank.classes.Usuario;
 import stonebank.ejb.TusuarioFacade;
 import stonebank.entity.Trol;
 import stonebank.entity.Tusuario;
@@ -31,7 +32,11 @@ public class LoginBean implements Serializable{
     protected int dniLogin;
     protected String passwordLogin = "";
     Trol rolUsuario = new Trol(1);
-    Trol rolEmpleado = new Trol(2);    
+    Trol rolEmpleado = new Trol(2);   
+    
+    public Tusuario getUsuarioLoggeado(){
+        return usuarioLoggeado;
+    }
 
     public int getDniLogin() {
         return dniLogin;

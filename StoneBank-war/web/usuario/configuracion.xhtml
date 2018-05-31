@@ -10,7 +10,7 @@
     </h:head>
     <h:body>
         <h1>Datos de #{usuarioBean.apellidos}, #{usuarioBean.nombre}</h1>
-        <h:form>
+        <h:form id="formulario">
             <table>
                 <tr>
                     <td>DNI:</td>
@@ -18,11 +18,11 @@
                 </tr>
                 <tr>
                     <td>NOMBRE:</td>
-                    <td><h:inputText value="#{usuarioBean.nombre}"/></td>
+                    <td><h:inputText value="#{usuarioBean.nombre}" id="nombre"/></td>
                 </tr>
                 <tr>
                     <td>APELLIDOS:</td>
-                    <td><h:inputText value="#{usuarioBean.apellidos}"/></td>
+                    <td><h:inputText value="#{usuarioBean.apellidos}" id="apellidos"/></td>
                 </tr>
                 <tr>
                     <td>Contraseña:</td>
@@ -38,15 +38,15 @@
                 </tr>
                 <tr>
                     <td>Telefono:</td>
-                    <td><h:inputText value="#{usuarioBean.telefono}"/></td>
+                    <td><h:inputText value="#{usuarioBean.telefono}" id="telefono"/></td>
                 </tr>
                 <tr>
                     <td>Domicilio:</td>
-                    <td><h:inputText value="#{usuarioBean.domicilio}"/></td>
+                    <td><h:inputText value="#{usuarioBean.domicilio}" id="domicilio"/></td>
                 </tr>
                 <tr>
                     <td>Email</td>
-                    <td><h:inputText value="#{usuarioBean.email}"/></td>
+                    <td><h:inputText value="#{usuarioBean.email}" id="email"/></td>
                 </tr>
             </table>
             <h:commandButton action="#{usuarioBean.doEditar()}" value="Editar"/>
