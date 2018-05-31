@@ -161,13 +161,5 @@ public class UsuarioBean {
         
         return "indexUsuario";
     }
-    
-       
-    public String doCerrarSesion(){
-        
-        FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
-        
-        return "/login"; 
-    }
-
+   
 }
