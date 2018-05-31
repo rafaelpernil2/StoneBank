@@ -49,7 +49,9 @@ and open the template in the editor.
             <h:button outcome="configuracion" value="Configuracion"/>
         </br>
         <br>
-            <h:button outcome="login" value="Cerrar sesion"/>
+            <h:form>
+                <h:commandButton action="#{usuarioBean.doCerrarSesion()}" value="Cerrar" />
+            </h:form>
         </br>
     </h:body>
 </html>

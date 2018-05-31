@@ -80,11 +80,6 @@ public class LoginBean implements Serializable{
         
     }
     
-    public String doCerrarSesion(){
-        
-        return "login";
-    }
-    
     @PostConstruct
     public void init(){
         if(dniLogin != 1){
