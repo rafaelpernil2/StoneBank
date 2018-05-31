@@ -5,8 +5,13 @@
  */
 package stonebank.bean;
 
+import java.util.List;
+import javax.annotation.PostConstruct;
+import javax.ejb.EJB;
 import javax.inject.Named;
 import javax.enterprise.context.Dependent;
+import stonebank.ejb.TusuarioFacade;
+import stonebank.entity.Tusuario;
 
 /**
  *
@@ -16,10 +21,33 @@ import javax.enterprise.context.Dependent;
 @Dependent
 public class UsuarioBean {
 
+    
+    protected List<Tusuario> listaUsuario; 
+    
+    @EJB
+    private TusuarioFacade tusuarioFacade;
+
     /**
      * Creates a new instance of UsuarioBean
      */
+    
+    
     public UsuarioBean() {
     }
+    
+      @PostConstruct
+    public void init () {
+       listaUsuario = tusuarioFacade.findAll(); 
+    }
+
+    public List<Tusuario> getListaUsuario() {
+        return listaUsuario;
+    }
+
+    public void setListaUsuario(List<Tusuario> listaUsuario) {
+        this.listaUsuario = listaUsuario;
+    }
+    
+   
     
 }
