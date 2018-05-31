@@ -7,6 +7,7 @@ package stonebank.ejb;
 
 import java.util.List;
 import javax.persistence.EntityManager;
+import javax.transaction.UserTransaction;
 
 /**
  *
@@ -24,6 +25,7 @@ public abstract class AbstractFacade<T> {
 
     public void create(T entity) {
         getEntityManager().persist(entity);
+        
     }
 
     public void edit(T entity) {
@@ -33,7 +35,7 @@ public abstract class AbstractFacade<T> {
     public void remove(T entity) {
         getEntityManager().remove(getEntityManager().merge(entity));
     }
-
+    
     public T find(Object id) {
         return getEntityManager().find(entityClass, id);
     }

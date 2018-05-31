@@ -1,4 +1,4 @@
-/*
+ /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
@@ -8,6 +8,7 @@ package stonebank.entity;
 import java.io.Serializable;
 import java.util.Date;
 import javax.persistence.Basic;
+import javax.persistence.Cacheable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -38,6 +39,7 @@ import javax.xml.bind.annotation.XmlRootElement;
     , @NamedQuery(name = "Tmovimiento.findByCantidad", query = "SELECT t FROM Tmovimiento t WHERE t.cantidad = :cantidad")
     , @NamedQuery(name = "Tmovimiento.findByIbanEntidad", query = "SELECT t FROM Tmovimiento t WHERE t.ibanEntidad = :ibanEntidad")
     , @NamedQuery(name = "Tmovimiento.findByFecha", query = "SELECT t FROM Tmovimiento t WHERE t.fecha = :fecha")})
+@Cacheable(false)
 public class Tmovimiento implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -149,6 +151,7 @@ public class Tmovimiento implements Serializable {
 
     @Override
     public String toString() {
+        //return this.getTusuariodniUsuario().getNombre() + this.getTusuariodniUsuario().getApellidos();
         return "stonebank.entity.Tmovimiento[ idtmovimiento=" + idtmovimiento + " ]";
     }
     
