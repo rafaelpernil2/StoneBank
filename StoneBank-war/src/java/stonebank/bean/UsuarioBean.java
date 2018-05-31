@@ -63,6 +63,16 @@ public class UsuarioBean {
     /*
     * hace falta poner el saldo que tiene justo aqui.
     */
+
+    public Tusuario getUsuario() {
+        return usuario;
+    }
+
+    public void setUsuario(Tusuario usuario) {
+        this.usuario = usuario;
+    }
+    
+    
     
     public List<Tmovimiento> getListaMovimientos(){
         return listaMovimientos;
@@ -151,6 +161,5 @@ public class UsuarioBean {
         
         return "indexUsuario";
     }
-    
-
+   
 }
