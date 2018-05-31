@@ -13,7 +13,6 @@ import javax.enterprise.context.Dependent;
  * @author Victor
  */
 @Named(value = "movimientoBean")
-@Dependent
 public class MovimientoBean {
 
     /**

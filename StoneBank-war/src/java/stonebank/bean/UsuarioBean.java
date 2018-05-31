@@ -7,12 +7,10 @@ import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.enterprise.context.RequestScoped;
-import javax.faces.context.FacesContext;
 
 import javax.inject.Named;
 
 import javax.inject.Inject;
-import javax.swing.text.Document;
 import stonebank.ejb.TmovimientoFacade;
 import stonebank.ejb.TtransferenciaFacade;
 import stonebank.ejb.TusuarioFacade;
@@ -45,7 +43,7 @@ public class UsuarioBean {
     
     protected List<Tmovimiento> listaMovimientos;
     protected Tusuario usuario;
-    
+    protected double saldo;
     
 
     /**
@@ -64,7 +62,11 @@ public class UsuarioBean {
     * hace falta poner el saldo que tiene justo aqui.
     */
     
-    public List<Tmovimiento> getListaMovimientos(){
+    public void setSaldo(double saldo){
+        this.saldo = saldo;
+    }
+
+    public List<Tmovimiento> getListaMovimientos() {
         return listaMovimientos;
     }
     
