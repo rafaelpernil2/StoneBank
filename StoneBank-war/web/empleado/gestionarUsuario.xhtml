@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>Gestionar Usuario</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    </h:head>
+    <h:body>
+        <div><h1>gestionar a #{usuarioBean.nuevoApellido}, #{usuarioBean.nuevoNombre}</h1></div>
+        <h:form id="formulario">
+            <table>
+                <tr>
+                    <td>DNI:</td>
+                    <td><h:inputText value="#{usuarioBean.nuevoDNI}" readonly="true"/></td>
+                </tr>
+                <tr>
+                    <td>NOMBRE:</td>
+                    <td><h:inputText value="#{usuarioBean.nuevoNombre}" id="nombre"/></td>
+                </tr>
+                <tr>
+                    <td>APELLIDOS:</td>
+                    <td><h:inputText value="#{usuarioBean.nuevoApellido}" id="apellidos"/></td>
+                </tr>
+                <tr>
+                    <td>Contraseña:</td>
+                    <td><h:inputSecret value="#{usuarioBean.viejaContrasena}" /></td>
+                </tr>   
+                <tr>
+                    <td>Nueva contraseña:</td>
+                    <td><h:inputSecret value="#{usuarioBean.nuevaContrasena}" id="nuevaContrasena"/></td>
+                    <td>Repita contraseña:</td>
+                    <td><h:inputSecret value="#{usuarioBean.seguroContrasena}" id="seguroContrasena"/></td>
+                </tr>
+
+                <tr>
+                    <td>Telefono:</td>
+                    <td><h:inputText value="#{usuarioBean.nuevoTelefono}" id="telefono"/></td>
+                </tr>
+                <tr>
+                    <td>Domicilio:</td>
+                    <td><h:inputText value="#{usuarioBean.nuevoDomicilio}" id="domicilio"/></td>
+                </tr>
+                <tr>
+                    <td>Email</td>
+                    <td><h:inputText value="#{usuarioBean.nuevoEmail}" id="email"/></td>
+                </tr>
+            </table>
+            <h:commandButton action="#{usuarioBean.doEditarEmpleado(usuarioBean.nuevoDNI)}" value="Editar"/>
+        </h:form>
+        <h:button outcome="/empleado/indexEmpleado" value="volver"/>
+    </h:body>
+</html>
