@@ -386,6 +386,10 @@ public class UsuarioBean {
         return "/empleado/usuarioSeleccionado";
     }
     
+    public Tusuario getUsuarioEnFuncionDeUnDni(Integer dniUsuario){   
+        return tusuarioFacade.find(dniUsuario)
+    }
+    
     public List<Tmovimiento> getListaMovimientoUsuarioSeleccionado(Integer usuarioSeleccionadoDNI){
         Tusuario usuarioSeleccionado = this.tusuarioFacade.find(usuarioSeleccionadoDNI);
         List<Tmovimiento> listaMovimientoUsuarioSeleccionado = usuarioSeleccionado.getTmovimientoList();

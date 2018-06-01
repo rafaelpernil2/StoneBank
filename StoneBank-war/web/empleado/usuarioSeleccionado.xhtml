@@ -40,8 +40,15 @@ and open the template in the editor.
                     <td><h:inputText value="#{usuarioBean.nuevoEmail}" id="email" readonly="true"/></td>
                 </tr>
             </table>
-        <h:form>
         <h2>Lista de movimientos</h2>
+        
+        <h:form>
+            <h:inputHidden value="#{usuarioBean.nuevoDNI}"/>
+            <h:commandButton action="nuevoMovimiento" 
+                         value="Nuevo Movimiento" />
+        </h:form>
+        
+            
         <h:dataTable value="#{usuarioBean.getListaMovimientoUsuarioSeleccionado(usuarioBean.nuevoDNI)}" var="movimiento">
             <h:column>
                 <f:facet name="header">
@@ -66,6 +73,13 @@ and open the template in the editor.
                     Fecha
                 </f:facet>
                 #{movimiento.fecha}
+            </h:column>
+            
+            <h:column>
+                        <h:form>
+                        <h:inputHidden value="#{usuarioBean.nuevoDNI}"/>
+                <h:commandButton action="#{movimientoBean.doBorrar(movimiento)}" value="Borrar"/>
+                        </h:form>
             </h:column>
         </h:dataTable>
         <h2>Lista de Transferencias</h2>
@@ -100,10 +114,11 @@ and open the template in the editor.
                 </f:facet>
                 #{transferencia.fecha}
             </h:column>
+         
         </h:dataTable>
 
             <h:button outcome="/empleado/indexEmpleado" value="volver"/>
-        </h:form>
+      
         
     </h:body>
 </html>
