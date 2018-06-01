@@ -5,12 +5,55 @@ To change this template file, choose Tools | Templates
 and open the template in the editor.
 -->
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml">
-    <head>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
         <title>indexEmpleado</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    </head>
-    <body>
-        <div><h1>index Empleado</h1></div>
-    </body>
+    </h:head>
+    <h:body>
+        <div><h1>Bienvenido #{usuarioBean.apellidos}, #{usuarioBean.nombre}</h1></div>
+        <div><h1>Lista de usuarios</h1></div>
+        <h:form>
+        <h:dataTable value="#{usuarioBean.listaUsuarios}" var="usuario">
+            <h:column>
+                <f:facet name="header">
+                    Apellidos, Nombre
+                </f:facet>
+                #{usuario.apellidos}, #{usuario.nombre}
+            </h:column>
+            <h:column>
+                <f:facet name="header">
+                    IBAN
+                </f:facet>
+                #{usuario.numCuenta}
+            </h:column>
+            <h:column>
+                <f:facet name="header">
+                    Telefono
+                </f:facet>
+                #{usuario.telefono}
+            </h:column>
+            <h:column>
+                <f:facet name="header">
+                    Domicilio
+                </f:facet>
+                #{usuario.domicilio}
+            </h:column>
+            <h:column>
+                <f:facet name="header">
+                    Email
+                </f:facet>
+                #{usuario.email}
+            </h:column>
+            <h:column>
+                <h:commandButton action="#{usuarioBean.usuarioSeleccionado(usuario.dniUsuario)}" value="ver" />
+            </h:column>
+            <h:column>
+                <h:commandButton action="#{usuarioBean.gestionarUsuario(usuario.dniUsuario)}" value="Configurar"/>
+            </h:column>
+        </h:dataTable>
+        </h:form>
+    </h:body>
 </html>

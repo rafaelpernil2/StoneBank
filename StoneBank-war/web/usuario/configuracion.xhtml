@@ -18,35 +18,34 @@
                 </tr>
                 <tr>
                     <td>NOMBRE:</td>
-                    <td><h:inputText value="#{usuarioBean.nombre}" id="nombre"/></td>
+                    <td><h:inputText value="#{usuarioBean.nuevoNombre}" id="nombre"/></td>
                 </tr>
                 <tr>
                     <td>APELLIDOS:</td>
-                    <td><h:inputText value="#{usuarioBean.apellidos}" id="apellidos"/></td>
+                    <td><h:inputText value="#{usuarioBean.nuevoApellido}" id="apellidos"/></td>
                 </tr>
                 <tr>
                     <td>Contraseña:</td>
-                    <td><h:inputText id="contrasena"/></td>
+                    <td><h:inputSecret value="#{usuarioBean.viejaContrasena}" /></td>
                 </tr>   
                 <tr>
                     <td>Nueva contraseña:</td>
-                    <td><h:inputText value="" id="nuevaContrasena"/></td>
-                </tr>
-                <tr>
+                    <td><h:inputSecret value="#{usuarioBean.nuevaContrasena}" id="nuevaContrasena"/></td>
                     <td>Repita contraseña:</td>
-                    <td><h:inputText value="" id="seguroContrasena"/></td>
+                    <td><h:inputSecret value="#{usuarioBean.seguroContrasena}" id="seguroContrasena"/></td>
                 </tr>
+
                 <tr>
                     <td>Telefono:</td>
-                    <td><h:inputText value="#{usuarioBean.telefono}" id="telefono"/></td>
+                    <td><h:inputText value="#{usuarioBean.nuevoTelefono}" id="telefono"/></td>
                 </tr>
                 <tr>
                     <td>Domicilio:</td>
-                    <td><h:inputText value="#{usuarioBean.domicilio}" id="domicilio"/></td>
+                    <td><h:inputText value="#{usuarioBean.nuevoDomicilio}" id="domicilio"/></td>
                 </tr>
                 <tr>
                     <td>Email</td>
-                    <td><h:inputText value="#{usuarioBean.email}" id="email"/></td>
+                    <td><h:inputText value="#{usuarioBean.nuevoEmail}" id="email"/></td>
                 </tr>
             </table>
             <h:commandButton action="#{usuarioBean.doEditar()}" value="Editar"/>
