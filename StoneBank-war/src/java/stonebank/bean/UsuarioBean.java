@@ -14,6 +14,7 @@ import stonebank.ejb.TmovimientoFacade;
 import stonebank.ejb.TtransferenciaFacade;
 import stonebank.ejb.TusuarioFacade;
 import stonebank.entity.Tmovimiento;
+import stonebank.entity.Ttransferencia;
 import stonebank.entity.Tusuario;
 import stonebank.utils.*;
 
@@ -283,7 +284,6 @@ public class UsuarioBean {
         
     }
     
-   
     
     private void restaurar(){
         nuevoNombre=usuario.getNombre();
@@ -348,6 +348,31 @@ public class UsuarioBean {
     
     public void setNuevoTelefono(Integer nT){
         nuevoTelefono=nT;
+    }
+    
+    public String usuarioSeleccionado(Integer usuarioSeleccionadoDNI){
+        Tusuario usuarioSeleccionado = this.tusuarioFacade.find(usuarioSeleccionadoDNI);
+        nuevoDNI=usuarioSeleccionadoDNI;
+        nuevoNombre=usuarioSeleccionado.getNombre();
+        nuevoApellido=usuarioSeleccionado.getApellidos();
+        nuevoDomicilio=usuarioSeleccionado.getDomicilio();
+        nuevoEmail=usuarioSeleccionado.getEmail();
+        nuevoTelefono=usuarioSeleccionado.getTelefono();
+        
+        return "/empleado/usuarioSeleccionado";
+    }
+    
+    public List<Tmovimiento> getListaMovimientoUsuarioSeleccionado(Integer usuarioSeleccionadoDNI){
+        Tusuario usuarioSeleccionado = this.tusuarioFacade.find(usuarioSeleccionadoDNI);
+        List<Tmovimiento> listaMovimientoUsuarioSeleccionado = usuarioSeleccionado.getTmovimientoList();
+        return listaMovimientoUsuarioSeleccionado;
+    }
+    
+    public List<Ttransferencia> getListaTransferenciaUsuarioSeleccionado(Integer usuarioSeleccionadoDNI){
+        Tusuario usuarioSeleccionado = this.tusuarioFacade.find(usuarioSeleccionadoDNI);
+        List<Ttransferencia> listaTransferenciaUsuarioSeleccionado = usuarioSeleccionado.getTtransferenciaList();
+        listaTransferenciaUsuarioSeleccionado.addAll(usuarioSeleccionado.getTtransferenciaList1());
+        return listaTransferenciaUsuarioSeleccionado;
     }
 
 

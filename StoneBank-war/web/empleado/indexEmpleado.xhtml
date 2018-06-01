@@ -47,10 +47,10 @@ and open the template in the editor.
                 #{usuario.email}
             </h:column>
             <h:column>
-                <h:button outcome="usuarioSeleccionado" value="ver"/>
+                <h:commandButton action="#{usuarioBean.usuarioSeleccionado(usuario.dniUsuario)}" value="ver" />
             </h:column>
             <h:column>
-                <h:button outcome="gestionarUsuario" value="Configurar"/>
+                <h:commandButton action="#{usuarioBean.gestionarUsuario(usuario.dniUsuario)}" value="Configurar"/>
             </h:column>
         </h:dataTable>
     </h:body>
