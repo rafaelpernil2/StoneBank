@@ -13,8 +13,9 @@ and open the template in the editor.
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     </h:head>
     <h:body>
-        <div><h1>Bienvenido, #{usuarioBean.apellidos}, #{usuarioBean.nombre}</h1></div>
+        <div><h1>Bienvenido #{usuarioBean.apellidos}, #{usuarioBean.nombre}</h1></div>
         <div><h1>Lista de usuarios</h1></div>
+        <h:form>
         <h:dataTable value="#{usuarioBean.listaUsuarios}" var="usuario">
             <h:column>
                 <f:facet name="header">
@@ -53,5 +54,6 @@ and open the template in the editor.
                 <h:commandButton action="#{usuarioBean.gestionarUsuario(usuario.dniUsuario)}" value="Configurar"/>
             </h:column>
         </h:dataTable>
+        </h:form>
     </h:body>
 </html>

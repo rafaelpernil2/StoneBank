@@ -72,7 +72,7 @@ public class LoginBean implements Serializable{
             if(usuarioLoggeado.getTrolIdtrol().equals(rolUsuario)){
                 return "/usuario/indexUsuario";
             } else if (usuarioLoggeado.getTrolIdtrol().equals(rolEmpleado)){
-                return "/empleado/indexEmpleado";
+                return "/empleado/indexEmpleado?faces-redirect=true";
             }
         } 
         

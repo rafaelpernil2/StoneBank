@@ -81,6 +81,7 @@ public class UsuarioBean {
     }
     
     public List<Tusuario> getListaUsuarios(){
+        listaUsuarios=this.tusuarioFacade.findAll();
         return listaUsuarios;
     }
     
@@ -384,7 +385,7 @@ public class UsuarioBean {
         nuevoEmail=usuarioSeleccionado.getEmail();
         nuevoTelefono=usuarioSeleccionado.getTelefono();
         
-        return "/empleado/gestionarSeleccionado";
+        return "/empleado/gestionarUsuario";
     }
 
     public String doEditarEmpleado(Integer usuarioSeleccionadoDNI) throws NoSuchAlgorithmException{

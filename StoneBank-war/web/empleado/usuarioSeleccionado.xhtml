@@ -40,6 +40,7 @@ and open the template in the editor.
                     <td><h:inputText value="#{usuarioBean.nuevoEmail}" id="email" readonly="true"/></td>
                 </tr>
             </table>
+        <h:form>
         <h2>Lista de movimientos</h2>
         <h:dataTable value="#{usuarioBean.getListaMovimientoUsuarioSeleccionado(usuarioBean.nuevoDNI)}" var="movimiento">
             <h:column>
@@ -100,6 +101,9 @@ and open the template in the editor.
                 #{transferencia.fecha}
             </h:column>
         </h:dataTable>
-        <h:button outcome="/empleado/indexEmpleado" value="volver"/>
+
+            <h:button outcome="/empleado/indexEmpleado" value="volver"/>
+        </h:form>
+        
     </h:body>
 </html>
