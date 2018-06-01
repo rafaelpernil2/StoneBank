@@ -26,6 +26,8 @@ import stonebank.utils.*;
 @RequestScoped
 public class UsuarioBean {
 
+
+
     @EJB
     private TtransferenciaFacade ttransferenciaFacade;
 
@@ -54,8 +56,7 @@ public class UsuarioBean {
     
     protected List<Tusuario> listaUsuario; 
     
-    @EJB
-    private TusuarioFacade tusuarioFacade;
+  
 
     /**
      * Creates a new instance of UsuarioBean
