@@ -5,12 +5,105 @@ To change this template file, choose Tools | Templates
 and open the template in the editor.
 -->
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml">
-    <head>
-        <title>TODO supply a title</title>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>Usuario Seleccionado</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    </head>
-    <body>
-        <div>TODO write content</div>
-    </body>
+    </h:head>
+    <h:body>
+        <div><h1>Datos de #{usuarioBean.nuevoApellido}, #{usuarioBean.nuevoNombre}</h1></div>
+         <table>
+                <tr>
+                    <td>DNI:</td>
+                    <td><h:inputText value="#{usuarioBean.nuevoDNI}" readonly="true"/></td>
+                </tr>
+                <tr>
+                    <td>NOMBRE:</td>
+                    <td><h:inputText value="#{usuarioBean.nuevoNombre}" id="nombre" readonly="true"/></td>
+                </tr>
+                <tr>
+                    <td>APELLIDOS:</td>
+                    <td><h:inputText value="#{usuarioBean.nuevoApellido}" id="apellidos" readonly="true"/></td>
+                </tr>
+                <tr>
+                    <td>Telefono:</td>
+                    <td><h:inputText value="#{usuarioBean.nuevoTelefono}" id="telefono" readonly="true"/></td>
+                </tr>
+                <tr>
+                    <td>Domicilio:</td>
+                    <td><h:inputText value="#{usuarioBean.nuevoDomicilio}" id="domicilio" readonly="true"/></td>
+                </tr>
+                <tr>
+                    <td>Email</td>
+                    <td><h:inputText value="#{usuarioBean.nuevoEmail}" id="email" readonly="true"/></td>
+                </tr>
+            </table>
+        <h:form>
+        <h2>Lista de movimientos</h2>
+        <h:dataTable value="#{usuarioBean.getListaMovimientoUsuarioSeleccionado(usuarioBean.nuevoDNI)}" var="movimiento">
+            <h:column>
+                <f:facet name="header">
+                    Concepto
+                </f:facet>
+                #{movimiento.concepto}
+            </h:column>
+            <h:column>
+                <f:facet name="header">
+                    IBAN
+                </f:facet>
+                #{movimiento.ibanEntidad}
+            </h:column>
+            <h:column>
+                <f:facet name="header">
+                    Cantidad
+                </f:facet>
+                #{movimiento.cantidad}
+            </h:column>
+            <h:column>
+                <f:facet name="header">
+                    Fecha
+                </f:facet>
+                #{movimiento.fecha}
+            </h:column>
+        </h:dataTable>
+        <h2>Lista de Transferencias</h2>
+        <h:dataTable value="#{usuarioBean.getListaTransferenciaUsuarioSeleccionado(usuarioBean.nuevoDNI)}" var="transferencia">
+            <h:column>
+                <f:facet name="header">
+                    DNI emisor
+                </f:facet>
+                #{transferencia.DNIEmisor}
+            </h:column>
+            <h:column>
+                <f:facet name="header">
+                    DNI receptor
+                </f:facet>
+                #{transferencia.DNIReceptor}
+            </h:column>
+            <h:column>
+                <f:facet name="header">
+                    Cantidad
+                </f:facet>
+                #{transferencia.cantidad}
+            </h:column>
+            <h:column>
+                <f:facet name="header">
+                    Concepto
+                </f:facet>
+                #{transferencia.concepto}
+            </h:column>
+            <h:column>
+                <f:facet name="header">
+                    Fecha
+                </f:facet>
+                #{transferencia.fecha}
+            </h:column>
+        </h:dataTable>
+
+            <h:button outcome="/empleado/indexEmpleado" value="volver"/>
+        </h:form>
+        
+    </h:body>
 </html>
