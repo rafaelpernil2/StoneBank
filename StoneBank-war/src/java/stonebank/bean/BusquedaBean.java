@@ -1,24 +1,54 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package stonebank.bean;
 
+import java.io.Serializable;
+import java.util.List;
+import javax.annotation.PostConstruct;
+import javax.ejb.EJB;
+import javax.enterprise.context.SessionScoped;
 import javax.inject.Named;
-import javax.enterprise.context.Dependent;
+import stonebank.ejb.TusuarioFacade;
+import stonebank.entity.Tusuario;
 
-/**
- *
- * @author Victor
- */
+
 @Named(value = "busquedaBean")
-public class BusquedaBean {
+@SessionScoped
+public class BusquedaBean implements Serializable{
 
-    /**
-     * Creates a new instance of BusquedaBean
-     */
-    public BusquedaBean() {
+    @EJB
+    private TusuarioFacade tusuarioFacade;
+    private String busqueda;
+    private List<Tusuario> listaUsuarios;
+    
+    @PostConstruct
+    public void init(){
+        busqueda = "";
+        listaUsuarios = tusuarioFacade.findAll();
     }
     
+
+    public BusquedaBean() {
+        
+    }
+    
+    public String buscar(){
+        setListaUsuarios(tusuarioFacade.buscarTUsuarioPorNombre(busqueda));
+        return "/empleado/indexEmpleado";
+    }
+
+    public List<Tusuario> getListaUsuarios() {
+        return listaUsuarios;
+    }
+
+    public void setListaUsuarios(List<Tusuario> listaResultado) {
+        this.listaUsuarios = listaResultado;
+    }
+
+    public String getBusqueda() {
+        return busqueda;
+    }
+    
+    public void setBusqueda(String b){
+        busqueda = b;
+    }
 }

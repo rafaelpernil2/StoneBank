@@ -14,9 +14,14 @@ and open the template in the editor.
     </h:head>
     <h:body>
         <div><h1>Bienvenido #{usuarioBean.apellidos}, #{usuarioBean.nombre}</h1></div>
+        <h:form>
+            Buscar usuario: <h:inputText value="#{busquedaBean.busqueda}"/>
+            
+            <h:commandButton value="Buscar" action="#{busquedaBean.buscar()}"/>
+        </h:form>
         <div><h1>Lista de usuarios</h1></div>
         <h:form>
-        <h:dataTable value="#{usuarioBean.listaUsuarios}" var="usuario">
+            <h:dataTable value="#{busquedaBean.listaUsuarios}" var="usuario">
             <h:column>
                 <f:facet name="header">
                     Apellidos, Nombre
