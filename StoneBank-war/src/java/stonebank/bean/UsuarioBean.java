@@ -41,10 +41,11 @@ public class UsuarioBean {
     
     
     protected List<Tmovimiento> listaMovimientos;
+    protected List<Tusuario> listaUsuarios;
     protected Tusuario usuario;
     protected String nuevaContrasena="", seguroContrasena="",
             viejaContrasena="",nuevoNombre,nuevoApellido,nuevoDomicilio,nuevoEmail;
-    protected Integer nuevoTelefono;
+    protected Integer nuevoTelefono,nuevoDNI;
     
     
     
@@ -76,6 +77,14 @@ public class UsuarioBean {
     
     public void setListaMovimientos(List<Tmovimiento> lm){
         this.listaMovimientos = lm;
+    }
+    
+    public List<Tusuario> getListaUsuarios(){
+        return listaUsuarios;
+    }
+    
+    public void setListaUsuarios(List<Tusuario> lu){
+        this.listaUsuarios = lu;
     }
     
     public String getNombre(){
@@ -124,6 +133,14 @@ public class UsuarioBean {
     
     public void setTelefono(Integer tel){
         usuario.setTelefono(tel);
+    }
+    
+    public Integer getNumCuenta(){
+        return usuario.getNumCuenta();
+    }
+    
+    public void setNumCuenta(Integer nC){
+        usuario.setNumCuenta(nC);
     }
     
     public String getHashContrasena(){
@@ -207,6 +224,67 @@ public class UsuarioBean {
         
     }
     
+    public String crearUsuario(){
+        nuevoDNI=-1;
+        nuevoNombre="";
+        nuevoApellido="";
+        nuevaContrasena="";
+        seguroContrasena="";
+        nuevoDomicilio="";
+        nuevoEmail="";
+        nuevoTelefono=-1;
+        return"/alta";
+    }
+    
+    public String doCrear() throws NoSuchAlgorithmException{
+    /*
+    * No soy partidario de hacer tanto if/else asique, 
+    * No se si deberia hacer un metodo privado para que me lo compruebe todo  
+    */
+        if( !(CuentaUtil.esCorrectoFormatoDNI(nuevoDNI.toString())) || !CuentaUtil.DNIyaRegistrado(tusuarioFacade,nuevoDNI)){
+            //mensaje de error de fallo al introducir DNI
+            nuevoDNI=-1;
+            return "/alta";
+        }else if(nuevoNombre.equals("") || nuevoApellido.equals("")){
+            //mensaje de error
+            return "/alta";
+        }else if(nuevoTelefono==-1 || !CuentaUtil.esCorrectoFormatoTelefono(nuevoTelefono.toString())){
+            //mensaje de error
+            return "/alta";
+        }else if(nuevoDomicilio.equals("")){
+            //mensaje de error
+            return "/alta";
+        }else if(nuevoEmail.equals("")){
+            //mensaje de error
+            return "/alta";
+        }else if(nuevaContrasena.equals("") || seguroContrasena.equals("")
+                || !nuevaContrasena.equals(seguroContrasena)){
+            //mensaje de error
+            return "/alta";
+        }else{
+            Tusuario nuevoUsuario = new Tusuario();
+            
+            nuevoUsuario.setDniUsuario(nuevoDNI);
+            nuevoUsuario.setNombre(nuevoNombre);
+            nuevoUsuario.setApellidos(nuevoApellido);
+            nuevoUsuario.setHashContrasena(PassUtil.generarHash(nuevaContrasena));
+            nuevoUsuario.setTelefono(nuevoTelefono);
+            nuevoUsuario.setDomicilio(nuevoDomicilio);
+            nuevoUsuario.setEmail(nuevoEmail);
+            nuevoUsuario.setNumCuenta(CuentaUtil.generarNumeroDeCuenta(tusuarioFacade));
+            
+            this.tusuarioFacade.create(nuevoUsuario);
+            listaUsuarios.add(nuevoUsuario);
+            
+           return"/empleado/indexEmpleado";
+        }
+        
+        
+        
+    }
+    
+   
+    
     private void restaurar(){
         nuevoNombre=usuario.getNombre();
         nuevoApellido=usuario.getApellidos();
@@ -216,11 +294,20 @@ public class UsuarioBean {
     }
     
     private void actualizar(){
+        
         usuario.setNombre(nuevoNombre);
         usuario.setApellidos(nuevoApellido);
         usuario.setDomicilio(nuevoDomicilio);
         usuario.setEmail(nuevoEmail);
         usuario.setTelefono(nuevoTelefono);
+    }
+    
+    public Integer getNuevoDNI(){
+        return nuevoDNI;
+    }
+    
+    public void setNuevoDNI(Integer dni){
+        nuevoDNI=dni;
     }
     
     public String getNuevoNombre(){
