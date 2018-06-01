@@ -11,6 +11,7 @@ import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
+import javax.faces.context.FacesContext;
 import stonebank.ejb.TusuarioFacade;
 import stonebank.entity.Trol;
 import stonebank.entity.Tusuario;
@@ -79,10 +80,13 @@ public class LoginBean implements Serializable{
         return "error"; //Redirige a error si no lo ha hecho antes
         
     }
-    
+      
+       
     public String doCerrarSesion(){
         
-        return "login";
+        FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
+        
+        return "/login"; 
     }
     
     @PostConstruct

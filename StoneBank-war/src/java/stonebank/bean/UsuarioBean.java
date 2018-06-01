@@ -47,7 +47,7 @@ public class UsuarioBean {
     protected String nuevaContrasena="", seguroContrasena="",
             viejaContrasena="",nuevoNombre,nuevoApellido,nuevoDomicilio,nuevoEmail;
     protected Integer nuevoTelefono,nuevoDNI;
-    
+    protected double saldo;
     
     
 
@@ -71,8 +71,22 @@ public class UsuarioBean {
     /*
     * hace falta poner el saldo que tiene justo aqui.
     */
+
+    public Tusuario getUsuario() {
+        return usuario;
+    }
+
+    public void setUsuario(Tusuario usuario) {
+        this.usuario = usuario;
+    }
     
-    public List<Tmovimiento> getListaMovimientos(){
+    
+    
+    public void setSaldo(double saldo){
+        this.saldo = saldo;
+    }
+
+    public List<Tmovimiento> getListaMovimientos() {
         return listaMovimientos;
     }
     
