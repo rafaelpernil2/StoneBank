@@ -35,6 +35,9 @@ public class UsuarioBean {
     @Inject
     protected LoginBean loginBean;
     
+    @Inject
+    protected BusquedaBean busquedaBean;
+    
     @EJB
     private TusuarioFacade tusuarioFacade;
     
@@ -48,7 +51,7 @@ public class UsuarioBean {
             viejaContrasena="",nuevoNombre,nuevoApellido,nuevoDomicilio,nuevoEmail;
     protected Integer nuevoTelefono,nuevoDNI;
     protected double saldo;
-    
+
     
 
     /**
@@ -238,8 +241,7 @@ public class UsuarioBean {
         }
         
         
-    }
-    
+    }    
     public String crearUsuario(){
         nuevoDNI=-1;
         nuevoNombre="";
@@ -392,36 +394,53 @@ public class UsuarioBean {
     
     public String gestionarUsuario(Integer usuarioSeleccionadoDNI){
         Tusuario usuarioSeleccionado = this.tusuarioFacade.find(usuarioSeleccionadoDNI);
-        nuevoDNI=usuarioSeleccionadoDNI;
-        nuevoNombre=usuarioSeleccionado.getNombre();
-        nuevoApellido=usuarioSeleccionado.getApellidos();
-        nuevoDomicilio=usuarioSeleccionado.getDomicilio();
-        nuevoEmail=usuarioSeleccionado.getEmail();
-        nuevoTelefono=usuarioSeleccionado.getTelefono();
+        this.setNuevoDNI(usuarioSeleccionadoDNI);
+        this.setNuevoNombre(usuarioSeleccionado.getNombre());
+        this.setNuevoApellido(usuarioSeleccionado.getApellidos());
+        this.setNuevoDomicilio(usuarioSeleccionado.getDomicilio());
+        this.setNuevoEmail(usuarioSeleccionado.getEmail());
+        this.setNuevoTelefono(usuarioSeleccionado.getTelefono());
         
         return "/empleado/gestionarUsuario";
     }
 
     public String doEditarEmpleado(Integer usuarioSeleccionadoDNI) throws NoSuchAlgorithmException{
         
+        
         Tusuario usuarioSeleccionado = this.tusuarioFacade.find(usuarioSeleccionadoDNI);
+        
         String comprobarContrasena = PassUtil.generarHash(viejaContrasena);
         if(comprobarContrasena.equals(usuarioSeleccionado.getHashContrasena()) && !"".equals(viejaContrasena)){
             if(!"".equals(nuevaContrasena) ){
                 if(nuevaContrasena.equals(seguroContrasena)){
                     usuarioSeleccionado.setHashContrasena(PassUtil.generarHash(nuevaContrasena));
+                    usuarioSeleccionado.setNombre(nuevoNombre);
+                    usuarioSeleccionado.setApellidos(nuevoApellido);
+                    usuarioSeleccionado.setDomicilio(nuevoDomicilio);
+                    usuarioSeleccionado.setEmail(nuevoEmail);
+                    usuarioSeleccionado.setTelefono(nuevoTelefono);
                     this.tusuarioFacade.edit(usuarioSeleccionado);
+                    listaUsuarios= this.getListaUsuarios();
+                    busquedaBean.setListaUsuarios(listaUsuarios);
                     return "/empleado/indexEmpleado";
                 }else{
                     restaurar();
                     return "/empleado/gestionarUsuario";//mostar mensajes de algun tipo
                 }
             } 
+            
+            usuarioSeleccionado.setNombre(nuevoNombre);
+            usuarioSeleccionado.setApellidos(nuevoApellido);
+            usuarioSeleccionado.setDomicilio(nuevoDomicilio);
+            usuarioSeleccionado.setEmail(nuevoEmail);
+            usuarioSeleccionado.setTelefono(nuevoTelefono);
             this.tusuarioFacade.edit(usuarioSeleccionado);
+            listaUsuarios= this.getListaUsuarios();
             return "/empleado/indexEmpleado";
         }else{
                 return "/empleado/gestionarUsuario";//esto se deberia de cambiar o mostrar un mensaje de error
         }
     }
+
 
 }
