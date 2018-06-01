@@ -374,6 +374,39 @@ public class UsuarioBean {
         listaTransferenciaUsuarioSeleccionado.addAll(usuarioSeleccionado.getTtransferenciaList1());
         return listaTransferenciaUsuarioSeleccionado;
     }
+    
+    public String gestionarUsuario(Integer usuarioSeleccionadoDNI){
+        Tusuario usuarioSeleccionado = this.tusuarioFacade.find(usuarioSeleccionadoDNI);
+        nuevoDNI=usuarioSeleccionadoDNI;
+        nuevoNombre=usuarioSeleccionado.getNombre();
+        nuevoApellido=usuarioSeleccionado.getApellidos();
+        nuevoDomicilio=usuarioSeleccionado.getDomicilio();
+        nuevoEmail=usuarioSeleccionado.getEmail();
+        nuevoTelefono=usuarioSeleccionado.getTelefono();
+        
+        return "/empleado/gestionarSeleccionado";
+    }
 
+    public String doEditarEmpleado(Integer usuarioSeleccionadoDNI) throws NoSuchAlgorithmException{
+        
+        Tusuario usuarioSeleccionado = this.tusuarioFacade.find(usuarioSeleccionadoDNI);
+        String comprobarContrasena = PassUtil.generarHash(viejaContrasena);
+        if(comprobarContrasena.equals(usuarioSeleccionado.getHashContrasena()) && !"".equals(viejaContrasena)){
+            if(!"".equals(nuevaContrasena) ){
+                if(nuevaContrasena.equals(seguroContrasena)){
+                    usuarioSeleccionado.setHashContrasena(PassUtil.generarHash(nuevaContrasena));
+                    this.tusuarioFacade.edit(usuarioSeleccionado);
+                    return "/empleado/indexEmpleado";
+                }else{
+                    restaurar();
+                    return "/empleado/gestionarUsuario";//mostar mensajes de algun tipo
+                }
+            } 
+            this.tusuarioFacade.edit(usuarioSeleccionado);
+            return "/empleado/indexEmpleado";
+        }else{
+                return "/empleado/gestionarUsuario";//esto se deberia de cambiar o mostrar un mensaje de error
+        }
+    }
 
 }
