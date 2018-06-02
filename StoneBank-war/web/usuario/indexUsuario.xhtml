@@ -7,51 +7,94 @@ and open the template in the editor.
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:f="http://xmlns.jcp.org/jsf/core">
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+
+      xmlns:b="http://bootsfaces.net/ui"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
     <h:head>
         <title>indexUsuario</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     </h:head>
     <h:body>
-        <h1>Bienvenido, #{usuarioBean.apellidos}, #{usuarioBean.nombre}</h1>
-        <h:dataTable value="#{usuarioBean.listaMovimientos}" var="movimiento">
-            <h:column>
-                <f:facet name="header">
-                    Concepto
-                </f:facet>
-                #{movimiento.concepto}
-            </h:column>
-            <h:column>
-                <f:facet name="header">
-                    IBAN
-                </f:facet>
-                #{movimiento.ibanEntidad}
-            </h:column>
-            <h:column>
-                <f:facet name="header">
-                    Cantidad
-                </f:facet>
-                #{movimiento.cantidad}
-            </h:column>
-            <h:column>
-                <f:facet name="header">
-                    Fecha
-                </f:facet>
-                #{movimiento.fecha}
-            </h:column>
-        
-        </h:dataTable>
-                <h1>Su saldo es: #{usuarioBean.saldo}</h1>
-        <br>
-            <h:button outcome="realizarTransferencia" value="Realizar transferencia"/>
-        </br>
-        <br>
-            <h:button outcome="configuracion" value="Configuracion"/>
-        </br>
-        <br>
-            <h:form>
-                <h:commandButton action="#{loginBean.doCerrarSesion()}" value="Cerrar" />
-            </h:form>
-        </br>
+        <ui:include src="./headerUsuario.xhtml"/>
+
+
+        <b:container fluid="true">
+            <b:row>
+                <b:column span="6">
+                    <h1>Bienvenido, #{usuarioBean.nombre} #{usuarioBean.apellidos}</h1>
+                </b:column>
+                <b:column span="2" offset="3">
+
+                    <p> Su saldo es de <h1>#{usuarioBean.saldo} euros</h1></p>
+                </b:column>
+            </b:row>
+
+        </b:container>
+        <b:panel span="8" offset="0" title="Lista de Movimientos">
+            <b:dataTable  value="#{usuarioBean.listaMovimientos}" var="movimiento" page-length="10">
+                <b:dataTableColumn>
+                    <f:facet name="header">
+                        Concepto
+                    </f:facet>
+                    #{movimiento.concepto}
+                </b:dataTableColumn>
+                <b:dataTableColumn>
+                    <f:facet name="header">
+                        IBAN
+                    </f:facet>
+                    #{movimiento.ibanEntidad}
+                </b:dataTableColumn>
+                <b:dataTableColumn>
+                    <f:facet name="header">
+                        Cantidad
+                    </f:facet>
+                    #{movimiento.cantidad}
+                </b:dataTableColumn>
+                <b:dataTableColumn>
+                    <f:facet name="header">
+                        Fecha
+                    </f:facet>
+                    #{movimiento.fecha}
+                </b:dataTableColumn>
+
+            </b:dataTable>
+        </b:panel>
+
     </h:body>
 </html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
