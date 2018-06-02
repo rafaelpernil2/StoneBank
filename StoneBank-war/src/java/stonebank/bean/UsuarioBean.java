@@ -389,7 +389,7 @@ public class UsuarioBean {
     }
     
     public Tusuario getUsuarioEnFuncionDeUnDni(Integer dniUsuario){   
-        return tusuarioFacade.find(dniUsuario)
+        return tusuarioFacade.find(dniUsuario);
     }
     
     public List<Tmovimiento> getListaMovimientoUsuarioSeleccionado(Integer usuarioSeleccionadoDNI){

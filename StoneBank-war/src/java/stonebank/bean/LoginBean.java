@@ -72,7 +72,7 @@ public class LoginBean implements Serializable{
         
         String contrasenaHash = PassUtil.generarHash(passwordLogin);
         
-        if(/*contrasenaHash.equalsIgnoreCase(usuarioLoggeado.getHashContrasena())*/true){
+        if(contrasenaHash.equalsIgnoreCase(usuarioLoggeado.getHashContrasena())){
             //Comprobamos el rol del usuario
             if(usuarioLoggeado.getTrolIdtrol().equals(rolUsuario)){
                 
