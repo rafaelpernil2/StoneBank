@@ -48,6 +48,9 @@ public class TransferenciaBean implements Serializable {
     protected Tusuario usuario;
 
     @Inject
+    protected ExitoErrorBean exitoErrorBean;
+
+    @Inject
     protected LoginBean loginBean;
 
     @Inject
@@ -58,10 +61,11 @@ public class TransferenciaBean implements Serializable {
      */
     public TransferenciaBean() {
     }
+
     @PostConstruct
-    public void init(){
+    public void init() {
         setUsuario(loginBean.getUsuarioLoggeado());
-        
+
     }
 
     public void setUsuario(Tusuario usuario) {
@@ -71,7 +75,7 @@ public class TransferenciaBean implements Serializable {
     public Tusuario getUsuario() {
         return usuario;
     }
-    
+
     public int getDniemisor() {
         return dniemisor;
     }
@@ -79,7 +83,7 @@ public class TransferenciaBean implements Serializable {
     public void setDniemisor(int dniemisor) {
         this.dniemisor = dniemisor;
     }
-    
+
     public int getDnireceptor() {
         return dnireceptor;
     }
@@ -111,9 +115,9 @@ public class TransferenciaBean implements Serializable {
     public void setFecha(Date fecha) {
         this.fecha = fecha;
     }
-    
+
     public String doTransferencia() {
-        dniemisor=usuario.getDniUsuario();
+        dniemisor = usuario.getDniUsuario();
         dnireceptor = getDnireceptor();
         cantidad = getCantidad();
         concepto = getConcepto();
@@ -122,32 +126,29 @@ public class TransferenciaBean implements Serializable {
         /*
         *Coge los atributos que hay en la tabla, todos los campos son obligatorios
          */
-        
+
         if (Integer.toString(dnireceptor).equals("") || Double.toString(cantidad).equals("")) {
             ready = false;
-            /*request.setAttribute("mensaje", "Faltan datos");
-            request.setAttribute("url", "ServletCreaTransferencia?dni=" + emisor.getDniUsuario());
-            RequestDispatcher rd = this.getServletContext().getRequestDispatcher("/error.jsp");
-            rd.forward(request, response);
-             */
+            exitoErrorBean.setMensajeError("Faltan datos");
+            exitoErrorBean.setProximaURL("/usuario/realizarTransferencia?jsf-redirect=true");
+            return "/error";
+  
         }
 
         if (!CuentaUtil.esCorrectoFormatoDNI(Integer.toString(dnireceptor))) {
             ready = false;
-            /* request.setAttribute("mensaje", "Introduce el DNI sin letra");
-            request.setAttribute("url", "ServletCreaTransferencia?dni=" + emisor.getDniUsuario());
-            RequestDispatcher rd = this.getServletContext().getRequestDispatcher("/error.jsp");
-            rd.forward(request, response);
-             */
+            exitoErrorBean.setMensajeError("Introduce el DNI sin letra");
+            exitoErrorBean.setProximaURL("/usuario/realizarTransferencia?jsf-redirect=true");
+            return "/error";
+
         }
 
         if (!CuentaUtil.esCorrectoFormatoDinero(Double.toString(cantidad))) {
             ready = false;
-            /*request.setAttribute("mensaje", "La cantidad debe ser numérica y con decimales válidos. Use . para separar euros de céntimos");
-            request.setAttribute("url", "ServletCreaTransferencia?dni=" + emisor.getDniUsuario());
-            RequestDispatcher rd = this.getServletContext().getRequestDispatcher("/error.jsp");
-            rd.forward(request, response);
-             */
+            exitoErrorBean.setMensajeError("La cantidad debe ser numérica y con decimales válidos. Use . para separar euros de céntimos");
+            exitoErrorBean.setProximaURL("/usuario/realizarTransferencia?jsf-redirect=true");
+            return "/error";
+
         }
 
         //Tusuario emisor = (Tusuario) session.getAttribute("usuarioLogin");
@@ -209,34 +210,21 @@ public class TransferenciaBean implements Serializable {
 
                     Double saldoAfter = sumaMovimientosAfter + sumaTransferenciasAfter - restaTransferenciasAfter;
                     usuarioBean.setSaldo(saldoAfter);
-
-//                    request.setAttribute("mensajeExito", "¡Transferencia creada con éxito!");
-//                    //request.setAttribute("saldo",saldo);
-//                    request.setAttribute("proximaURL", "usuario/indexUsuario.jsp"); //Atención, envia sin / inicial
-//                    //RequestDispatcher rd = this.getServletContext().getRequestDispatcher("/login.jsp");
-//                    RequestDispatcher rd = this.getServletContext().getRequestDispatcher("/exito.jsp");
-//                    rd.forward(request, response);
-                    return "usuario/indexUsuario.jsf";
+                    exitoErrorBean.setMensajeExito("¡Transferencia creada con éxito!");
+                    exitoErrorBean.setProximaURL("usuario/indexUsuario?jsf-redirect=true");
+                    return "/exito";
                 } else {
-
-//                    String url = "ServletCreaTransferencia?dni=" + request.getParameter("dniemisor");
-//                    request.setAttribute("mensaje", "Error, usuario inexistente");
-//                    request.setAttribute("url", url);
-//                    RequestDispatcher rd = this.getServletContext().getRequestDispatcher("/error.jsp");
-//                    rd.forward(request, response);
-                    return "";
+                    exitoErrorBean.setMensajeError("Error, usuario inexistente");
+                    exitoErrorBean.setProximaURL("/usuario/realizarTransferencia?jsf-redirect=true");
+                    return "/error";
                 }
             }
 
         } else {
             //lanza error no tiene dinero suficiente
-            //pagina de error por hacer, todavia no hace nada
-//            String url = "ServletCreaTransferencia?dni=" + request.getParameter("dniemisor");
-//            request.setAttribute("mensaje", "Error, dinero insuficiente");
-//            request.setAttribute("url", url);
-//            RequestDispatcher rd = this.getServletContext().getRequestDispatcher("/error.jsp");
-//            rd.forward(request, response);
-            return "";
+            exitoErrorBean.setMensajeError("Error, dinero insuficiente");
+            exitoErrorBean.setProximaURL("/usuario/realizarTransferencia?jsf-redirect=true");
+            return "/error";
         }
 
     }

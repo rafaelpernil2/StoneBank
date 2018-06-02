@@ -12,29 +12,34 @@ import javax.ejb.EJB;
 import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
 import javax.faces.context.FacesContext;
+import javax.inject.Inject;
 import stonebank.ejb.TusuarioFacade;
 import stonebank.entity.Trol;
 import stonebank.entity.Tusuario;
+import stonebank.utils.CuentaUtil;
 import stonebank.utils.PassUtil;
 
 /**
  *
- * @author Victor
+ * @author Fran Gambero
  */
 @Named(value = "loginBean")
 @SessionScoped
-public class LoginBean implements Serializable{
+public class LoginBean implements Serializable {
 
     @EJB
     private TusuarioFacade tusuarioFacade;
+
+    @Inject
+    private ExitoErrorBean exitoErrorBean;
 
     protected Tusuario usuarioLoggeado;
     protected int dniLogin;
     protected String passwordLogin = "";
     Trol rolUsuario = new Trol(1);
-    Trol rolEmpleado = new Trol(2);   
-    
-    public Tusuario getUsuarioLoggeado(){
+    Trol rolEmpleado = new Trol(2);
+
+    public Tusuario getUsuarioLoggeado() {
         return usuarioLoggeado;
     }
 
@@ -45,7 +50,7 @@ public class LoginBean implements Serializable{
     public void setUsuarioLoggeado(Tusuario usuarioLoggeado) {
         this.usuarioLoggeado = usuarioLoggeado;
     }
-    
+
     public void setDniLogin(int dniLogin) {
         this.dniLogin = dniLogin;
     }
@@ -57,43 +62,58 @@ public class LoginBean implements Serializable{
     public void setPasswordLogin(String passwordLogin) {
         this.passwordLogin = passwordLogin;
     }
-        
+
     public LoginBean() {
+
     }
-    
-    public String doLogin() throws NoSuchAlgorithmException{
-        
+
+    public String doLogin() throws NoSuchAlgorithmException {
+
         setUsuarioLoggeado(this.tusuarioFacade.find(dniLogin));
-       
-        
+
         String contrasenaHash = PassUtil.generarHash(passwordLogin);
-        
-        if(contrasenaHash.equalsIgnoreCase(usuarioLoggeado.getHashContrasena())){
+        if (!CuentaUtil.DNIyaRegistrado(tusuarioFacade, dniLogin)) {
+
+            exitoErrorBean.setMensajeError("Usuario o contraseña incorrecto");
+            exitoErrorBean.setProximaURL("/login");
+            return "/error"; //Redirige a error si no lo ha hecho antes
+        }
+        if (contrasenaHash.equalsIgnoreCase(usuarioLoggeado.getHashContrasena())) {
             //Comprobamos el rol del usuario
-            if(usuarioLoggeado.getTrolIdtrol().equals(rolUsuario)){
-                return "/usuario/indexUsuario";
-            } else if (usuarioLoggeado.getTrolIdtrol().equals(rolEmpleado)){
-                return "/empleado/indexEmpleado?faces-redirect=true";
+            if (usuarioLoggeado.getTrolIdtrol().equals(rolUsuario)) {
+
+                exitoErrorBean.setMensajeExito("Login usuario correcto");
+                exitoErrorBean.setProximaURL("/usuario/indexUsuario");
+                return "/exito";
+                //return "/usuario/indexUsuario";
+            } else if (usuarioLoggeado.getTrolIdtrol().equals(rolEmpleado)) {
+                exitoErrorBean.setMensajeExito("Login empleado correcto");
+                exitoErrorBean.setProximaURL("/empleado/indexEmpleado");
+                return "/exito";
+                //return "/empleado/indexEmpleado";
             }
-        } 
-        
-        return "error"; //Redirige a error si no lo ha hecho antes
-        
+        }
+
+        exitoErrorBean.setMensajeError("Error al iniciar sesión");
+        exitoErrorBean.setProximaURL("/login");
+        return "/error"; //Redirige a error si no lo ha hecho antes
+
     }
-      
-       
-    public String doCerrarSesion(){
-        
+
+    public String doCerrarSesion() {
+
         FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
-        
-        return "/login"; 
+
+        exitoErrorBean.setMensajeExito("Sesión cerrada con éxito");
+        exitoErrorBean.setProximaURL("/login");
+        return "/exito";
     }
-    
+
     @PostConstruct
-    public void init(){
-        if(dniLogin != 1){
+    public void init() {
+        if (dniLogin != -1) {
             usuarioLoggeado = this.tusuarioFacade.find(dniLogin);
         }
     }
-    
+
 }
