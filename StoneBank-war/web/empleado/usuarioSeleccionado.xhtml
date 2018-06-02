@@ -8,103 +8,143 @@ and open the template in the editor.
 
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:f="http://xmlns.jcp.org/jsf/core">
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:b="http://bootsfaces.net/ui">
     <h:head>
         <title>Usuario Seleccionado</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     </h:head>
     <h:body>
-        <div><h1>Datos de #{usuarioBean.nuevoApellido}, #{usuarioBean.nuevoNombre}</h1></div>
-         <table>
-                <tr>
-                    <td>DNI:</td>
-                    <td><h:inputText value="#{usuarioBean.nuevoDNI}" readonly="true"/></td>
-                </tr>
-                <tr>
-                    <td>NOMBRE:</td>
-                    <td><h:inputText value="#{usuarioBean.nuevoNombre}" id="nombre" readonly="true"/></td>
-                </tr>
-                <tr>
-                    <td>APELLIDOS:</td>
-                    <td><h:inputText value="#{usuarioBean.nuevoApellido}" id="apellidos" readonly="true"/></td>
-                </tr>
-                <tr>
-                    <td>Telefono:</td>
-                    <td><h:inputText value="#{usuarioBean.nuevoTelefono}" id="telefono" readonly="true"/></td>
-                </tr>
-                <tr>
-                    <td>Domicilio:</td>
-                    <td><h:inputText value="#{usuarioBean.nuevoDomicilio}" id="domicilio" readonly="true"/></td>
-                </tr>
-                <tr>
-                    <td>Email</td>
-                    <td><h:inputText value="#{usuarioBean.nuevoEmail}" id="email" readonly="true"/></td>
-                </tr>
-            </table>
-        <h:form>
-        <h2>Lista de movimientos</h2>
-        <h:dataTable value="#{usuarioBean.getListaMovimientoUsuarioSeleccionado(usuarioBean.nuevoDNI)}" var="movimiento">
-            <h:column>
-                <f:facet name="header">
-                    Concepto
-                </f:facet>
-                #{movimiento.concepto}
-            </h:column>
-            <h:column>
-                <f:facet name="header">
-                    IBAN
-                </f:facet>
-                #{movimiento.ibanEntidad}
-            </h:column>
-            <h:column>
-                <f:facet name="header">
-                    Cantidad
-                </f:facet>
-                #{movimiento.cantidad}
-            </h:column>
-            <h:column>
-                <f:facet name="header">
-                    Fecha
-                </f:facet>
-                #{movimiento.fecha}
-            </h:column>
-        </h:dataTable>
-        <h2>Lista de Transferencias</h2>
-        <h:dataTable value="#{usuarioBean.getListaTransferenciaUsuarioSeleccionado(usuarioBean.nuevoDNI)}" var="transferencia">
-            <h:column>
-                <f:facet name="header">
-                    DNI emisor
-                </f:facet>
-                #{transferencia.DNIEmisor}
-            </h:column>
-            <h:column>
-                <f:facet name="header">
-                    DNI receptor
-                </f:facet>
-                #{transferencia.DNIReceptor}
-            </h:column>
-            <h:column>
-                <f:facet name="header">
-                    Cantidad
-                </f:facet>
-                #{transferencia.cantidad}
-            </h:column>
-            <h:column>
-                <f:facet name="header">
-                    Concepto
-                </f:facet>
-                #{transferencia.concepto}
-            </h:column>
-            <h:column>
-                <f:facet name="header">
-                    Fecha
-                </f:facet>
-                #{transferencia.fecha}
-            </h:column>
-        </h:dataTable>
-
-            <h:button outcome="/empleado/indexEmpleado" value="volver"/>
-        </h:form>
+        <ui:include src="../headerEmpleadoUsuarioSeleccionado.xhtml"/>
+        <b:container fluid="true">
+            <b:row>
+                <b:column span="6">
+                    <h1>Datos de #{usuarioBean.nuevoNombre} #{usuarioBean.nuevoApellido}</h1>
+                </b:column>
+            </b:row>
+            <br></br>
+        </b:container>  
         
+            <b:container fluid="true">
+                <b:row>
+                    <b:column span="1" offset="0">
+                        <h>DNI: </h>
+                    </b:column>
+                    <b:column span="2">
+                        #{usuarioBean.DNI}
+                    </b:column>
+                </b:row>
+                <b:row>
+                    <b:column span="1" offset="0">
+                        <h>Nombre: </h>
+                    </b:column>
+                    <b:column span="1">
+                        #{usuarioBean.nuevoNombre}
+                    </b:column>
+                </b:row>
+                <b:row>
+                    <b:column span="1" offset="0">
+                        <h>Apellidos: </h>
+                    </b:column>
+                    <b:column span="2">
+                        #{usuarioBean.nuevoApellido}
+                    </b:column>
+                </b:row>
+
+                <b:row>
+                    <b:column span="1" offset="0">
+                        <h>Teléfono: </h>
+                    </b:column>
+                    <b:column span="1">
+                        #{usuarioBean.nuevoTelefono}
+                    </b:column>
+                </b:row>
+                <b:row>
+                    <b:column span="1" offset="0">
+                        <h>Domicilio: </h>
+                    </b:column>
+                    <b:column span="2">
+                        #{usuarioBean.nuevoDomicilio}
+                    </b:column>
+                </b:row>
+                <b:row>
+                    <b:column span="1" offset="0">
+                        <h>E-Mail: </h>
+                    </b:column>
+                    <b:column span="2">
+                        #{usuarioBean.nuevoEmail}
+                    </b:column>
+                </b:row>
+            </b:container>
+    
+        <h:form>
+            <br></br>
+            <br></br>
+            <b:panel span="6" offset="0" title="Lista de Movimientos">
+                <b:dataTable value="#{usuarioBean.getListaMovimientoUsuarioSeleccionado(usuarioBean.nuevoDNI)}" var="movimiento">
+                    <h:column>
+                        <f:facet name="header">
+                            Concepto
+                        </f:facet>
+                        #{movimiento.concepto}
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">
+                            IBAN
+                        </f:facet>
+                        #{movimiento.ibanEntidad}
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">
+                            Cantidad
+                        </f:facet>
+                        #{movimiento.cantidad}
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">
+                            Fecha
+                        </f:facet>
+                        #{movimiento.fecha}
+                    </h:column>
+                </b:dataTable>
+            </b:panel>
+            <b:panel span="6" offset="0" title="Lista de Transferencias">
+                <b:dataTable value="#{usuarioBean.getListaTransferenciaUsuarioSeleccionado(usuarioBean.nuevoDNI)}" var="transferencia">
+                    <h:column>
+                        <f:facet name="header">
+                            DNI emisor
+                        </f:facet>
+                        #{transferencia.DNIEmisor}
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">
+                            DNI receptor
+                        </f:facet>
+                        #{transferencia.DNIReceptor}
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">
+                            Cantidad
+                        </f:facet>
+                        #{transferencia.cantidad}
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">
+                            Concepto
+                        </f:facet>
+                        #{transferencia.concepto}
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">
+                            Fecha
+                        </f:facet>
+                        #{transferencia.fecha}
+                    </h:column>
+                </b:dataTable>
+            </b:panel>
+
+        </h:form>
+
     </h:body>
 </html>
