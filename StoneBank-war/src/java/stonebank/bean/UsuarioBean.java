@@ -34,47 +34,44 @@ public class UsuarioBean {
 
     @Inject
     protected LoginBean loginBean;
-    
+
+    @Inject
+    protected ExitoErrorBean exitoErrorBean;
+
     @Inject
     protected BusquedaBean busquedaBean;
-    
+
     @EJB
     private TusuarioFacade tusuarioFacade;
-    
-    
-    
-    
+
     protected List<Tmovimiento> listaMovimientos;
     protected List<Tusuario> listaUsuarios;
     protected Tusuario usuario;
-    protected String nuevaContrasena="", seguroContrasena="",
-            viejaContrasena="",nuevoNombre,nuevoApellido,nuevoDomicilio,nuevoEmail;
-    protected Integer nuevoTelefono,nuevoDNI;
+    protected String nuevaContrasena = "", seguroContrasena = "",
+            viejaContrasena = "", nuevoNombre, nuevoApellido, nuevoDomicilio, nuevoEmail;
+    protected Integer nuevoTelefono, nuevoDNI;
     protected double saldo;
-
-    
 
     /**
      * Creates a new instance of UsuarioBean
      */
     public UsuarioBean() {
     }
-    
+
     @PostConstruct
-    public void init(){
-        usuario= loginBean.getUsuarioLoggeado();
+    public void init() {
+        usuario = loginBean.getUsuarioLoggeado();
         listaMovimientos = usuario.getTmovimientoList();
-        nuevoNombre=usuario.getNombre();
-        nuevoApellido=usuario.getApellidos();
-        nuevoDomicilio=usuario.getDomicilio();
-        nuevoEmail=usuario.getEmail();
-        nuevoTelefono=usuario.getTelefono();
+        nuevoNombre = usuario.getNombre();
+        nuevoApellido = usuario.getApellidos();
+        nuevoDomicilio = usuario.getDomicilio();
+        nuevoEmail = usuario.getEmail();
+        nuevoTelefono = usuario.getTelefono();
     }
-    
+
     /*
     * hace falta poner el saldo que tiene justo aqui.
-    */
-
+     */
     public Tusuario getUsuario() {
         return usuario;
     }
@@ -82,91 +79,89 @@ public class UsuarioBean {
     public void setUsuario(Tusuario usuario) {
         this.usuario = usuario;
     }
-    
-    
-    
-    public void setSaldo(double saldo){
+
+    public void setSaldo(double saldo) {
         this.saldo = saldo;
     }
 
     public List<Tmovimiento> getListaMovimientos() {
         return listaMovimientos;
     }
-    
-    public void setListaMovimientos(List<Tmovimiento> lm){
+
+    public void setListaMovimientos(List<Tmovimiento> lm) {
         this.listaMovimientos = lm;
     }
-    
-    public List<Tusuario> getListaUsuarios(){
-        listaUsuarios=this.tusuarioFacade.findAll();
+
+    public List<Tusuario> getListaUsuarios() {
+        listaUsuarios = this.tusuarioFacade.findAll();
         return listaUsuarios;
     }
-    
-    public void setListaUsuarios(List<Tusuario> lu){
+
+    public void setListaUsuarios(List<Tusuario> lu) {
         this.listaUsuarios = lu;
     }
-    
-    public String getNombre(){
+
+    public String getNombre() {
         return usuario.getNombre();
     }
-    
-    public void setNombre(String n){
+
+    public void setNombre(String n) {
         usuario.setNombre(n);
     }
-    
-    public String getApellidos(){
+
+    public String getApellidos() {
         return usuario.getApellidos();
     }
-    
-    public void setApellidos(String ap){
+
+    public void setApellidos(String ap) {
         usuario.setApellidos(ap);
     }
-    
-    public Integer getDNI(){
+
+    public Integer getDNI() {
         return usuario.getDniUsuario();
     }
-    
-    public void setDNI(Integer dni){
+
+    public void setDNI(Integer dni) {
         //no debe de hacer nada, dni no se puede cambiar
     }
-    
-    public String getDomicilio(){
+
+    public String getDomicilio() {
         return usuario.getDomicilio();
     }
-    
-    public void setDomicilio(String d){
+
+    public void setDomicilio(String d) {
         usuario.setDomicilio(d);
     }
-    
-    public String getEmail(){
+
+    public String getEmail() {
         return usuario.getEmail();
     }
-    
-    public void setEmail(String em){
+
+    public void setEmail(String em) {
         usuario.setEmail(em);
     }
-    
-    public Integer getTelefono(){
+
+    public Integer getTelefono() {
         return usuario.getTelefono();
     }
-    
-    public void setTelefono(Integer tel){
+
+    public void setTelefono(Integer tel) {
         usuario.setTelefono(tel);
     }
-    
-    public Integer getNumCuenta(){
+
+    public Integer getNumCuenta() {
         return usuario.getNumCuenta();
     }
-    
-    public void setNumCuenta(Integer nC){
+
+    public void setNumCuenta(Integer nC) {
         usuario.setNumCuenta(nC);
     }
-    
-    public String getHashContrasena(){
+
+    public String getHashContrasena() {
         return usuario.getHashContrasena();
     }
-    
-    public void setContrasena(String contrasena){
+
+    public void setContrasena(String contrasena) {
         try {
             usuario.setHashContrasena(PassUtil.generarHash(contrasena));
         } catch (NoSuchAlgorithmException ex) {
@@ -174,114 +169,137 @@ public class UsuarioBean {
         }
 
     }
-    
-    public String getNuevaContrasena(){
+
+    public String getNuevaContrasena() {
         return nuevaContrasena;
     }
-    
-    public void setNuevaContrasena(String nC){
-        nuevaContrasena=nC;
+
+    public void setNuevaContrasena(String nC) {
+        nuevaContrasena = nC;
     }
-    
-    public String getSeguroContrasena(){
+
+    public String getSeguroContrasena() {
         return seguroContrasena;
     }
-    
-    public void setSeguroContrasena(String sC){
-        seguroContrasena=sC;
+
+    public void setSeguroContrasena(String sC) {
+        seguroContrasena = sC;
     }
-    
-    public String getViejaContrasena(){
+
+    public String getViejaContrasena() {
         return viejaContrasena;
     }
-    
-    public void setViejaContrasena(String vC){
-        viejaContrasena=vC;
+
+    public void setViejaContrasena(String vC) {
+        viejaContrasena = vC;
     }
-    
-    
-    public Double getSaldo(){
-        Double dineroEntranteMovimientos=this.tmovimientoFacade.dineroEntrantePorMovimientos(usuario.getDniUsuario());
-        Double dineroEntranteTransferencias=this.ttransferenciaFacade.dineroEntranteTransferencia(usuario.getDniUsuario());
-        Double dineroSalienteTransferencias=this.ttransferenciaFacade.dineroSalienteTransferencia(usuario.getDniUsuario());
-        if(dineroEntranteMovimientos==null){
-            dineroEntranteMovimientos=0.0;
+
+    public Double getSaldo() {
+        Double dineroEntranteMovimientos = this.tmovimientoFacade.dineroEntrantePorMovimientos(usuario.getDniUsuario());
+        Double dineroEntranteTransferencias = this.ttransferenciaFacade.dineroEntranteTransferencia(usuario.getDniUsuario());
+        Double dineroSalienteTransferencias = this.ttransferenciaFacade.dineroSalienteTransferencia(usuario.getDniUsuario());
+        if (dineroEntranteMovimientos == null) {
+            dineroEntranteMovimientos = 0.0;
         }
-        if(dineroEntranteTransferencias==null){
-            dineroEntranteTransferencias=0.0;
+        if (dineroEntranteTransferencias == null) {
+            dineroEntranteTransferencias = 0.0;
         }
-        if(dineroSalienteTransferencias==null){
-            dineroSalienteTransferencias=0.0;
+        if (dineroSalienteTransferencias == null) {
+            dineroSalienteTransferencias = 0.0;
         }
-        return (dineroEntranteMovimientos+dineroEntranteTransferencias)- dineroSalienteTransferencias;
+        return (dineroEntranteMovimientos + dineroEntranteTransferencias) - dineroSalienteTransferencias;
     }
-    
-    public String doEditar() throws NoSuchAlgorithmException{
+
+    public String doEditar() throws NoSuchAlgorithmException {
 
         String comprobarContrasena = PassUtil.generarHash(viejaContrasena);
-        
-        if(comprobarContrasena.equals(usuario.getHashContrasena()) && !"".equals(viejaContrasena)){
-            if(!"".equals(nuevaContrasena) ){
-                if(nuevaContrasena.equals(seguroContrasena)){
+
+        if (comprobarContrasena.equals(usuario.getHashContrasena()) && !"".equals(viejaContrasena)) {
+            if (!"".equals(nuevaContrasena)) {
+                if (nuevaContrasena.equals(seguroContrasena)) {
                     this.usuario.setHashContrasena(PassUtil.generarHash(nuevaContrasena));
                     actualizar();
                     this.tusuarioFacade.edit(usuario);
                     return "indexUsuario";
-                }else{
+                } else {
                     restaurar();
                     return "configuracion";//mostar mensajes de algun tipo
                 }
-            } 
+            }
             actualizar();
             this.tusuarioFacade.edit(usuario);
             return "indexUsuario";
-        }else{
-                restaurar();
-                return "configuracion";//esto se deberia de cambiar o mostrar un mensaje de error
+        } else {
+            restaurar();
+            return "configuracion";//esto se deberia de cambiar o mostrar un mensaje de error
         }
-        
-        
-    }    
-    public String crearUsuario(){
-        nuevoDNI=-1;
-        nuevoNombre="";
-        nuevoApellido="";
-        nuevaContrasena="";
-        seguroContrasena="";
-        nuevoDomicilio="";
-        nuevoEmail="";
-        nuevoTelefono=-1;
-        return"/alta";
+
     }
-    
-    public String doCrear() throws NoSuchAlgorithmException{
-    /*
+
+    public String crearUsuario() {
+        nuevoDNI = -1;
+        nuevoNombre = "";
+        nuevoApellido = "";
+        nuevaContrasena = "";
+        seguroContrasena = "";
+        nuevoDomicilio = "";
+        nuevoEmail = "";
+        nuevoTelefono = -1;
+        return "/alta";
+    }
+
+    public String doCrear() throws NoSuchAlgorithmException {
+        /*
     * No soy partidario de hacer tanto if/else asique, 
     * No se si deberia hacer un metodo privado para que me lo compruebe todo  
-    */
-        if( !(CuentaUtil.esCorrectoFormatoDNI(nuevoDNI.toString())) || !CuentaUtil.DNIyaRegistrado(tusuarioFacade,nuevoDNI)){
+         */
+
+        if (!(CuentaUtil.esCorrectoFormatoDNI(nuevoDNI.toString()))) {
             //mensaje de error de fallo al introducir DNI
-            nuevoDNI=-1;
-            return "/alta";
-        }else if(nuevoNombre.equals("") || nuevoApellido.equals("")){
-            //mensaje de error
-            return "/alta";
-        }else if(nuevoTelefono==-1 || !CuentaUtil.esCorrectoFormatoTelefono(nuevoTelefono.toString())){
-            //mensaje de error
-            return "/alta";
-        }else if(nuevoDomicilio.equals("")){
-            //mensaje de error
-            return "/alta";
-        }else if(nuevoEmail.equals("")){
-            //mensaje de error
-            return "/alta";
-        }else if(nuevaContrasena.equals("") || seguroContrasena.equals("")
-                || !nuevaContrasena.equals(seguroContrasena)){
-            //mensaje de error
-            return "/alta";
-        }else{
+
+            exitoErrorBean.setMensajeError("Introduce los 8 dígitos del DNI sin letra");
+            exitoErrorBean.setProximaURL("/alta");
+            return "/error";
+        } else if (CuentaUtil.DNIyaRegistrado(tusuarioFacade, nuevoDNI)) {
+
+            exitoErrorBean.setMensajeError("Usuario ya registrado");
+            exitoErrorBean.setProximaURL("/alta");
+            return "/error";
+
+        } else if (nuevoNombre.equals("") || nuevoApellido.equals("")) {
+            exitoErrorBean.setMensajeError("Falta introducir nombre y apellidos");
+            exitoErrorBean.setProximaURL("/alta");
+            return "/error";
+        } else if (nuevoTelefono == -1 || !CuentaUtil.esCorrectoFormatoTelefono(nuevoTelefono.toString())) {
+            exitoErrorBean.setMensajeError("Introduce los 9 dígitos del número de teléfono");
+            exitoErrorBean.setProximaURL("/alta");
+            return "/error";
+//        } else if (nuevoDomicilio.equals("")) {
+//            exitoErrorBean.setMensajeError("Falta introducir domicilio");
+//            exitoErrorBean.setProximaURL("/alta");
+//            return "/error";
+//        } else if (nuevoEmail.equals("")) {
+//            exitoErrorBean.setMensajeError("Falta introducir email");
+//            exitoErrorBean.setProximaURL("/alta");
+//            return "/error";
+        } else if (nuevaContrasena.equals("")) {
+            exitoErrorBean.setMensajeError("Falta introducir contraseña");
+            exitoErrorBean.setProximaURL("/alta");
+            return "/error";
+        } else if (seguroContrasena.equals("")) {
+
+            exitoErrorBean.setMensajeError("Confirma la contraseña");
+            exitoErrorBean.setProximaURL("/alta");
+            return "/error";
+
+        } else if (!nuevaContrasena.equals(seguroContrasena)) {
+
+            exitoErrorBean.setMensajeError("Las contraseña introducida no coincide con la confirmación de contraseña");
+            exitoErrorBean.setProximaURL("/alta");
+            return "/error";
+        } else {
             Tusuario nuevoUsuario = new Tusuario();
-            
+
             nuevoUsuario.setDniUsuario(nuevoDNI);
             nuevoUsuario.setNombre(nuevoNombre);
             nuevoUsuario.setApellidos(nuevoApellido);
@@ -290,109 +308,106 @@ public class UsuarioBean {
             nuevoUsuario.setDomicilio(nuevoDomicilio);
             nuevoUsuario.setEmail(nuevoEmail);
             nuevoUsuario.setNumCuenta(CuentaUtil.generarNumeroDeCuenta(tusuarioFacade));
-            
+
             this.tusuarioFacade.create(nuevoUsuario);
             listaUsuarios.add(nuevoUsuario);
-            
-           return"/empleado/indexEmpleado";
+
+            return "/empleado/indexEmpleado";
         }
-        
-        
-        
+
     }
-    
-    
-    private void restaurar(){
-        nuevoNombre=usuario.getNombre();
-        nuevoApellido=usuario.getApellidos();
-        nuevoDomicilio=usuario.getDomicilio();
-        nuevoEmail=usuario.getEmail();
-        nuevoTelefono=usuario.getTelefono();
+
+    private void restaurar() {
+        nuevoNombre = usuario.getNombre();
+        nuevoApellido = usuario.getApellidos();
+        nuevoDomicilio = usuario.getDomicilio();
+        nuevoEmail = usuario.getEmail();
+        nuevoTelefono = usuario.getTelefono();
     }
-    
-    private void actualizar(){
-        
+
+    private void actualizar() {
+
         usuario.setNombre(nuevoNombre);
         usuario.setApellidos(nuevoApellido);
         usuario.setDomicilio(nuevoDomicilio);
         usuario.setEmail(nuevoEmail);
         usuario.setTelefono(nuevoTelefono);
     }
-    
-    public Integer getNuevoDNI(){
+
+    public Integer getNuevoDNI() {
         return nuevoDNI;
     }
-    
-    public void setNuevoDNI(Integer dni){
-        nuevoDNI=dni;
+
+    public void setNuevoDNI(Integer dni) {
+        nuevoDNI = dni;
     }
-    
-    public String getNuevoNombre(){
+
+    public String getNuevoNombre() {
         return nuevoNombre;
     }
-    
-    public void setNuevoNombre(String nN){
-        nuevoNombre=nN;
+
+    public void setNuevoNombre(String nN) {
+        nuevoNombre = nN;
     }
-    
-    public String getNuevoApellido(){
+
+    public String getNuevoApellido() {
         return nuevoApellido;
     }
-    
-    public void setNuevoApellido(String nA){
-        nuevoApellido=nA;
+
+    public void setNuevoApellido(String nA) {
+        nuevoApellido = nA;
     }
-    
-    public String getNuevoDomicilio(){
+
+    public String getNuevoDomicilio() {
         return nuevoDomicilio;
     }
-    
-    public void setNuevoDomicilio(String nD){
-        nuevoDomicilio=nD;
+
+    public void setNuevoDomicilio(String nD) {
+        nuevoDomicilio = nD;
     }
-    
-    public String getNuevoEmail(){
+
+    public String getNuevoEmail() {
         return nuevoEmail;
     }
-    
-    public void setNuevoEmail(String nE){
-        nuevoEmail=nE;
+
+    public void setNuevoEmail(String nE) {
+        nuevoEmail = nE;
     }
-    
-    public Integer getNuevoTelefono(){
+
+    public Integer getNuevoTelefono() {
         return nuevoTelefono;
     }
-    
-    public void setNuevoTelefono(Integer nT){
-        nuevoTelefono=nT;
+
+    public void setNuevoTelefono(Integer nT) {
+        nuevoTelefono = nT;
     }
-    
-    public String usuarioSeleccionado(Integer usuarioSeleccionadoDNI){
+
+    public String usuarioSeleccionado(Integer usuarioSeleccionadoDNI) {
         Tusuario usuarioSeleccionado = this.tusuarioFacade.find(usuarioSeleccionadoDNI);
-        nuevoDNI=usuarioSeleccionadoDNI;
-        nuevoNombre=usuarioSeleccionado.getNombre();
-        nuevoApellido=usuarioSeleccionado.getApellidos();
-        nuevoDomicilio=usuarioSeleccionado.getDomicilio();
-        nuevoEmail=usuarioSeleccionado.getEmail();
-        nuevoTelefono=usuarioSeleccionado.getTelefono();
-        
+        nuevoDNI = usuarioSeleccionadoDNI;
+        nuevoNombre = usuarioSeleccionado.getNombre();
+        nuevoApellido = usuarioSeleccionado.getApellidos();
+        nuevoDomicilio = usuarioSeleccionado.getDomicilio();
+        nuevoEmail = usuarioSeleccionado.getEmail();
+        nuevoTelefono = usuarioSeleccionado.getTelefono();
+
         return "/empleado/usuarioSeleccionado";
     }
-    
-    public List<Tmovimiento> getListaMovimientoUsuarioSeleccionado(Integer usuarioSeleccionadoDNI){
+
+    public List<Tmovimiento> getListaMovimientoUsuarioSeleccionado(Integer usuarioSeleccionadoDNI) {
         Tusuario usuarioSeleccionado = this.tusuarioFacade.find(usuarioSeleccionadoDNI);
         List<Tmovimiento> listaMovimientoUsuarioSeleccionado = usuarioSeleccionado.getTmovimientoList();
         return listaMovimientoUsuarioSeleccionado;
     }
-    
-    public List<Ttransferencia> getListaTransferenciaUsuarioSeleccionado(Integer usuarioSeleccionadoDNI){
+
+    public List<Ttransferencia> getListaTransferenciaUsuarioSeleccionado(Integer usuarioSeleccionadoDNI) {
         Tusuario usuarioSeleccionado = this.tusuarioFacade.find(usuarioSeleccionadoDNI);
         List<Ttransferencia> listaTransferenciaUsuarioSeleccionado = usuarioSeleccionado.getTtransferenciaList();
         listaTransferenciaUsuarioSeleccionado.addAll(usuarioSeleccionado.getTtransferenciaList1());
         return listaTransferenciaUsuarioSeleccionado;
     }
-    
-    public String gestionarUsuario(Integer usuarioSeleccionadoDNI){
+
+    public String gestionarUsuario(Integer usuarioSeleccionadoDNI) {
         Tusuario usuarioSeleccionado = this.tusuarioFacade.find(usuarioSeleccionadoDNI);
         this.setNuevoDNI(usuarioSeleccionadoDNI);
         this.setNuevoNombre(usuarioSeleccionado.getNombre());
@@ -400,47 +415,82 @@ public class UsuarioBean {
         this.setNuevoDomicilio(usuarioSeleccionado.getDomicilio());
         this.setNuevoEmail(usuarioSeleccionado.getEmail());
         this.setNuevoTelefono(usuarioSeleccionado.getTelefono());
-        
+
         return "/empleado/gestionarUsuario";
     }
 
-    public String doEditarEmpleado(Integer usuarioSeleccionadoDNI) throws NoSuchAlgorithmException{
-        
-        
+    public String doEditarEmpleado(Integer usuarioSeleccionadoDNI) throws NoSuchAlgorithmException {
+
         Tusuario usuarioSeleccionado = this.tusuarioFacade.find(usuarioSeleccionadoDNI);
-        
-        String comprobarContrasena = PassUtil.generarHash(viejaContrasena);
-        if(comprobarContrasena.equals(usuarioSeleccionado.getHashContrasena()) && !"".equals(viejaContrasena)){
-            if(!"".equals(nuevaContrasena) ){
-                if(nuevaContrasena.equals(seguroContrasena)){
-                    usuarioSeleccionado.setHashContrasena(PassUtil.generarHash(nuevaContrasena));
-                    usuarioSeleccionado.setNombre(nuevoNombre);
-                    usuarioSeleccionado.setApellidos(nuevoApellido);
-                    usuarioSeleccionado.setDomicilio(nuevoDomicilio);
-                    usuarioSeleccionado.setEmail(nuevoEmail);
-                    usuarioSeleccionado.setTelefono(nuevoTelefono);
-                    this.tusuarioFacade.edit(usuarioSeleccionado);
-                    listaUsuarios= this.getListaUsuarios();
-                    busquedaBean.setListaUsuarios(listaUsuarios);
-                    return "/empleado/indexEmpleado";
-                }else{
-                    restaurar();
-                    return "/empleado/gestionarUsuario";//mostar mensajes de algun tipo
+
+        if (nuevoNombre.equals("") || nuevoApellido.equals("")) {
+            exitoErrorBean.setMensajeError("Falta introducir nombre y apellidos");
+            exitoErrorBean.setProximaURL("/empleado/gestionarUsuario?jsf-redirect=true");
+            return "/error?jsf-redirect=true";
+        } else if (nuevoTelefono == -1 || !CuentaUtil.esCorrectoFormatoTelefono(nuevoTelefono.toString())) {
+            exitoErrorBean.setMensajeError("Introduce los 9 dígitos del número de teléfono");
+            exitoErrorBean.setProximaURL("/empleado/gestionarUsuario?jsp-redirect=true");
+            return "/error";
+//        } else if (nuevoDomicilio.equals("")) {
+//            exitoErrorBean.setMensajeError("Falta introducir domicilio");
+//            exitoErrorBean.setProximaURL("/alta");
+//            return "/error";
+//        } else if (nuevoEmail.equals("")) {
+//            exitoErrorBean.setMensajeError("Falta introducir email");
+//            exitoErrorBean.setProximaURL("/alta");
+//            return "/error";
+        } else if (viejaContrasena.equals("")) {
+            exitoErrorBean.setMensajeError("Introduce tu contraseña para realizar cambios");
+            exitoErrorBean.setProximaURL("/empleado/gestionarUsuario");
+            return "/error";
+        } else if (nuevaContrasena.equals("")) {
+            exitoErrorBean.setMensajeError("Falta introducir contraseña");
+            exitoErrorBean.setProximaURL("/empleado/gestionarUsuario");
+            return "/error";
+        } else if (seguroContrasena.equals("")) {
+            exitoErrorBean.setMensajeError("Confirma la contraseña");
+            exitoErrorBean.setProximaURL("/empleado/gestionarUsuario");
+            return "/error";
+        } //        } else if (!nuevaContrasena.equals(seguroContrasena)) {
+        //
+        //            exitoErrorBean.setMensajeError("Las contraseña introducida no coincide con la confirmación de contraseña");
+        //            exitoErrorBean.setProximaURL("/alta");
+        //            return "/error";
+        //        } else {
+        else {
+
+            if (PassUtil.generarHash(viejaContrasena).equals(usuarioSeleccionado.getHashContrasena())) {
+                if (!"".equals(nuevaContrasena)) {
+                    if (nuevaContrasena.equals(seguroContrasena)) {
+                        usuarioSeleccionado.setHashContrasena(PassUtil.generarHash(nuevaContrasena));
+                        usuarioSeleccionado.setNombre(nuevoNombre);
+                        usuarioSeleccionado.setApellidos(nuevoApellido);
+                        usuarioSeleccionado.setDomicilio(nuevoDomicilio);
+                        usuarioSeleccionado.setEmail(nuevoEmail);
+                        usuarioSeleccionado.setTelefono(nuevoTelefono);
+                        this.tusuarioFacade.edit(usuarioSeleccionado);
+                        listaUsuarios = this.getListaUsuarios();
+                        busquedaBean.setListaUsuarios(listaUsuarios);
+                        return "/empleado/indexEmpleado";
+                    } else {
+                        restaurar();
+                        exitoErrorBean.setMensajeError("Las contraseña nueva introducida no coincide con la confirmación de contraseña");
+                        exitoErrorBean.setProximaURL("/empleado/gestionarUsuario");
+                        return "/error";//mostar mensajes de algun tipo
+                    }
                 }
-            } 
-            
-            usuarioSeleccionado.setNombre(nuevoNombre);
-            usuarioSeleccionado.setApellidos(nuevoApellido);
-            usuarioSeleccionado.setDomicilio(nuevoDomicilio);
-            usuarioSeleccionado.setEmail(nuevoEmail);
-            usuarioSeleccionado.setTelefono(nuevoTelefono);
-            this.tusuarioFacade.edit(usuarioSeleccionado);
-            listaUsuarios= this.getListaUsuarios();
-            return "/empleado/indexEmpleado";
-        }else{
+
+                usuarioSeleccionado.setNombre(nuevoNombre);
+                usuarioSeleccionado.setApellidos(nuevoApellido);
+                usuarioSeleccionado.setDomicilio(nuevoDomicilio);
+                usuarioSeleccionado.setEmail(nuevoEmail);
+                usuarioSeleccionado.setTelefono(nuevoTelefono);
+                this.tusuarioFacade.edit(usuarioSeleccionado);
+                listaUsuarios = this.getListaUsuarios();
+                return "/empleado/indexEmpleado";
+            } else {
                 return "/empleado/gestionarUsuario";//esto se deberia de cambiar o mostrar un mensaje de error
+            }
         }
     }
-
-
 }

@@ -27,7 +27,7 @@
                         <h:outputText value="DNI: "/>
                     </b:column>
                     <b:column span="2">
-                        <b:inputText value="#{usuarioBean.DNI}"/>
+                        <b:inputText value="#{usuarioBean.nuevoDNI}"/>
                     </b:column>
                 </b:row>
                 <b:row>
@@ -89,7 +89,7 @@
             </b:container>
 
             <center>
-                <b:commandButton action="#{usuarioBean.doCrear()}" value="Crear"/>
+                <b:commandButton action="#{usuarioBean.doCrear}" value="Crear"/>
                 <b:button look="link" outcome="empleado/indexEmpleado" value="Cancelar"/>
             </center>
         </h:form>
