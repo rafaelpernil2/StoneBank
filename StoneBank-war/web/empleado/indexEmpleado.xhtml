@@ -7,58 +7,78 @@ and open the template in the editor.
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:f="http://xmlns.jcp.org/jsf/core">
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:b="http://bootsfaces.net/ui">
     <h:head>
         <title>indexEmpleado</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     </h:head>
     <h:body>
-        <div><h1>Bienvenido #{usuarioBean.apellidos}, #{usuarioBean.nombre}</h1></div>
-        <h:form>
-            Buscar usuario: <h:inputText value="#{busquedaBean.busqueda}"/>
-            
-            <h:commandButton value="Buscar" action="#{busquedaBean.buscar()}"/>
-        </h:form>
-        <div><h1>Lista de usuarios</h1></div>
-        <h:form>
-            <h:dataTable value="#{busquedaBean.listaUsuarios}" var="usuario">
-            <h:column>
-                <f:facet name="header">
-                    Apellidos, Nombre
-                </f:facet>
-                #{usuario.apellidos}, #{usuario.nombre}
-            </h:column>
-            <h:column>
-                <f:facet name="header">
-                    IBAN
-                </f:facet>
-                #{usuario.numCuenta}
-            </h:column>
-            <h:column>
-                <f:facet name="header">
-                    Telefono
-                </f:facet>
-                #{usuario.telefono}
-            </h:column>
-            <h:column>
-                <f:facet name="header">
-                    Domicilio
-                </f:facet>
-                #{usuario.domicilio}
-            </h:column>
-            <h:column>
-                <f:facet name="header">
-                    Email
-                </f:facet>
-                #{usuario.email}
-            </h:column>
-            <h:column>
-                <h:commandButton action="#{usuarioBean.usuarioSeleccionado(usuario.dniUsuario)}" value="ver" />
-            </h:column>
-            <h:column>
-                <h:commandButton action="#{usuarioBean.gestionarUsuario(usuario.dniUsuario)}" value="Configurar"/>
-            </h:column>
-        </h:dataTable>
-        </h:form>
+
+        <ui:include src="../headerEmpleado.xhtml"/>
+        <b:container fluid="true">
+            <b:row>
+                <b:column span="6">
+                    <h1>Bienvenido #{usuarioBean.nombre} #{usuarioBean.apellidos}</h1>
+                </b:column>
+            </b:row>
+        </b:container>    
+        
+        <!--        <b:form>
+                    Buscar usuario: <h:inputText value="#{busquedaBean.busqueda}"/>
+                    
+                    <h:commandButton value="Buscar" action="#{busquedaBean.buscar()}"/>
+                </b:form>-->
+        <!--<div><h1>Lista de usuarios</h1></div>-->
+        <b:panel span="8" offset="0" title="Lista de Usuarios">
+            <b:form>
+                <b:dataTable value="#{busquedaBean.listaUsuarios}" var="usuario">
+                    <h:column>
+                        <f:facet name="header">
+                            Apellidos, Nombre
+                        </f:facet>
+                        #{usuario.apellidos}, #{usuario.nombre}
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">
+                            IBAN
+                        </f:facet>
+                        #{usuario.numCuenta}
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">
+                            Telefono
+                        </f:facet>
+                        #{usuario.telefono}
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">
+                            Domicilio
+                        </f:facet>
+                        #{usuario.domicilio}
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">
+                            Email
+                        </f:facet>
+                        #{usuario.email}
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">
+                            Ver
+                        </f:facet>
+                        <h:commandButton action="#{usuarioBean.usuarioSeleccionado(usuario.dniUsuario)}" value="ver" />
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">
+                            Configurar
+                        </f:facet>
+                        <h:commandButton action="#{usuarioBean.gestionarUsuario(usuario.dniUsuario)}" value="Configurar"/>
+                    </h:column>
+                </b:dataTable>
+            </b:form>
+        </b:panel>
+
     </h:body>
 </html>
