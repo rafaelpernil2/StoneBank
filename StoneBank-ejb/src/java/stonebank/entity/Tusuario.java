@@ -6,11 +6,13 @@
 package stonebank.entity;
 
 import java.io.Serializable;
-import java.util.Collection;
+import java.util.List;
 import javax.persistence.Basic;
+import javax.persistence.Cacheable;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -40,6 +42,7 @@ import javax.xml.bind.annotation.XmlTransient;
     , @NamedQuery(name = "Tusuario.findByTelefono", query = "SELECT t FROM Tusuario t WHERE t.telefono = :telefono")
     , @NamedQuery(name = "Tusuario.findByEmail", query = "SELECT t FROM Tusuario t WHERE t.email = :email")
     , @NamedQuery(name = "Tusuario.findByDomicilio", query = "SELECT t FROM Tusuario t WHERE t.domicilio = :domicilio")})
+@Cacheable(false)
 public class Tusuario implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -76,19 +79,20 @@ public class Tusuario implements Serializable {
     @Size(max = 400)
     @Column(name = "domicilio")
     private String domicilio;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "dNIEmisor")
-    private Collection<Ttranferencia> ttranferenciaCollection;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "dNIReceptor")
-    private Collection<Ttranferencia> ttranferenciaCollection1;
-    @JoinColumn(name = "tRol_idtRol", referencedColumnName = "idtRol")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "dNIEmisor", fetch = FetchType.EAGER )
+    private List<Ttransferencia> ttransferenciaList;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "dNIReceptor",fetch = FetchType.EAGER)
+    private List<Ttransferencia> ttransferenciaList1;
+    @JoinColumn(name = "trol_idtrol", referencedColumnName = "idtrol")
     @ManyToOne(optional = false)
-    private Trol tRolidtRol;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "tUsuariodniUsuario")
-    private Collection<Tmovimiento> tmovimientoCollection;
+    private Trol trolIdtrol;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "tusuariodniUsuario", fetch = FetchType.EAGER)
+    private List<Tmovimiento> tmovimientoList;
+    
 
     public Tusuario() {
     }
-
+    
     public Tusuario(Integer dniUsuario) {
         this.dniUsuario = dniUsuario;
     }
@@ -166,38 +170,38 @@ public class Tusuario implements Serializable {
     }
 
     @XmlTransient
-    public Collection<Ttranferencia> getTtranferenciaCollection() {
-        return ttranferenciaCollection;
+    public List<Ttransferencia> getTtransferenciaList() {
+        return ttransferenciaList;
     }
 
-    public void setTtranferenciaCollection(Collection<Ttranferencia> ttranferenciaCollection) {
-        this.ttranferenciaCollection = ttranferenciaCollection;
-    }
-
-    @XmlTransient
-    public Collection<Ttranferencia> getTtranferenciaCollection1() {
-        return ttranferenciaCollection1;
-    }
-
-    public void setTtranferenciaCollection1(Collection<Ttranferencia> ttranferenciaCollection1) {
-        this.ttranferenciaCollection1 = ttranferenciaCollection1;
-    }
-
-    public Trol getTRolidtRol() {
-        return tRolidtRol;
-    }
-
-    public void setTRolidtRol(Trol tRolidtRol) {
-        this.tRolidtRol = tRolidtRol;
+    public void setTtransferenciaList(List<Ttransferencia> ttransferenciaList) {
+        this.ttransferenciaList = ttransferenciaList;
     }
 
     @XmlTransient
-    public Collection<Tmovimiento> getTmovimientoCollection() {
-        return tmovimientoCollection;
+    public List<Ttransferencia> getTtransferenciaList1() {
+        return ttransferenciaList1;
     }
 
-    public void setTmovimientoCollection(Collection<Tmovimiento> tmovimientoCollection) {
-        this.tmovimientoCollection = tmovimientoCollection;
+    public void setTtransferenciaList1(List<Ttransferencia> ttransferenciaList1) {
+        this.ttransferenciaList1 = ttransferenciaList1;
+    }
+
+    public Trol getTrolIdtrol() {
+        return trolIdtrol;
+    }
+
+    public void setTrolIdtrol(Trol trolIdtrol) {
+        this.trolIdtrol = trolIdtrol;
+    }
+
+    @XmlTransient
+    public List<Tmovimiento> getTmovimientoList() {
+        return tmovimientoList;
+    }
+
+    public void setTmovimientoList(List<Tmovimiento> tmovimientoList) {
+        this.tmovimientoList = tmovimientoList;
     }
 
     @Override
@@ -222,7 +226,20 @@ public class Tusuario implements Serializable {
 
     @Override
     public String toString() {
-        return "stonebank.entity.Tusuario[ dniUsuario=" + dniUsuario + " ]";
+        return this.getNombre() + " " + this.getApellidos();
+        //return "stonebank.entity.Tusuario[ dniUsuario=" + dniUsuario + " ]";
+    }
+    
+    /*
+    * 
+    *
+    */
+    public boolean puedeTransferir(double cantidad){
+        double sumas, restas,total;
+        for(Tmovimiento movimiento : tmovimientoList){
+            
+        }
+        return false;
     }
     
 }

@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <h:title><h1> Historial de Movimientos para #{loginBean.usuarioLoggeado.apellidos} , #{loginBean.usuarioLoggeado.nombre}</h1></h:title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    </h:head>
+    <h:body>
+        <div>
+            <h:dataTable value ="#{movimientoBean.movimientosUsuarioLoggeado}" var="movimiento">
+                 <h:column>
+                <f:facet name="header">
+                    Concepto
+                </f:facet>
+                #{movimiento.concepto}
+            </h:column>
+            <h:column>
+                <f:facet name="header">
+                    IBAN
+                </f:facet>
+                #{movimiento.ibanEntidad}
+            </h:column>
+            <h:column>
+                <f:facet name="header">
+                    Cantidad
+                </f:facet>
+                #{movimiento.cantidad}
+            </h:column>
+            <h:column>
+                <f:facet name="header">
+                    Fecha
+                </f:facet>
+                #{movimiento.fecha}
+            </h:column>
+        
+                
+            </h:dataTable>
+            <h:link value="Volver al Index" outcome="indexUsuario" />
+        </div>
+    </h:body>
+</html>

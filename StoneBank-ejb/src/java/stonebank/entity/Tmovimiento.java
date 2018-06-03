@@ -1,4 +1,4 @@
-/*
+ /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
@@ -8,6 +8,7 @@ package stonebank.entity;
 import java.io.Serializable;
 import java.util.Date;
 import javax.persistence.Basic;
+import javax.persistence.Cacheable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -33,19 +34,20 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Tmovimiento.findAll", query = "SELECT t FROM Tmovimiento t")
-    , @NamedQuery(name = "Tmovimiento.findByIdtMovimiento", query = "SELECT t FROM Tmovimiento t WHERE t.idtMovimiento = :idtMovimiento")
+    , @NamedQuery(name = "Tmovimiento.findByIdtmovimiento", query = "SELECT t FROM Tmovimiento t WHERE t.idtmovimiento = :idtmovimiento")
     , @NamedQuery(name = "Tmovimiento.findByConcepto", query = "SELECT t FROM Tmovimiento t WHERE t.concepto = :concepto")
     , @NamedQuery(name = "Tmovimiento.findByCantidad", query = "SELECT t FROM Tmovimiento t WHERE t.cantidad = :cantidad")
     , @NamedQuery(name = "Tmovimiento.findByIbanEntidad", query = "SELECT t FROM Tmovimiento t WHERE t.ibanEntidad = :ibanEntidad")
     , @NamedQuery(name = "Tmovimiento.findByFecha", query = "SELECT t FROM Tmovimiento t WHERE t.fecha = :fecha")})
+@Cacheable(false)
 public class Tmovimiento implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
-    @Column(name = "idtMovimiento")
-    private Integer idtMovimiento;
+    @Column(name = "idtmovimiento")
+    private Integer idtmovimiento;
     @Size(max = 200)
     @Column(name = "concepto")
     private String concepto;
@@ -62,29 +64,29 @@ public class Tmovimiento implements Serializable {
     @Column(name = "fecha")
     @Temporal(TemporalType.TIMESTAMP)
     private Date fecha;
-    @JoinColumn(name = "tUsuario_dniUsuario", referencedColumnName = "dniUsuario")
+    @JoinColumn(name = "tusuario_dniUsuario", referencedColumnName = "dniUsuario")
     @ManyToOne(optional = false)
-    private Tusuario tUsuariodniUsuario;
+    private Tusuario tusuariodniUsuario;
 
     public Tmovimiento() {
     }
 
-    public Tmovimiento(Integer idtMovimiento) {
-        this.idtMovimiento = idtMovimiento;
+    public Tmovimiento(Integer idtmovimiento) {
+        this.idtmovimiento = idtmovimiento;
     }
 
-    public Tmovimiento(Integer idtMovimiento, String ibanEntidad, Date fecha) {
-        this.idtMovimiento = idtMovimiento;
+    public Tmovimiento(Integer idtmovimiento, String ibanEntidad, Date fecha) {
+        this.idtmovimiento = idtmovimiento;
         this.ibanEntidad = ibanEntidad;
         this.fecha = fecha;
     }
 
-    public Integer getIdtMovimiento() {
-        return idtMovimiento;
+    public Integer getIdtmovimiento() {
+        return idtmovimiento;
     }
 
-    public void setIdtMovimiento(Integer idtMovimiento) {
-        this.idtMovimiento = idtMovimiento;
+    public void setIdtmovimiento(Integer idtmovimiento) {
+        this.idtmovimiento = idtmovimiento;
     }
 
     public String getConcepto() {
@@ -119,18 +121,18 @@ public class Tmovimiento implements Serializable {
         this.fecha = fecha;
     }
 
-    public Tusuario getTUsuariodniUsuario() {
-        return tUsuariodniUsuario;
+    public Tusuario getTusuariodniUsuario() {
+        return tusuariodniUsuario;
     }
 
-    public void setTUsuariodniUsuario(Tusuario tUsuariodniUsuario) {
-        this.tUsuariodniUsuario = tUsuariodniUsuario;
+    public void setTusuariodniUsuario(Tusuario tusuariodniUsuario) {
+        this.tusuariodniUsuario = tusuariodniUsuario;
     }
 
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (idtMovimiento != null ? idtMovimiento.hashCode() : 0);
+        hash += (idtmovimiento != null ? idtmovimiento.hashCode() : 0);
         return hash;
     }
 
@@ -141,7 +143,7 @@ public class Tmovimiento implements Serializable {
             return false;
         }
         Tmovimiento other = (Tmovimiento) object;
-        if ((this.idtMovimiento == null && other.idtMovimiento != null) || (this.idtMovimiento != null && !this.idtMovimiento.equals(other.idtMovimiento))) {
+        if ((this.idtmovimiento == null && other.idtmovimiento != null) || (this.idtmovimiento != null && !this.idtmovimiento.equals(other.idtmovimiento))) {
             return false;
         }
         return true;
@@ -149,7 +151,8 @@ public class Tmovimiento implements Serializable {
 
     @Override
     public String toString() {
-        return "stonebank.entity.Tmovimiento[ idtMovimiento=" + idtMovimiento + " ]";
+        //return this.getTusuariodniUsuario().getNombre() + this.getTusuariodniUsuario().getApellidos();
+        return "stonebank.entity.Tmovimiento[ idtmovimiento=" + idtmovimiento + " ]";
     }
     
 }

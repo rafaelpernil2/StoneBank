@@ -5,10 +5,11 @@
     <class>stonebank.entity.Tmovimiento</class>
     <class>stonebank.entity.Tpermiso</class>
     <class>stonebank.entity.Trol</class>
-    <class>stonebank.entity.Ttranferencia</class>
+    <class>stonebank.entity.Ttransferencia</class>
     <class>stonebank.entity.Tusuario</class>
     <exclude-unlisted-classes>false</exclude-unlisted-classes>
     <properties>
+      <property name="eclipselink.cache.type.default" value="NONE"/>
     </properties>
   </persistence-unit>
 </persistence>
