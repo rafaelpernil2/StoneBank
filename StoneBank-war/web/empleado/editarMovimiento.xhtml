@@ -11,7 +11,7 @@ and open the template in the editor.
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:b="http://bootsfaces.net/ui">
     <h:head>
-        <title>Nuevo Movimiento</title>
+        <title> Movimiento</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     </h:head>
     <h:body>
@@ -25,6 +25,7 @@ and open the template in the editor.
         <ui:include src="./headerEmpleado.xhtml"/>
         <center><h1>Datos de #{usuarioBean.nombre} #{usuarioBean.apellidos}</h1></center>
         <h:form>
+            <b:inputText value="#{movimientoBean.idMovimientoaEditar}" type="hidden"/>
             <b:container fluid="true">
                 <b:row>
                     <b:column span="2" offset="3">
@@ -39,7 +40,7 @@ and open the template in the editor.
                         <h:outputText value="Concepto "/>
                     </b:column>
                     <b:column span="2">
-                        <b:inputText value="#{movimientoBean.concepto}" id="nombre"/>
+                        <b:inputText value="#{movimientoBean.concepto}" />
                     </b:column>
                 </b:row>
                 <b:row>
@@ -47,7 +48,7 @@ and open the template in the editor.
                         <h:outputText value="IBAN:"/>
                     </b:column>
                     <b:column span="2">
-                        <b:inputText value="#{movimientoBean.ibanEntidad}" id="apellidos"/>
+                        <b:inputText value="#{movimientoBean.ibanEntidad}" />
                     </b:column>
                 </b:row>
                 <b:row>
@@ -61,7 +62,8 @@ and open the template in the editor.
             </b:container>
 
             <center>
-                <b:commandButton action="#{movimientoBean.doCrear(usuarioBean.nuevoDNI)}" value="Crear Movimiento"/>
+                
+                <b:commandButton action="#{movimientoBean.doEditar()}" value="Editar Movimiento"/>
                 <b:button look="link" outcome="indexEmpleado" value="Cancelar"/>
             </center>
         </h:form>

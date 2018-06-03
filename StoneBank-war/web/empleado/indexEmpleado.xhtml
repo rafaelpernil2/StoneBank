@@ -68,13 +68,13 @@ and open the template in the editor.
                         <f:facet name="header">
                             Ver
                         </f:facet>
-                        <h:commandButton action="#{usuarioBean.usuarioSeleccionado(usuario.dniUsuario)}" value="ver" />
+                        <b:commandButton action="#{usuarioBean.usuarioSeleccionado(usuario.dniUsuario)}" value="Ver" />
                     </h:column>
                     <h:column>
                         <f:facet name="header">
                             Configurar
                         </f:facet>
-                        <h:commandButton action="#{usuarioBean.gestionarUsuario(usuario.dniUsuario)}" value="Configurar"/>
+                        <b:commandButton action="#{usuarioBean.gestionarUsuario(usuario.dniUsuario)}" value="Configurar"/>
                     </h:column>
                 </b:dataTable>
             </b:form>

@@ -78,15 +78,25 @@ and open the template in the editor.
                 </b:row>
             </b:container>
     
+        
         <h:form>
             <br></br>
             <br></br>
             <b:panel span="6" offset="0" title="Lista de Movimientos">
                 <b:dataTable value="#{usuarioBean.getListaMovimientoUsuarioSeleccionado(usuarioBean.nuevoDNI)}" var="movimiento">
+                    
+                     <h:column>
+                        <f:facet name="header">
+                            ID
+                        </f:facet>
+                        #{movimiento.idtmovimiento}
+                    </h:column>
+                    
                     <h:column>
                         <f:facet name="header">
                             Concepto
                         </f:facet>
+                        
                         #{movimiento.concepto}
                     </h:column>
                     <h:column>
@@ -106,6 +116,15 @@ and open the template in the editor.
                             Fecha
                         </f:facet>
                         #{movimiento.fecha}
+                    </h:column>
+                     <h:column>
+                        <f:facet name="header">
+                           
+                        </f:facet>
+                         <b:form>
+                             <b:commandButton value="Borrar" action="#{movimientoBean.doBorrar(movimiento.idtmovimiento)}"/>
+                             <b:commandButton value="Editar" action="#{movimientoBean.doCargaMovimientoParaEditarlo(movimiento.idtmovimiento)}"/>
+                         </b:form>
                     </h:column>
                 </b:dataTable>
             </b:panel>
