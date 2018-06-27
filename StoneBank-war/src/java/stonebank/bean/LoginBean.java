@@ -18,6 +18,7 @@ import stonebank.entity.Trol;
 import stonebank.entity.Tusuario;
 import stonebank.utils.CuentaUtil;
 import stonebank.utils.PassUtil;
+import sun.misc.resources.Messages_es;
 
 /**
  *
@@ -32,6 +33,8 @@ public class LoginBean implements Serializable {
 
     @Inject
     private ExitoErrorBean exitoErrorBean;
+    
+    
 
     protected Tusuario usuarioLoggeado;
     protected int dniLogin;

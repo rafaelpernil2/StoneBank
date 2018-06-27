@@ -16,6 +16,7 @@
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     </h:head>
     <h:body>
+        <f:view locale="#{localeBean.currentLocale}">
         <ui:include src="../headerUsuarioTransferencia.xhtml" />
         <center>
             <h1>#{msgs.datostransferencia}</h1>
@@ -70,5 +71,6 @@
 
             </center>
         </b:form>
+        </f:view>
     </h:body>
 </html>

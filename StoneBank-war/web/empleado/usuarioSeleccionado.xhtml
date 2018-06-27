@@ -16,11 +16,12 @@ and open the template in the editor.
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     </h:head>
     <h:body>
+        <f:view locale="#{localeBean.currentLocale}">
         <ui:include src="../headerEmpleadoUsuarioSeleccionado.xhtml"/>
         <b:container fluid="true">
             <b:row>
                 <b:column span="6">
-                    <h1>Datos de #{usuarioBean.nuevoNombre} #{usuarioBean.nuevoApellido}</h1>
+                    <h1>#{msgs.datosde} #{usuarioBean.nuevoNombre} #{usuarioBean.nuevoApellido}</h1>
                 </b:column>
             </b:row>
             <br></br>
@@ -164,6 +165,6 @@ and open the template in the editor.
             </b:panel>
 
         </h:form>
-
+        </f:view>
     </h:body>
 </html>

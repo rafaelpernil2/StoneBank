@@ -3,7 +3,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-      xmlns:b="http://bootsfaces.net/ui">
+      xmlns:b="http://bootsfaces.net/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
     <h:head>
         <title>#{msgs.registrarcliente}</title>
         <!-- Latest compiled and minified CSS -->
@@ -17,7 +18,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     </h:head>
     <h:body>
-
+        <f:view locale="#{localeBean.currentLocale}">
         <ui:include src="./headerEmpleadoNuevoCliente.xhtml"/>
         
         <h:form>
@@ -93,7 +94,7 @@
                 <b:button look="link" outcome="empleado/indexEmpleado" value="Cancelar"/>
             </center>
         </h:form>
-
+        </f:view>
 
     </h:body>
 </html>

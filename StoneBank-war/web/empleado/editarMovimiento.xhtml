@@ -15,15 +15,15 @@ and open the template in the editor.
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     </h:head>
     <h:body>
+        <f:view locale="#{localeBean.currentLocale}">
         <h1>
             Añadir un movimiento a #{usuarioBean.nuevoNombre}, #{usuarioBean.nuevoApellido} con DNI: #{usuarioBean.nuevoDNI} 
         </h1>
         
         
-         <h:body>
 
         <ui:include src="./headerEmpleado.xhtml"/>
-        <center><h1>Datos de #{usuarioBean.nombre} #{usuarioBean.apellidos}</h1></center>
+        <center><h1>#{msgs.datosde} #{usuarioBean.nombre} #{usuarioBean.apellidos}</h1></center>
         <h:form>
             <b:inputText value="#{movimientoBean.idMovimientoaEditar}" type="hidden"/>
             <b:container fluid="true">
@@ -67,8 +67,7 @@ and open the template in the editor.
                 <b:button look="link" outcome="indexEmpleado" value="#{msgs.cancelar}"/>
             </center>
         </h:form>
-
-
-    </h:body>
+    
+        </f:view>
     </h:body>
 </html>

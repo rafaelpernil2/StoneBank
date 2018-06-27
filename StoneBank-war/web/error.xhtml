@@ -14,6 +14,7 @@ and open the template in the editor.
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     </h:head>
     <h:body>
+        <f:view>
         <center>
             <h1>#{msgs.paginaerror}</h1>
             <b:alert severity="danger">
@@ -22,5 +23,6 @@ and open the template in the editor.
         
             <b:button outcome="#{exitoErrorBean.proximaURL}" value="Siguiente" />
         </center>
+        </f:view>
     </h:body>
 </html>

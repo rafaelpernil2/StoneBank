@@ -19,9 +19,9 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     </h:head>
     <h:body>
-
+        <f:view locale="#{localeBean.currentLocale}">
         <ui:include src="./headerUsuario.xhtml"/>
-        <center><h1>Datos de #{usuarioBean.nombre} #{usuarioBean.apellidos}</h1></center>
+        <center><h1>#{msgs.datosde} #{usuarioBean.nombre} #{usuarioBean.apellidos}</h1></center>
         <h:form>
             <b:container fluid="true">
                 <b:row>
@@ -103,7 +103,7 @@
                 <b:button look="link" outcome="indexUsuario" value="#{msgs.cancelar}"/>
             </center>
         </h:form>
-
+        </f:view>
 
     </h:body>
 </html>

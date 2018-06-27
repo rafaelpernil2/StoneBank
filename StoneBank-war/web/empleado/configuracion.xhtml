@@ -19,7 +19,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     </h:head>
     <h:body>
-
+        <f:view locale="#{localeBean.currentLocale}">
         <ui:include src="./headerEmpleado.xhtml"/>
         <center><h1>Datos de #{usuarioBean.nombre} #{usuarioBean.apellidos}</h1></center>
         <h:form>
@@ -104,6 +104,6 @@
             </center>
         </h:form>
 
-
+        </f:view>
     </h:body>
 </html>

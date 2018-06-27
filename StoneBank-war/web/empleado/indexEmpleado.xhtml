@@ -15,7 +15,7 @@ and open the template in the editor.
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     </h:head>
     <h:body>
-
+        <f:view locale="#{localeBean.currentLocale}">
         <ui:include src="../headerEmpleado.xhtml"/>
         <b:container fluid="true">
             <b:row>
@@ -79,6 +79,6 @@ and open the template in the editor.
                 </b:dataTable>
             </b:form>
         </b:panel>
-
+        </f:view>
     </h:body>
 </html>

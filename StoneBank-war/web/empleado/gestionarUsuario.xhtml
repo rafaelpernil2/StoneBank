@@ -19,92 +19,92 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     </h:head>
     <h:body>
+        <f:view locale="#{localeBean.currentLocale}">
+            <ui:include src="./headerEmpleado.xhtml"/>
+            <center><h1>#{msgs.datosde} #{usuarioBean.nuevoNombre} #{usuarioBean.nuevoApellido}</h1></center>
+            <h:form>
+                <b:container fluid="true">
+                    <b:row>
+                        <b:column span="2" offset="3">
+                            <h:outputText value="DNI: "/>
+                        </b:column>
+                        <b:column span="2">
+                            <b:inputText value="#{usuarioBean.nuevoDNI}" readonly=""/>
+                        </b:column>
+                    </b:row>
+                    <b:row>
+                        <b:column span="2" offset="3">
+                            <h:outputText value="#{msgs.nombre}: "/>
+                        </b:column>
+                        <b:column span="2">
+                            <b:inputText value="#{usuarioBean.nuevoNombre}" id="nombre"/>
+                        </b:column>
+                    </b:row>
+                    <b:row>
+                        <b:column span="2" offset="3">
+                            <h:outputText value="#{msgs.apellidos}: "/>
+                        </b:column>
+                        <b:column span="2">
+                            <b:inputText value="#{usuarioBean.nuevoApellido}" id="apellidos"/>
+                        </b:column>
+                    </b:row>
+                    <b:row>
+                        <b:column span="2" offset="3">
+                            <h:outputText value="#{msgs.contrasena}: "/>
+                        </b:column>
+                        <b:column span="2">
+                            <b:inputSecret value="#{usuarioBean.viejaContrasena}" />
+                        </b:column>
+                    </b:row>
+                    <b:row>
+                        <b:column span="2" offset="3">
+                            <h:outputText value="#{msgs.nuevacontrasena}: " style="color: blue;"/>
+                        </b:column>
+                        <b:column span="2">
+                            <b:inputSecret value="#{usuarioBean.nuevaContrasena}" id="nuevaContrasena"/>
+                        </b:column>
+                    </b:row>
+                    <b:row>
+                        <b:column span="2" offset="3">
+                            <h:outputText value="#{msgs.repetircontrasena}: " style="color: red"/>
+                        </b:column>
+                        <b:column span="2">
+                            <b:inputSecret value="#{usuarioBean.seguroContrasena}" id="seguroContrasena"/>
+                        </b:column>
+                    </b:row>
+                    <b:row>
+                        <b:column span="2" offset="3">
+                            <h:outputText value="#{msgs.telefono}: "/>
+                        </b:column>
+                        <b:column span="2">
+                            <b:inputText value="#{usuarioBean.nuevoTelefono}" id="telefono"/>
+                        </b:column>
+                    </b:row>
+                    <b:row>
+                        <b:column span="2" offset="3">
+                            <h:outputText value="#{msgs.domicilio}: "/>
+                        </b:column>
+                        <b:column span="2">
+                            <b:inputText value="#{usuarioBean.nuevoDomicilio}" id="domicilio"/>
+                        </b:column>
+                    </b:row>
+                    <b:row>
+                        <b:column span="2" offset="3">
+                            <h:outputText value="E-Mail: "/>
+                        </b:column>
+                        <b:column span="2">
+                            <b:inputText value="#{usuarioBean.nuevoEmail}" id="email"/>
+                        </b:column>
+                    </b:row>
+                </b:container>
 
-        <ui:include src="./headerEmpleado.xhtml"/>
-        <center><h1>Datos de #{usuarioBean.nuevoNombre} #{usuarioBean.nuevoApellido}</h1></center>
-        <h:form>
-            <b:container fluid="true">
-                <b:row>
-                    <b:column span="2" offset="3">
-                        <h:outputText value="DNI: "/>
-                    </b:column>
-                    <b:column span="2">
-                        <b:inputText value="#{usuarioBean.nuevoDNI}" readonly=""/>
-                    </b:column>
-                </b:row>
-                <b:row>
-                    <b:column span="2" offset="3">
-                        <h:outputText value="#{msgs.nombre}: "/>
-                    </b:column>
-                    <b:column span="2">
-                        <b:inputText value="#{usuarioBean.nuevoNombre}" id="nombre"/>
-                    </b:column>
-                </b:row>
-                <b:row>
-                    <b:column span="2" offset="3">
-                        <h:outputText value="#{msgs.apellidos}: "/>
-                    </b:column>
-                    <b:column span="2">
-                        <b:inputText value="#{usuarioBean.nuevoApellido}" id="apellidos"/>
-                    </b:column>
-                </b:row>
-                <b:row>
-                    <b:column span="2" offset="3">
-                        <h:outputText value="#{msgs.contrasena}: "/>
-                    </b:column>
-                    <b:column span="2">
-                        <b:inputSecret value="#{usuarioBean.viejaContrasena}" />
-                    </b:column>
-                </b:row>
-                <b:row>
-                    <b:column span="2" offset="3">
-                        <h:outputText value="#{msgs.nuevacontrasena}: " style="color: blue;"/>
-                    </b:column>
-                    <b:column span="2">
-                        <b:inputSecret value="#{usuarioBean.nuevaContrasena}" id="nuevaContrasena"/>
-                    </b:column>
-                </b:row>
-                <b:row>
-                    <b:column span="2" offset="3">
-                        <h:outputText value="#{msgs.repetircontrasena}: " style="color: red"/>
-                    </b:column>
-                    <b:column span="2">
-                        <b:inputSecret value="#{usuarioBean.seguroContrasena}" id="seguroContrasena"/>
-                    </b:column>
-                </b:row>
-                <b:row>
-                    <b:column span="2" offset="3">
-                        <h:outputText value="#{msgs.telefono}: "/>
-                    </b:column>
-                    <b:column span="2">
-                        <b:inputText value="#{usuarioBean.nuevoTelefono}" id="telefono"/>
-                    </b:column>
-                </b:row>
-                <b:row>
-                    <b:column span="2" offset="3">
-                        <h:outputText value="#{msgs.domicilio}: "/>
-                    </b:column>
-                    <b:column span="2">
-                        <b:inputText value="#{usuarioBean.nuevoDomicilio}" id="domicilio"/>
-                    </b:column>
-                </b:row>
-                <b:row>
-                    <b:column span="2" offset="3">
-                        <h:outputText value="E-Mail: "/>
-                    </b:column>
-                    <b:column span="2">
-                        <b:inputText value="#{usuarioBean.nuevoEmail}" id="email"/>
-                    </b:column>
-                </b:row>
-            </b:container>
+                <center>
+                    <b:commandButton action="#{usuarioBean.doEditarEmpleado(usuarioBean.nuevoDNI)}" value="#{msgs.editar}"/>
+                    <b:button look="link" outcome="indexEmpleado" value="#{msgs.cancelar}"/>
+                </center>
+            </h:form>
 
-            <center>
-                <b:commandButton action="#{usuarioBean.doEditarEmpleado(usuarioBean.nuevoDNI)}" value="#{msgs.editar}"/>
-                <b:button look="link" outcome="indexEmpleado" value="#{msgs.cancelar}"/>
-            </center>
-        </h:form>
-
-
+        </f:view>
     </h:body>
 </html>
 
