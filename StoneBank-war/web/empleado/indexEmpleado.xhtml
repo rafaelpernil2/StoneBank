@@ -20,7 +20,7 @@ and open the template in the editor.
         <b:container fluid="true">
             <b:row>
                 <b:column span="6">
-                    <h1>Bienvenido #{usuarioBean.nombre} #{usuarioBean.apellidos}</h1>
+                    <h1>#{msgs.bienvenida}#{usuarioBean.nombre} #{usuarioBean.apellidos}</h1>
                 </b:column>
             </b:row>
         </b:container>    
@@ -36,7 +36,7 @@ and open the template in the editor.
                 <b:dataTable value="#{busquedaBean.listaUsuarios}" var="usuario">
                     <h:column>
                         <f:facet name="header">
-                            Apellidos, Nombre
+                            #{msgs.apellidosnombre}
                         </f:facet>
                         #{usuario.apellidos}, #{usuario.nombre}
                     </h:column>
@@ -48,13 +48,13 @@ and open the template in the editor.
                     </h:column>
                     <h:column>
                         <f:facet name="header">
-                            Telefono
+                            #{msgs.telefono}
                         </f:facet>
                         #{usuario.telefono}
                     </h:column>
                     <h:column>
                         <f:facet name="header">
-                            Domicilio
+                            #{msgs.domicilio}
                         </f:facet>
                         #{usuario.domicilio}
                     </h:column>
@@ -66,13 +66,13 @@ and open the template in the editor.
                     </h:column>
                     <h:column>
                         <f:facet name="header">
-                            Ver
+                            #{msgs.ver}
                         </f:facet>
                         <b:commandButton action="#{usuarioBean.usuarioSeleccionado(usuario.dniUsuario)}" value="Ver" />
                     </h:column>
                     <h:column>
                         <f:facet name="header">
-                            Configurar
+                            #{msgs.configurar}
                         </f:facet>
                         <b:commandButton action="#{usuarioBean.gestionarUsuario(usuario.dniUsuario)}" value="Configurar"/>
                     </h:column>

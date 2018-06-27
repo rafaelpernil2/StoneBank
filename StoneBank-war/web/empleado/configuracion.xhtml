@@ -34,7 +34,7 @@
                 </b:row>
                 <b:row>
                     <b:column span="2" offset="3">
-                        <h:outputText value="Nombre: "/>
+                        <h:outputText value="#{msgs.nombre}: "/>
                     </b:column>
                     <b:column span="2">
                         <b:inputText value="#{usuarioBean.nuevoNombre}" id="nombre"/>
@@ -42,7 +42,7 @@
                 </b:row>
                 <b:row>
                     <b:column span="2" offset="3">
-                        <h:outputText value="Apellidos: "/>
+                        <h:outputText value="#{msgs.apellidos}: "/>
                     </b:column>
                     <b:column span="2">
                         <b:inputText value="#{usuarioBean.nuevoApellido}" id="nuevoApellido"/>
@@ -50,7 +50,7 @@
                 </b:row>
                 <b:row>
                     <b:column span="2" offset="3">
-                        <h:outputText value="Contraseña: "/>
+                        <h:outputText value="#{msgs.viejacontrasena}: "/>
                     </b:column>
                     <b:column span="2">
                         <b:inputSecret value="#{usuarioBean.viejaContrasena}" id="viejaContrasena"/>
@@ -58,7 +58,7 @@
                 </b:row>
                 <b:row>
                     <b:column span="2" offset="3">
-                        <h:outputText value="Nueva contraseña: " style="color: blue;"/>
+                        <h:outputText value="#{msgs.nuevacontrasena}: " style="color: blue;"/>
                     </b:column>
                     <b:column span="2">
                         <b:inputSecret value="#{usuarioBean.nuevaContrasena}" id="nuevaContrasena"/>
@@ -66,7 +66,7 @@
                 </b:row>
                 <b:row>
                     <b:column span="2" offset="3">
-                        <h:outputText value="Repetir contraseña: " style="color: red"/>
+                        <h:outputText value="#{msgs.repetircontrasena}: " style="color: red"/>
                     </b:column>
                     <b:column span="2">
                         <b:inputSecret value="#{usuarioBean.seguroContrasena}" id="seguroContrasena"/>
@@ -74,7 +74,7 @@
                 </b:row>
                 <b:row>
                     <b:column span="2" offset="3">
-                        <h:outputText value="Teléfono: "/>
+                        <h:outputText value="#{msgs.telefono}: "/>
                     </b:column>
                     <b:column span="2">
                         <b:inputText value="#{usuarioBean.nuevoTelefono}" id="nuevoTelefono"/>
@@ -82,7 +82,7 @@
                 </b:row>
                 <b:row>
                     <b:column span="2" offset="3">
-                        <h:outputText value="Domicilio: "/>
+                        <h:outputText value="#{msgs.domicilio}: "/>
                     </b:column>
                     <b:column span="2">
                         <b:inputText value="#{usuarioBean.nuevoDomicilio}" id="nuevoDomicilio"/>
@@ -99,8 +99,8 @@
             </b:container>
 
             <center>
-                <b:commandButton action="#{usuarioBean.doEditarEmpleado(usuarioBean.DNI)}" value="Editar"/>
-                <b:button look="link" outcome="indexEmpleado" value="Cancelar"/>
+                <b:commandButton action="#{usuarioBean.doEditarEmpleado(usuarioBean.DNI)}" value="#{msgs.editar}"/>
+                <b:button look="link" outcome="indexEmpleado" value="#{msgs.cancelar}"/>
             </center>
         </h:form>
 

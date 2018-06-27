@@ -37,7 +37,7 @@ and open the template in the editor.
                 </b:row>
                 <b:row>
                     <b:column span="2" offset="3">
-                        <h:outputText value="Concepto "/>
+                        <h:outputText value="#{msgs.concepto} "/>
                     </b:column>
                     <b:column span="2">
                         <b:inputText value="#{movimientoBean.concepto}" />
@@ -53,7 +53,7 @@ and open the template in the editor.
                 </b:row>
                 <b:row>
                     <b:column span="2" offset="3">
-                        <h:outputText value="Cantidad:"/>
+                        <h:outputText value="#{msgs.cantidad}:"/>
                     </b:column>
                     <b:column span="2">
                         <b:inputText value="#{movimientoBean.cantidad}" />
@@ -63,8 +63,8 @@ and open the template in the editor.
 
             <center>
                 
-                <b:commandButton action="#{movimientoBean.doEditar()}" value="Editar Movimiento"/>
-                <b:button look="link" outcome="indexEmpleado" value="Cancelar"/>
+                <b:commandButton action="#{movimientoBean.doEditar()}" value="#{msgs.crear}"/>
+                <b:button look="link" outcome="indexEmpleado" value="#{msgs.cancelar}"/>
             </center>
         </h:form>
 
