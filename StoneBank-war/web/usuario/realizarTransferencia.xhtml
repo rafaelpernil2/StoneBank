@@ -6,7 +6,7 @@
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:b="http://bootsfaces.net/ui">
     <h:head>
-        <title>Realizar Transferencia</title> 
+        <title>#{msgs.realizartransferencia}</title> 
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
 
         <!-- jQuery library -->
@@ -18,14 +18,14 @@
     <h:body>
         <ui:include src="../headerUsuarioTransferencia.xhtml" />
         <center>
-            <h1>Datos transferencia</h1>
+            <h1>#{msgs.datostransferencia}</h1>
         </center>
         
         <b:form>
             <b:container fluid="true">
                 <b:row>
                     <b:column span="2" offset="3">
-                        <h:outputText value="DNI del emisor: " />
+                        <h:outputText value="#{msgs.dniemisor}" />
                     </b:column>
                     <b:column span="2">
                         <b:inputText value="#{transferenciaBean.dniemisor}"/>
@@ -33,7 +33,7 @@
                 </b:row>
                 <b:row>
                     <b:column span="2" offset="3">
-                        <h:outputText value="DNI del receptor: " />
+                        <h:outputText value="#{msgs.dnireceptor}" />
                     </b:column>
                     <b:column span="2">
                         <b:inputText value="#{transferenciaBean.dnireceptor}"/>
@@ -41,7 +41,7 @@
                 </b:row>
                 <b:row>
                     <b:column span="2" offset="3">
-                        <h:outputText value="Cantidad: " />
+                        <h:outputText value="#{msgs.cantidad}" />
                     </b:column>
                     <b:column span="2">
                         <b:inputText value="#{transferenciaBean.cantidad}"/>  
@@ -49,7 +49,7 @@
                 </b:row>
                 <b:row>
                     <b:column span="2" offset="3">
-                        <h:outputText value="Concepto: " />
+                        <h:outputText value="#{msgs.concepto}" />
                     </b:column>
                     <b:column span="2">
                         <b:inputText value="#{transferenciaBean.concepto}"/>
@@ -64,8 +64,8 @@
             </b:container>
             <center>  
 
-                <b:commandButton  action="#{transferenciaBean.doTransferencia}" value="Hacer transferencia" />
-                <b:commandButton look="link" action="/usuario/indexUsuario?jsf-redirect=true" value="Cancelar"/> 
+                <b:commandButton  action="#{transferenciaBean.doTransferencia}" value="#{msgs.hacertransferencia}" />
+                <b:commandButton look="link" action="/usuario/indexUsuario?jsf-redirect=true" value="#{msgs.cancelar}"/> 
 
 
             </center>

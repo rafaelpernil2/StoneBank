@@ -9,7 +9,7 @@ and open the template in the editor.
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:f="http://xmlns.jcp.org/jsf/core">
     <h:head>
-        <h:title><h1> Historial de Movimientos para #{loginBean.usuarioLoggeado.apellidos} , #{loginBean.usuarioLoggeado.nombre}</h1></h:title>
+        <h1> Historial de Movimientos para #{loginBean.usuarioLoggeado.apellidos} , #{loginBean.usuarioLoggeado.nombre}</h1>
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     </h:head>
     <h:body>
@@ -17,7 +17,7 @@ and open the template in the editor.
             <h:dataTable value ="#{movimientoBean.movimientosUsuarioLoggeado}" var="movimiento">
                  <h:column>
                 <f:facet name="header">
-                    Concepto
+                    #{msgs.concepto}
                 </f:facet>
                 #{movimiento.concepto}
             </h:column>
@@ -29,13 +29,13 @@ and open the template in the editor.
             </h:column>
             <h:column>
                 <f:facet name="header">
-                    Cantidad
+                    #{msgs.cantidad}
                 </f:facet>
                 #{movimiento.cantidad}
             </h:column>
             <h:column>
                 <f:facet name="header">
-                    Fecha
+                    #{msgs.fecha}
                 </f:facet>
                 #{movimiento.fecha}
             </h:column>

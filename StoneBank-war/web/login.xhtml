@@ -32,18 +32,24 @@ and open the template in the editor.
                     </b:row>
                     <b:row>
                         <b:column span="2" offset="3">
-                            <h:outputText value="Contraseña: "/>
+                            <h:outputText value="#{msgs.contrasena}"/>
                         </b:column>
                         <b:column span="2">
                             <b:inputSecret placeholder="" value="#{loginBean.passwordLogin}"/>
                         </b:column>
                     </b:row>
                     <b:row>
-                        <b:commandButton action="#{loginBean.doLogin()}" value="Enviar" />
+                        <b:commandButton action="#{loginBean.doLogin()}" value="#{msgs.enviar}" />
                     </b:row> 
                 </b:container>
 
-
+                <h:commandLink action="#{localeBean.setEnglish}">
+                    <img src="images/en_flag.png"/>
+                </h:commandLink>
+            <br/>
+                <h:commandLink action="#{localeBean.setSpanish}">   
+                    <img src="images/es_flag.png"/>
+                </h:commandLink>
 
             </b:form>
         </center>

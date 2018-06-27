@@ -18,8 +18,8 @@ and open the template in the editor.
             <b:form>
                 <b:navbarLinks class="navbar-right">
                     
-                    <b:navLink value="Configuración" outcome="empleado/configuracion" icon="glyphicon glyphicon-cog" />  
-                    <b:navCommandLink value="Cerrar Sessión" action="#{loginBean.doCerrarSesion()}" icon="glyphicon glyphicon-log-in"/>
+                    <b:navLink value="#{msgs.configuracion}" outcome="empleado/configuracion" icon="glyphicon glyphicon-cog" />  
+                    <b:navCommandLink value="#{msgs.cerrarsesion}" action="#{loginBean.doCerrarSesion()}" icon="glyphicon glyphicon-log-in"/>
                 </b:navbarLinks>
             </b:form>
         </b:navBar>

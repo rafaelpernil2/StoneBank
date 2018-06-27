@@ -28,16 +28,12 @@ import stonebank.utils.*;
 @SessionScoped
 public class UsuarioBean implements Serializable {
 
-
-
     @EJB
     private TtransferenciaFacade ttransferenciaFacade;
 
     @EJB
     private TmovimientoFacade tmovimientoFacade;
 
-    
-    
     @Inject
     protected LoginBean loginBean;
 
@@ -58,16 +54,11 @@ public class UsuarioBean implements Serializable {
     protected Integer nuevoTelefono, nuevoDNI;
     protected double saldo;
 
-    
-    protected List<Tusuario> listaUsuario; 
-    
-  
+    protected List<Tusuario> listaUsuario;
 
     /**
      * Creates a new instance of UsuarioBean
      */
-    
-    
     public UsuarioBean() {
     }
 
@@ -85,12 +76,10 @@ public class UsuarioBean implements Serializable {
     /*
     * hace falta poner el saldo que tiene justo aqui.
      */
-    
-    
-    public Tusuario getUsuarioPorDNI(Integer dniUsuario){
+    public Tusuario getUsuarioPorDNI(Integer dniUsuario) {
         return tusuarioFacade.find(dniUsuario);
     }
-    
+
     public Tusuario getUsuario() {
         return usuario;
     }
@@ -231,28 +220,104 @@ public class UsuarioBean implements Serializable {
 
     public String doEditar() throws NoSuchAlgorithmException {
 
-        String comprobarContrasena = PassUtil.generarHash(viejaContrasena);
-
-        if (comprobarContrasena.equals(usuario.getHashContrasena()) && !"".equals(viejaContrasena)) {
-            if (!"".equals(nuevaContrasena)) {
-                if (nuevaContrasena.equals(seguroContrasena)) {
-                    this.usuario.setHashContrasena(PassUtil.generarHash(nuevaContrasena));
-                    actualizar();
-                    this.tusuarioFacade.edit(usuario);
-                    return "indexUsuario";
-                } else {
-                    restaurar();
-                    return "configuracion";//mostar mensajes de algun tipo
-                }
-            }
-            actualizar();
-            this.tusuarioFacade.edit(usuario);
-            return "indexUsuario";
-        } else {
+        if (nuevoNombre.equals("") || nuevoApellido.equals("")) {
             restaurar();
-            return "configuracion";//esto se deberia de cambiar o mostrar un mensaje de error
+            exitoErrorBean.setMensajeError("Falta introducir nombre y apellidos");
+            exitoErrorBean.setProximaURL("/usuario/configuracion?jsf-redirect=true");
+            return "/error?jsf-redirect=true";
+        } else if (nuevoTelefono != 0 && !CuentaUtil.esCorrectoFormatoTelefono(nuevoTelefono.toString())) {
+            restaurar();
+            exitoErrorBean.setMensajeError("Introduce los 9 dígitos del número de teléfono");
+            exitoErrorBean.setProximaURL("/usuario/configuracion?jsp-redirect=true");
+            return "/error";
+//        } else if (nuevoDomicilio.equals("")) {
+//            exitoErrorBean.setMensajeError("Falta introducir domicilio");
+//            exitoErrorBean.setProximaURL("/alta");
+//            return "/error";
+//        } else if (nuevoEmail.equals("")) {
+//            exitoErrorBean.setMensajeError("Falta introducir email");
+//            exitoErrorBean.setProximaURL("/alta");
+//            return "/error";
+        } else if (viejaContrasena.equals("")) {
+            restaurar();
+            exitoErrorBean.setMensajeError("Introduce tu contraseña para realizar cambios");
+            exitoErrorBean.setProximaURL("/usuario/configuracion");
+            return "/error";
+        } else if (!nuevaContrasena.equals("") && seguroContrasena.equals("")) {
+
+            restaurar();
+            exitoErrorBean.setMensajeError("Confirma la contraseña");
+            exitoErrorBean.setProximaURL("/usuario/configuracion");
+            return "/error";
+        } //        } else if (!nuevaContrasena.equals(seguroContrasena)) {
+        //
+        //            exitoErrorBean.setMensajeError("Las contraseña introducida no coincide con la confirmación de contraseña");
+        //            exitoErrorBean.setProximaURL("/alta");
+        //            return "/error";
+        //        } else {
+        else {
+
+            if (PassUtil.generarHash(viejaContrasena).equals(usuario.getHashContrasena())) {
+                if (!"".equals(nuevaContrasena)) {
+                    if (nuevaContrasena.equals(seguroContrasena)) {
+                        usuario.setHashContrasena(PassUtil.generarHash(nuevaContrasena));
+                        actualizar();
+//                        usuario.setNombre(nuevoNombre);
+//                        usuario.setApellidos(nuevoApellido);
+//                        usuario.setDomicilio(nuevoDomicilio);
+//                        usuario.setEmail(nuevoEmail);
+//                        usuario.setTelefono(nuevoTelefono);
+                        this.tusuarioFacade.edit(usuario);
+                        listaUsuarios = this.getListaUsuarios();
+                        busquedaBean.setListaUsuarios(listaUsuarios);
+                        return "/usuario/indexUsuario";
+                    } else {
+                        restaurar();
+                        exitoErrorBean.setMensajeError("Las contraseña nueva introducida no coincide con la confirmación de contraseña");
+                        exitoErrorBean.setProximaURL("/usuario/configuracion");
+                        return "/error";//mostar mensajes de algun tipo
+                    }
+                }
+
+//                usuario.setNombre(nuevoNombre);
+//                usuario.setApellidos(nuevoApellido);
+//                usuario.setDomicilio(nuevoDomicilio);
+//                usuario.setEmail(nuevoEmail);
+//                usuario.setTelefono(nuevoTelefono);
+                actualizar();
+                this.tusuarioFacade.edit(usuario);
+                listaUsuarios = this.getListaUsuarios();
+                return "/usuario/indexUsuario";
+            } else {
+                restaurar();
+                exitoErrorBean.setMensajeError("Introduce tu contraseña para realizar cambios");
+                exitoErrorBean.setProximaURL("/usuario/configuracion");
+                return "/error";
+
+            }
         }
 
+//        String comprobarContrasena = PassUtil.generarHash(viejaContrasena);
+//
+//        if (comprobarContrasena.equals(usuario.getHashContrasena()) && !"".equals(viejaContrasena)) {
+//            if (!"".equals(nuevaContrasena)) {
+//                if (nuevaContrasena.equals(seguroContrasena)) {
+//                    this.usuario.setHashContrasena(PassUtil.generarHash(nuevaContrasena));
+//                    actualizar();
+//                    this.tusuarioFacade.edit(usuario);
+//                    return "indexUsuario";
+//                } else {
+//                    restaurar();
+//                    return "configuracion";//mostar mensajes de algun tipo
+//                }
+//            }
+//            actualizar();
+//            this.tusuarioFacade.edit(usuario);
+//            return "indexUsuario";
+//        } else {
+//            restaurar();
+//            return "configuracion";//esto se deberia de cambiar o mostrar un mensaje de error
+//        }
     }
 
     public String crearUsuario() {
@@ -289,7 +354,7 @@ public class UsuarioBean implements Serializable {
             exitoErrorBean.setMensajeError("Falta introducir nombre y apellidos");
             exitoErrorBean.setProximaURL("/alta");
             return "/error";
-        } else if (nuevoTelefono == -1 || !CuentaUtil.esCorrectoFormatoTelefono(nuevoTelefono.toString())) {
+        } else if (nuevoTelefono != 0 && !CuentaUtil.esCorrectoFormatoTelefono(nuevoTelefono.toString())) {
             exitoErrorBean.setMensajeError("Introduce los 9 dígitos del número de teléfono");
             exitoErrorBean.setProximaURL("/alta");
             return "/error";
@@ -406,8 +471,8 @@ public class UsuarioBean implements Serializable {
 
         return "usuarioSeleccionado";
     }
-    
-    public void seleccionarUsuario(Integer usuarioSeleccionadoDNI){
+
+    public void seleccionarUsuario(Integer usuarioSeleccionadoDNI) {
         Tusuario usuarioSeleccionado = this.tusuarioFacade.find(usuarioSeleccionadoDNI);
         nuevoDNI = usuarioSeleccionadoDNI;
         nuevoNombre = usuarioSeleccionado.getNombre();
@@ -445,12 +510,20 @@ public class UsuarioBean implements Serializable {
     public String doEditarEmpleado(Integer usuarioSeleccionadoDNI) throws NoSuchAlgorithmException {
 
         Tusuario usuarioSeleccionado = this.tusuarioFacade.find(usuarioSeleccionadoDNI);
+        setNuevoNombre(usuarioSeleccionado.getNombre());
+        setNuevoApellido(usuarioSeleccionado.getApellidos());
+        setNuevoDNI(usuarioSeleccionadoDNI);
+        setNuevoDomicilio(usuarioSeleccionado.getDomicilio());
+        setNuevoTelefono(usuarioSeleccionado.getTelefono());
+        setNuevoEmail(usuarioSeleccionado.getEmail());
 
         if (nuevoNombre.equals("") || nuevoApellido.equals("")) {
+            restaurar();
             exitoErrorBean.setMensajeError("Falta introducir nombre y apellidos");
             exitoErrorBean.setProximaURL("/empleado/gestionarUsuario?jsf-redirect=true");
             return "/error?jsf-redirect=true";
-        } else if (nuevoTelefono == -1 || !CuentaUtil.esCorrectoFormatoTelefono(nuevoTelefono.toString())) {
+        } else if (nuevoTelefono != 0 && !CuentaUtil.esCorrectoFormatoTelefono(nuevoTelefono.toString())) {
+            restaurar();
             exitoErrorBean.setMensajeError("Introduce los 9 dígitos del número de teléfono");
             exitoErrorBean.setProximaURL("/empleado/gestionarUsuario?jsp-redirect=true");
             return "/error";
@@ -463,16 +536,15 @@ public class UsuarioBean implements Serializable {
 //            exitoErrorBean.setProximaURL("/alta");
 //            return "/error";
         } else if (viejaContrasena.equals("")) {
+            restaurar();
             exitoErrorBean.setMensajeError("Introduce tu contraseña para realizar cambios");
             exitoErrorBean.setProximaURL("/empleado/gestionarUsuario");
             return "/error";
-        } else if (nuevaContrasena.equals("")) {
-            exitoErrorBean.setMensajeError("Falta introducir contraseña");
-            exitoErrorBean.setProximaURL("/empleado/gestionarUsuario");
-            return "/error";
-        } else if (seguroContrasena.equals("")) {
+        } else if (!nuevaContrasena.equals("") && seguroContrasena.equals("")) {
+
+            restaurar();
             exitoErrorBean.setMensajeError("Confirma la contraseña");
-            exitoErrorBean.setProximaURL("/empleado/gestionarUsuario");
+            exitoErrorBean.setProximaURL("/usuario/configuracion");
             return "/error";
         } //        } else if (!nuevaContrasena.equals(seguroContrasena)) {
         //
@@ -481,16 +553,16 @@ public class UsuarioBean implements Serializable {
         //            return "/error";
         //        } else {
         else {
-
-            if (PassUtil.generarHash(viejaContrasena).equals(usuarioSeleccionado.getHashContrasena())) {
+            if (PassUtil.generarHash(viejaContrasena).equalsIgnoreCase(usuarioSeleccionado.getHashContrasena())) {
                 if (!"".equals(nuevaContrasena)) {
                     if (nuevaContrasena.equals(seguroContrasena)) {
                         usuarioSeleccionado.setHashContrasena(PassUtil.generarHash(nuevaContrasena));
-                        usuarioSeleccionado.setNombre(nuevoNombre);
-                        usuarioSeleccionado.setApellidos(nuevoApellido);
-                        usuarioSeleccionado.setDomicilio(nuevoDomicilio);
-                        usuarioSeleccionado.setEmail(nuevoEmail);
-                        usuarioSeleccionado.setTelefono(nuevoTelefono);
+//                        usuarioSeleccionado.setNombre(nuevoNombre);
+//                        usuarioSeleccionado.setApellidos(nuevoApellido);
+//                        usuarioSeleccionado.setDomicilio(nuevoDomicilio);
+//                        usuarioSeleccionado.setEmail(nuevoEmail);
+//                        usuarioSeleccionado.setTelefono(nuevoTelefono);
+                        actualizar();
                         this.tusuarioFacade.edit(usuarioSeleccionado);
                         listaUsuarios = this.getListaUsuarios();
                         busquedaBean.setListaUsuarios(listaUsuarios);
@@ -502,17 +574,21 @@ public class UsuarioBean implements Serializable {
                         return "/error";//mostar mensajes de algun tipo
                     }
                 }
-
-                usuarioSeleccionado.setNombre(nuevoNombre);
-                usuarioSeleccionado.setApellidos(nuevoApellido);
-                usuarioSeleccionado.setDomicilio(nuevoDomicilio);
-                usuarioSeleccionado.setEmail(nuevoEmail);
-                usuarioSeleccionado.setTelefono(nuevoTelefono);
+                actualizar();
+//                usuarioSeleccionado.setNombre(nuevoNombre);
+//                usuarioSeleccionado.setApellidos(nuevoApellido);
+//                usuarioSeleccionado.setDomicilio(nuevoDomicilio);
+//                usuarioSeleccionado.setEmail(nuevoEmail);
+//                usuarioSeleccionado.setTelefono(nuevoTelefono);
                 this.tusuarioFacade.edit(usuarioSeleccionado);
                 listaUsuarios = this.getListaUsuarios();
                 return "/empleado/indexEmpleado";
             } else {
-                return "/empleado/gestionarUsuario";//esto se deberia de cambiar o mostrar un mensaje de error
+                restaurar();
+                exitoErrorBean.setMensajeError("Introduce tu contraseña para realizar cambios");
+                exitoErrorBean.setProximaURL("/empleado/gestionarUsuario");
+                return "/error";
+
             }
         }
     }

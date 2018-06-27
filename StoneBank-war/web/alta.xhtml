@@ -5,7 +5,7 @@
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:b="http://bootsfaces.net/ui">
     <h:head>
-        <title>Alta</title>
+        <title>#{msgs.registrarcliente}</title>
         <!-- Latest compiled and minified CSS -->
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
 
@@ -32,7 +32,7 @@
                 </b:row>
                 <b:row>
                     <b:column span="2" offset="3">
-                        <h:outputText value="Nombre: "/>
+                        <h:outputText value="#{msgs.nombre}"/>
                     </b:column>
                     <b:column span="2">
                         <b:inputText value="#{usuarioBean.nuevoNombre}" id="nombre"/>
@@ -40,7 +40,7 @@
                 </b:row>
                 <b:row>
                     <b:column span="2" offset="3">
-                        <h:outputText value="Apellidos: "/>
+                        <h:outputText value="#{msgs.apellidos}"/>
                     </b:column>
                     <b:column span="2">
                         <b:inputText value="#{usuarioBean.nuevoApellido}" id="apellidos"/>
@@ -48,7 +48,7 @@
                 </b:row>
                 <b:row>
                     <b:column span="2" offset="3">
-                        <h:outputText value="Contraseña: "/>
+                        <h:outputText value="#{msgs.contrasena}"/>
                     </b:column>
                     <b:column span="2">
                         <b:inputSecret value="#{usuarioBean.nuevaContrasena}" id="nuevaContrasena"/>
@@ -56,7 +56,7 @@
                 </b:row>
                 <b:row>
                     <b:column span="2" offset="3">
-                        <h:outputText value="Repetir contraseña: " style="color: red"/>
+                        <h:outputText value="#{msgs.repetircontrasena}" style="color: red"/>
                     </b:column>
                     <b:column span="2">
                         <b:inputSecret value="#{usuarioBean.seguroContrasena}" id="seguroContrasena"/>
@@ -64,7 +64,7 @@
                 </b:row>
                 <b:row>
                     <b:column span="2" offset="3">
-                        <h:outputText value="Teléfono: "/>
+                        <h:outputText value="#{msgs.telefono}"/>
                     </b:column>
                     <b:column span="2">
                         <b:inputText value="#{usuarioBean.nuevoTelefono}" id="telefono"/>
@@ -72,7 +72,7 @@
                 </b:row>
                 <b:row>
                     <b:column span="2" offset="3">
-                        <h:outputText value="Domicilio: "/>
+                        <h:outputText value="#{msgs.domicilio}"/>
                     </b:column>
                     <b:column span="2">
                         <b:inputText value="#{usuarioBean.nuevoDomicilio}" id="domicilio"/>
@@ -89,7 +89,7 @@
             </b:container>
 
             <center>
-                <b:commandButton action="#{usuarioBean.doCrear}" value="Crear"/>
+                <b:commandButton action="#{usuarioBean.doCrear}" value="#{msgs.crear}"/>
                 <b:button look="link" outcome="empleado/indexEmpleado" value="Cancelar"/>
             </center>
         </h:form>

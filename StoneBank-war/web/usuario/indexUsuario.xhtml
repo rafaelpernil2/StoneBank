@@ -22,11 +22,11 @@ and open the template in the editor.
         <b:container fluid="true">
             <b:row>
                 <b:column span="6">
-                    <h1>Bienvenido, #{usuarioBean.nombre} #{usuarioBean.apellidos}</h1>
+                    <h1>#{msgs.bienvenida}#{usuarioBean.nombre} #{usuarioBean.apellidos}</h1>
                 </b:column>
                 <b:column span="2" offset="3">
 
-                    <p> Su saldo es de <h1>#{usuarioBean.saldo} euros</h1></p>
+                    <p>#{msgs.saldo}<h1>#{usuarioBean.saldo} euros</h1></p>
                 </b:column>
             </b:row>
 
@@ -35,7 +35,7 @@ and open the template in the editor.
             <b:dataTable  value="#{usuarioBean.listaMovimientos}" var="movimiento" page-length="10">
                 <b:dataTableColumn>
                     <f:facet name="header">
-                        Concepto
+                        #{msgs.concepto}
                     </f:facet>
                     #{movimiento.concepto}
                 </b:dataTableColumn>
@@ -47,20 +47,23 @@ and open the template in the editor.
                 </b:dataTableColumn>
                 <b:dataTableColumn>
                     <f:facet name="header">
-                        Cantidad
+                        #{msgs.cantidad}
                     </f:facet>
                     #{movimiento.cantidad}
                 </b:dataTableColumn>
                 <b:dataTableColumn>
                     <f:facet name="header">
-                        Fecha
+                        #{msgs.fecha}
                     </f:facet>
                     #{movimiento.fecha}
                 </b:dataTableColumn>
 
             </b:dataTable>
         </b:panel>
-
+        <center>
+            
+            
+        </center>
     </h:body>
 </html>
 
