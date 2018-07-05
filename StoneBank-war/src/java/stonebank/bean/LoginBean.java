@@ -18,8 +18,6 @@ import stonebank.entity.Trol;
 import stonebank.entity.Tusuario;
 import stonebank.utils.CuentaUtil;
 import stonebank.utils.PassUtil;
-import sun.misc.resources.Messages_es;
-
 /**
  *
  * @author Fran Gambero

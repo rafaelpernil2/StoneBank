@@ -16,6 +16,7 @@ import stonebank.ejb.TmovimientoFacade;
 import stonebank.ejb.TtransferenciaFacade;
 import stonebank.ejb.TusuarioFacade;
 import stonebank.entity.Tmovimiento;
+import stonebank.entity.Trol;
 import stonebank.entity.Ttransferencia;
 import stonebank.entity.Tusuario;
 import stonebank.utils.*;
@@ -383,7 +384,7 @@ public class UsuarioBean implements Serializable {
             return "/error";
         } else {
             Tusuario nuevoUsuario = new Tusuario();
-
+            nuevoUsuario.setTrolIdtrol(new Trol(1));
             nuevoUsuario.setDniUsuario(nuevoDNI);
             nuevoUsuario.setNombre(nuevoNombre);
             nuevoUsuario.setApellidos(nuevoApellido);
@@ -510,20 +511,20 @@ public class UsuarioBean implements Serializable {
     public String doEditarEmpleado(Integer usuarioSeleccionadoDNI) throws NoSuchAlgorithmException {
 
         Tusuario usuarioSeleccionado = this.tusuarioFacade.find(usuarioSeleccionadoDNI);
-        setNuevoNombre(usuarioSeleccionado.getNombre());
-        setNuevoApellido(usuarioSeleccionado.getApellidos());
-        setNuevoDNI(usuarioSeleccionadoDNI);
-        setNuevoDomicilio(usuarioSeleccionado.getDomicilio());
-        setNuevoTelefono(usuarioSeleccionado.getTelefono());
-        setNuevoEmail(usuarioSeleccionado.getEmail());
+//        setNuevoNombre(usuarioSeleccionado.getNombre());
+//        setNuevoApellido(usuarioSeleccionado.getApellidos());
+//        setNuevoDNI(usuarioSeleccionadoDNI);
+//        setNuevoDomicilio(usuarioSeleccionado.getDomicilio());
+//        setNuevoTelefono(usuarioSeleccionado.getTelefono());
+//        setNuevoEmail(usuarioSeleccionado.getEmail());
 
         if (nuevoNombre.equals("") || nuevoApellido.equals("")) {
-            restaurar();
+
             exitoErrorBean.setMensajeError("Falta introducir nombre y apellidos");
             exitoErrorBean.setProximaURL("/empleado/gestionarUsuario?jsf-redirect=true");
             return "/error?jsf-redirect=true";
         } else if (nuevoTelefono != 0 && !CuentaUtil.esCorrectoFormatoTelefono(nuevoTelefono.toString())) {
-            restaurar();
+
             exitoErrorBean.setMensajeError("Introduce los 9 dígitos del número de teléfono");
             exitoErrorBean.setProximaURL("/empleado/gestionarUsuario?jsp-redirect=true");
             return "/error";
@@ -535,14 +536,8 @@ public class UsuarioBean implements Serializable {
 //            exitoErrorBean.setMensajeError("Falta introducir email");
 //            exitoErrorBean.setProximaURL("/alta");
 //            return "/error";
-        } else if (viejaContrasena.equals("")) {
-            restaurar();
-            exitoErrorBean.setMensajeError("Introduce tu contraseña para realizar cambios");
-            exitoErrorBean.setProximaURL("/empleado/gestionarUsuario");
-            return "/error";
         } else if (!nuevaContrasena.equals("") && seguroContrasena.equals("")) {
 
-            restaurar();
             exitoErrorBean.setMensajeError("Confirma la contraseña");
             exitoErrorBean.setProximaURL("/usuario/configuracion");
             return "/error";
@@ -557,37 +552,58 @@ public class UsuarioBean implements Serializable {
                 if (!"".equals(nuevaContrasena)) {
                     if (nuevaContrasena.equals(seguroContrasena)) {
                         usuarioSeleccionado.setHashContrasena(PassUtil.generarHash(nuevaContrasena));
-//                        usuarioSeleccionado.setNombre(nuevoNombre);
-//                        usuarioSeleccionado.setApellidos(nuevoApellido);
-//                        usuarioSeleccionado.setDomicilio(nuevoDomicilio);
-//                        usuarioSeleccionado.setEmail(nuevoEmail);
-//                        usuarioSeleccionado.setTelefono(nuevoTelefono);
-                        actualizar();
+                        usuarioSeleccionado.setNombre(nuevoNombre);
+                        usuarioSeleccionado.setApellidos(nuevoApellido);
+                        usuarioSeleccionado.setDomicilio(nuevoDomicilio);
+                        usuarioSeleccionado.setEmail(nuevoEmail);
+                        usuarioSeleccionado.setTelefono(nuevoTelefono);
+
                         this.tusuarioFacade.edit(usuarioSeleccionado);
                         listaUsuarios = this.getListaUsuarios();
                         busquedaBean.setListaUsuarios(listaUsuarios);
+                        if (usuario.getDniUsuario().equals(usuarioSeleccionadoDNI)) {
+                            actualizar();
+                        } else {
+                            restaurar();
+                        }
                         return "/empleado/indexEmpleado";
                     } else {
-                        restaurar();
+
                         exitoErrorBean.setMensajeError("Las contraseña nueva introducida no coincide con la confirmación de contraseña");
                         exitoErrorBean.setProximaURL("/empleado/gestionarUsuario");
                         return "/error";//mostar mensajes de algun tipo
                     }
                 }
-                actualizar();
-//                usuarioSeleccionado.setNombre(nuevoNombre);
-//                usuarioSeleccionado.setApellidos(nuevoApellido);
-//                usuarioSeleccionado.setDomicilio(nuevoDomicilio);
-//                usuarioSeleccionado.setEmail(nuevoEmail);
-//                usuarioSeleccionado.setTelefono(nuevoTelefono);
+
+                usuarioSeleccionado.setNombre(nuevoNombre);
+                usuarioSeleccionado.setApellidos(nuevoApellido);
+                usuarioSeleccionado.setDomicilio(nuevoDomicilio);
+                usuarioSeleccionado.setEmail(nuevoEmail);
+                usuarioSeleccionado.setTelefono(nuevoTelefono);
                 this.tusuarioFacade.edit(usuarioSeleccionado);
                 listaUsuarios = this.getListaUsuarios();
+                if (usuario.getDniUsuario().equals(usuarioSeleccionadoDNI)) {
+                    actualizar();
+                } else {
+                    restaurar();
+                }
                 return "/empleado/indexEmpleado";
             } else {
-                restaurar();
-                exitoErrorBean.setMensajeError("Introduce tu contraseña para realizar cambios");
-                exitoErrorBean.setProximaURL("/empleado/gestionarUsuario");
-                return "/error";
+                usuarioSeleccionado.setNombre(nuevoNombre);
+                usuarioSeleccionado.setApellidos(nuevoApellido);
+                usuarioSeleccionado.setDomicilio(nuevoDomicilio);
+                usuarioSeleccionado.setEmail(nuevoEmail);
+                usuarioSeleccionado.setTelefono(nuevoTelefono);
+
+                this.tusuarioFacade.edit(usuarioSeleccionado);
+                listaUsuarios = this.getListaUsuarios();
+                busquedaBean.setListaUsuarios(listaUsuarios);
+                if (usuario.getDniUsuario().equals(usuarioSeleccionadoDNI)) {
+                    actualizar();
+                } else {
+                    restaurar();
+                }
+                return "/empleado/indexEmpleado";
 
             }
         }
