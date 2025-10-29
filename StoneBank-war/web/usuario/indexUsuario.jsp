@@ -27,7 +27,7 @@
     }
 %>
 
-<html>
+<html lang="es" >
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Index Usuario</title>
@@ -45,7 +45,7 @@
         <jsp:include page="headerUsuario.jsp"/>
         <div class="row">
            
-            <div class="col-md-6"><h1>¡Bienvenido/a  <%= usuario.getNombre() %> <%= usuario.getApellidos() %>!</h1>
+            <div class="col-md-6"><h1>ï¿½Bienvenido/a  <%= usuario.getNombre() %> <%= usuario.getApellidos() %>!</h1>
                 
             </div>
             <div class="col-md-3"></div>
@@ -69,16 +69,18 @@
         <div class = "padre" style="width:100%">
             
           <div class = "subdiv-izquierdo" style="width:40%;display:inline-table;">
-            <h3>Últimos movimientos</h3>
+            <h3>ï¿½ltimos movimientos</h3>
             
             <table border="1" class="table">
-                <tbody>
+                <thead>
                     <tr>
-                        <td>Concepto</td>
-                        <td>IBAN</td>
-                        <td>Importe</td>
-                        <td>Fecha</td>
+                        <th>Concepto</th>
+                        <th>IBAN</th>
+                        <th>Importe</th>
+                        <th>Fecha</th>
                     </tr>
+                </thead>
+                <tbody>
                     <% 
                         for(Tmovimiento movi: sublista){      
 
@@ -106,8 +108,8 @@
         </div>
               <br><br>
               
-        <%-- <a href="${pageContext.request.contextPath}/ServletEditarUsuario?dni=<%= usuario.getDniUsuario() %>">Configuración</a>
+        <%-- <a href="${pageContext.request.contextPath}/ServletEditarUsuario?dni=<%= usuario.getDniUsuario() %>">Configuraciï¿½n</a>
         <br>
-        <a href="${pageContext.request.contextPath}/ServletCerrarSesion">Cerrar sesión</a> --%>
+        <a href="${pageContext.request.contextPath}/ServletCerrarSesion">Cerrar sesiï¿½n</a> --%>
     </body>
 </html>

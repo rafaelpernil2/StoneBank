@@ -16,14 +16,16 @@ import stonebank.entity.Tusuario;
  */
 public class BankAccountUtil {
 
+    private static Random random = new Random();
+
     public static int generateAccountNumber(TusuarioFacade facade) {
         List<Tusuario> lista = facade.findAll();
         int i = 0;
-        Random random = new Random();
-        int rand = Math.abs(random.nextInt());
+        
+        int rand = Math.abs(BankAccountUtil.random.nextInt());
         while (i < lista.size()) {
             if (lista.get(i).getNumCuenta() == rand) {
-                rand = Math.abs(random.nextInt());
+                rand = Math.abs(BankAccountUtil.random.nextInt());
                 i = 0;
             }
             i++;
