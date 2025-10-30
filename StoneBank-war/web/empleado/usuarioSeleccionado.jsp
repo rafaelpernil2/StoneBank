@@ -43,6 +43,14 @@
             <div class="col-md-3">
                 <h3>Datos del usuario</h3>
                 <table class="table">
+                    <tr class="form-group" hidden>
+                        <th>
+                        </th>
+                        <th>
+                        </th>
+                        <th>
+                        </th>
+                    </tr>
                     <tr>
                         <td>Nombre: </td>
                         <td><input class="form-control"  type="hidden" name="nombre" value="<%=usuario.getNombre()%>" readonly="readonly"/><%=usuario.getNombre()%></td>                    

@@ -59,6 +59,14 @@
         <form action="${pageContext.request.contextPath}/ServletActualizarUsuarioEmpleado" method="post">
 
             <table class="table">
+                <tr class="form-group" hidden>
+                    <th>
+                    </th>
+                    <th>
+                    </th>
+                    <th>
+                    </th>
+                </tr>
                 <tr>
                     <td>Nombre: </td>
                     <td><input class="form-control" type="text" name="nombre" value="<%=usuario.getNombre()%>"/></td>                    

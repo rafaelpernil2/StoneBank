@@ -26,6 +26,14 @@
         <h1>Crear nuevo cliente</h1>
         <form class="form-horizontal" action="ServletCreaUsuario" method="post">
             <table >
+                <tr class="form-group" hidden>
+                    <th>
+                    </th>
+                    <th>
+                    </th>
+                    <th>
+                    </th>
+                </tr>
                 <tr class="form-group">
                     <td>Nombre: </td>
                     <td><input type="text"  class="form-control" name="nombre"  maxlength="30"/></td>                    

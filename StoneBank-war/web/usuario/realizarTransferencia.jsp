@@ -34,6 +34,14 @@
         <h1>Datos transferencia</h1>
         <form class="form-horizontal" action="${pageContext.request.contextPath}/ServletTransferencia" method="post">
             <table>
+                <tr class="form-group" hidden>
+                    <th>
+                    </th>
+                    <th>
+                    </th>
+                    <th>
+                    </th>
+                </tr>
                 <tr>
                     <td>DNIEmisor:</td>
                     <td><input class="form-control" type="text" name="dniemisor" readonly="readonly" value="<%= usuario.getDniUsuario() %>" /></td>

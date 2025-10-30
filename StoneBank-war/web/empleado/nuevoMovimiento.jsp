@@ -31,6 +31,14 @@
         <h2>para el usuario con DNI: <%= dni %></h2>
         <form  class="form-horizontal"  action="${pageContext.request.contextPath}/ServletCreaMovimiento" method="post">
             <table>
+                <tr class="form-group" hidden>
+                    <th>
+                    </th>
+                    <th>
+                    </th>
+                    <th>
+                    </th>
+                </tr>
                 <tr class="form-group">
                     <td>Concepto: </td>
                     <td><input class="form-control" type="text" name="concepto" ></td>                    
